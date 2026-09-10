@@ -39,7 +39,7 @@ echo.
 %PY_CMD% -c "import flask, flask_sqlalchemy, werkzeug" >nul 2>&1
 if !ERRORLEVEL! NEQ 0 (
     echo [SETUP] Installing required libraries -- one-time setup...
-    %PY_CMD% -m pip install -r requirements.txt
+    %PY_CMD% -m pip install -r ..\requirements.txt
     if !ERRORLEVEL! NEQ 0 (
         echo [ERROR] Failed to install dependencies via pip.
         pause
