@@ -1,0 +1,189 @@
+﻿{% extends "base.html" %}
+
+{% block title %}Create Assessment Questionnaire - Capacity Connect{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto space-y-6">
+  <div class="bg-white rounded-3xl p-8 border border-slate-200/80 shadow-sm">
+    <div class="flex items-center gap-3 mb-6 pb-4 border-b border-slate-100">
+      <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center">
+        <i data-lucide="clipboard-edit" class="w-5 h-5"></i>
+      </div>
+      <div>
+        <h1 class="text-xl font-bold text-slate-900 tracking-tight">Create MCQ Assessment Questionnaire</h1>
+        <p class="text-xs text-slate-500">Configure passing thresholds, deadlines, and multi-choice question sets</p>
+      </div>
+    </div>
+
+    <form method="POST" action="{{ url_for('trainer.create_assessment') }}" class="space-y-6">
+      <!-- General Metadata -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Assessment Title *</label>
+          <input type="text" name="title" required placeholder="e.g. AWS Cloud Architecture Examination" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Subject Area *</label>
+          <input type="text" name="subject" required placeholder="e.g. Cloud Computing, Project Management" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500">
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Time Limit (Minutes) *</label>
+          <input type="number" name="time_limit_minutes" value="15" min="1" max="180" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Passing Score (%) *</label>
+          <input type="number" name="passing_score" value="70" min="10" max="100" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Submission Deadline</label>
+          <input type="date" name="deadline" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500">
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Associate with Course (Optional)</label>
+          <select name="course_id" class="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500">
+            <option value="">-- Standalone Subject Assessment --</option>
+            {% for c in courses %}
+              <option value="{{ c.id }}">{{ c.title }} ({{ c.code }})</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Instructions / Guidelines</label>
+          <input type="text" name="description" placeholder="Answer all questions carefully before submitting..." class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500">
+        </div>
+      </div>
+
+      <!-- Question Items Container -->
+      <div class="pt-4 border-t border-slate-100 space-y-6">
+        <div class="flex items-center justify-between">
+          <h3 class="text-sm font-bold text-slate-900 flex items-center gap-2">
+            <i data-lucide="list-ordered" class="w-4 h-4 text-indigo-600"></i>
+            <span>Multiple Choice Questions</span>
+          </h3>
+          <button type="button" onclick="addQuestionBlock()" class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-xs flex items-center gap-1">
+            <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+            <span>Add Question</span>
+          </button>
+        </div>
+
+        <input type="hidden" id="question_counter" name="question_counter" value="2">
+
+        <div id="questions-container" class="space-y-6">
+          <!-- Question 1 -->
+          <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
+            <span class="font-bold text-xs text-indigo-600 block">Question 1</span>
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 mb-1">Question Prompt *</label>
+              <textarea name="q_text_1" rows="2" required placeholder="Enter question statement..." class="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl text-xs"></textarea>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+              <input type="text" name="q_a_1" required placeholder="Option A *" class="px-3 py-2 bg-white border border-slate-200 rounded-xl text-xs">
+              <input type="text" name="q_b_1" required placeholder="Option B *" class="px-3 py-2 bg-white border border-slate-200 rounded-xl text-xs">
+              <input type="text" name="q_c_1" placeholder="Option C" class="px-3 py-2 bg-white border border-slate-200 rounded-xl text-xs">
+              <input type="text" name="q_d_1" placeholder="Option D" class="px-3 py-2 bg-white border border-slate-200 rounded-xl text-xs">
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-2 pt-1">
+              <div>
+                <label class="block text-xs font-semibold text-slate-700 mb-1">Correct Option *</label>
+                <select name="q_correct_1" class="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl text-xs font-bold text-indigo-700">
+                  <option value="A">A</option>
+                  <option value="B">B</option>
+                  <option value="C">C</option>
+                  <option value="D">D</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-700 mb-1">Explanation</label>
+                <input type="text" name="q_expl_1" placeholder="Why this option is correct..." class="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl text-xs">
+              </div>
+            </div>
+          </div>
+
+          <!-- Question 2 -->
+          <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
+            <span class="font-bold text-xs text-indigo-600 block">Question 2</span>
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 mb-1">Question Prompt *</label>
+              <textarea name="q_text_2" rows="2" required placeholder="Enter question statement..." class="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl text-xs"></textarea>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+              <input type="text" name="q_a_2" required placeholder="Option A *" class="px-3 py-2 bg-white border border-slate-200 rounded-xl text-xs">
+              <input type="text" name="q_b_2" required placeholder="Option B *" class="px-3 py-2 bg-white border border-slate-200 rounded-xl text-xs">
+              <input type="text" name="q_c_2" placeholder="Option C" class="px-3 py-2 bg-white border border-slate-200 rounded-xl text-xs">
+              <input type="text" name="q_d_2" placeholder="Option D" class="px-3 py-2 bg-white border border-slate-200 rounded-xl text-xs">
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-2 pt-1">
+              <div>
+                <label class="block text-xs font-semibold text-slate-700 mb-1">Correct Option *</label>
+                <select name="q_correct_2" class="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl text-xs font-bold text-indigo-700">
+                  <option value="A">A</option>
+                  <option value="B">B</option>
+                  <option value="C">C</option>
+                  <option value="D">D</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-700 mb-1">Explanation</label>
+                <input type="text" name="q_expl_2" placeholder="Why this option is correct..." class="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl text-xs">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex justify-end gap-3 pt-6 border-t border-slate-100">
+        <a href="{{ url_for('assessments.list_assessments') }}" class="px-5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-xs transition">Cancel</a>
+        <button type="submit" class="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl text-xs shadow-md transition">Publish Questionnaire</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  let qCount = 2;
+  function addQuestionBlock() {
+    qCount++;
+    document.getElementById('question_counter').value = qCount;
+    const container = document.getElementById('questions-container');
+    const div = document.createElement('div');
+    div.className = 'p-6 rounded-2xl bg-slate-50 border border-slate-200 space-y-3';
+    div.innerHTML = `
+      <span class="font-bold text-xs text-indigo-600 block">Question ${qCount}</span>
+      <div>
+        <label class="block text-xs font-semibold text-slate-700 mb-1">Question Prompt *</label>
+        <textarea name="q_text_${qCount}" rows="2" required placeholder="Enter question statement..." class="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl text-xs"></textarea>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+        <input type="text" name="q_a_${qCount}" required placeholder="Option A *" class="px-3 py-2 bg-white border border-slate-200 rounded-xl text-xs">
+        <input type="text" name="q_b_${qCount}" required placeholder="Option B *" class="px-3 py-2 bg-white border border-slate-200 rounded-xl text-xs">
+        <input type="text" name="q_c_${qCount}" placeholder="Option C" class="px-3 py-2 bg-white border border-slate-200 rounded-xl text-xs">
+        <input type="text" name="q_d_${qCount}" placeholder="Option D" class="px-3 py-2 bg-white border border-slate-200 rounded-xl text-xs">
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-2 pt-1">
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Correct Option *</label>
+          <select name="q_correct_${qCount}" class="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl text-xs font-bold text-indigo-700">
+            <option value="A">A</option>
+            <option value="B">B</option>
+            <option value="C">C</option>
+            <option value="D">D</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Explanation</label>
+          <input type="text" name="q_expl_${qCount}" placeholder="Why this option is correct..." class="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl text-xs">
+        </div>
+      </div>
+    `;
+    container.appendChild(div);
+  }
+</script>
+{% endblock %}

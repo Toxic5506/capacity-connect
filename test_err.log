@@ -1,0 +1,963 @@
+﻿python : ..........FFFFF.
+At line:1 char:1
++ python -m unittest test_app.py 2>&1 | Out-File -Encoding utf8 test_er ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (..........FFFFF.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+======================================================================
+FAIL: test_11_user_registration_pending_workflow 
+(test_app.CapacityConnectTestCase.test_11_user_registration_pending_workflow)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Gaming\.gemini\antigravity\scratch\capacity-connect\test_app.py", line 169, in 
+test_11_user_registration_pending_workflow
+    self.assertIn(b'pending Administrator approval', res_reg.data)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: b'pending Administrator approval' not found in b'<!DOCTYPE html>\n<html lang="en" class="h-full 
+bg-slate-50">\n<head>\n  <meta charset="UTF-8">\n  <meta name="viewport" content="width=device-width, 
+initial-scale=1.0">\n  <title>Create Account - Capacity Connect</title>\n  \n  <!-- Tailwind CSS CDN -->\n  <script 
+src="https://cdn.tailwindcss.com"></script>\n  <!-- Lucide Icons -->\n  <script 
+src="https://unpkg.com/lucide@latest"></script>\n  <!-- Chart.js -->\n  <script 
+src="https://cdn.jsdelivr.net/npm/chart.js"></script>\n\n  <!-- Google Fonts: Inter & Plus Jakarta Sans -->\n  <link 
+rel="preconnect" href="https://fonts.googleapis.com">\n  <link rel="preconnect" href="https://fonts.gstatic.com" 
+crossorigin>\n  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&fam
+ily=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">\n\n  <script>\n    tailwind.config = {\n      theme: 
+{\n        extend: {\n          fontFamily: {\n            sans: [\'"Plus Jakarta Sans"\', \'Inter\', 
+\'sans-serif\'],\n          },\n          colors: {\n            brand: {\n              sidebar: \'#16162a\',\n       
+       sidebarHover: \'#23233c\',\n              sidebarActive: \'#2d2d4e\',\n              indigo: \'#4f46e5\',\n     
+         darkIndigo: \'#3730a3\',\n            }\n          }\n        }\n      }\n    }\n  </script>\n  <style>\n    
+body {\n      font-family: \'Plus Jakarta Sans\', sans-serif;\n    }\n    .custom-scrollbar::-webkit-scrollbar {\n     
+ width: 5px;\n      height: 5px;\n    }\n    .custom-scrollbar::-webkit-scrollbar-thumb {\n      background-color: 
+#cbd5e1;\n      border-radius: 9999px;\n    }\n  </style>\n  \n</head>\n<body class="h-full flex flex-col antialiased 
+text-slate-800">\n\n  <div class="min-h-full flex">\n    <!-- Left Sidebar -->\n    <aside id="sidebar" class="w-64 
+bg-[#16162a] text-slate-300 flex flex-col fixed inset-y-0 z-50 transition-transform duration-300 -translate-x-full 
+md:translate-x-0">\n      <!-- App Header / Logo -->\n      <div class="h-16 flex items-center gap-3 px-6 border-b 
+border-white/5">\n        <div class="w-9 h-9 rounded-xl bg-indigo-600/30 flex items-center justify-center 
+text-indigo-400 border border-indigo-500/30">\n          <i data-lucide="graduation-cap" class="w-5 h-5"></i>\n        
+</div>\n        <a href="/home" class="font-bold text-lg text-white tracking-tight flex items-center gap-1.5">\n       
+   <span>Capacity Connect</span>\n        </a>\n      </div>\n\n      <!-- Quick Role Switcher Banner (For smooth 
+testing across all 3 roles) -->\n      <div class="mx-4 mt-3 p-2 rounded-xl bg-white/5 border border-white/10 text-xs 
+text-slate-300">\n        <div class="text-[10px] uppercase tracking-wider font-semibold text-slate-400 mb-1 flex 
+items-center justify-between">\n          <span>Demo Switcher</span>\n          <span class="w-1.5 h-1.5 rounded-full 
+bg-emerald-400 animate-pulse"></span>\n        </div>\n        <div class="grid grid-cols-3 gap-1">\n          <a 
+href="/auth/quick-login/admin" class="px-1.5 py-1 text-center rounded hover:bg-white/10 text-slate-400">Admin</a>\n    
+      <a href="/auth/quick-login/trainer" class="px-1.5 py-1 text-center rounded hover:bg-white/10 
+text-slate-400">Trainer</a>\n          <a href="/auth/quick-login/trainee" class="px-1.5 py-1 text-center rounded 
+hover:bg-white/10 text-slate-400">Trainee</a>\n        </div>\n      </div>\n\n      <!-- Navigation Links -->\n      
+<div class="flex-1 overflow-y-auto px-4 py-4 space-y-1 custom-scrollbar">\n        <!-- Main Section -->\n        <div 
+class="px-2 mb-2 text-[11px] font-semibold uppercase tracking-wider text-slate-400">Main</div>\n        \n        <a 
+href="/home" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors 
+hover:bg-white/5 hover:text-white text-slate-300">\n          <i data-lucide="home" class="w-4 h-4"></i>\n          
+<span>Dashboard</span>\n        </a>\n\n        <a href="/landing" class="flex items-center gap-3 px-3 py-2.5 
+rounded-xl text-sm font-medium transition-colors hover:bg-white/5 hover:text-white text-slate-300">\n          <i 
+data-lucide="compass" class="w-4 h-4 text-sky-400"></i>\n          <span>Marketplace</span>\n        </a>\n\n        
+<a href="/courses" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors 
+hover:bg-white/5 hover:text-white text-slate-300">\n          <i data-lucide="book-open" class="w-4 h-4"></i>\n        
+  <span>Courses</span>\n        </a>\n\n        <a href="/assessments" class="flex items-center gap-3 px-3 py-2.5 
+rounded-xl text-sm font-medium transition-colors hover:bg-white/5 hover:text-white text-slate-300">\n          <i 
+data-lucide="check-square" class="w-4 h-4"></i>\n          <span>MCQ Assessments</span>\n        </a>\n\n        <a 
+href="/library" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors 
+hover:bg-white/5 hover:text-white text-slate-300">\n          <i data-lucide="folder-git-2" class="w-4 h-4"></i>\n     
+     <span>Trainer Library</span>\n        </a>\n\n        <a href="/competency-mapping" class="flex items-center 
+gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors hover:bg-white/5 hover:text-white 
+text-slate-300">\n          <i data-lucide="network" class="w-4 h-4 text-indigo-400"></i>\n          <span>Competency 
+Mapping</span>\n        </a>\n\n        <!-- Management Section -->\n        <div class="pt-5 pb-2 px-2 text-[11px] 
+font-semibold uppercase tracking-wider text-slate-400">\n          \n            Personal Portal\n          \n        
+</div>\n\n        \n\n        \n\n        <a href="/profile" class="flex items-center gap-3 px-3 py-2.5 rounded-xl 
+text-sm font-medium transition-colors hover:bg-white/5 hover:text-white text-slate-300">\n          <i 
+data-lucide="user" class="w-4 h-4"></i>\n          <span>My Profile & Skills</span>\n        </a>\n      </div>\n\n    
+  <!-- User Profile Card & Sign Out at Bottom -->\n      <div class="p-4 border-t border-white/5 bg-[#121224]/50">\n   
+     \n          <a href="/auth/login" class="w-full flex items-center justify-center gap-2 py-2 px-3 rounded-xl 
+bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold shadow">\n            <i data-lucide="log-in" 
+class="w-4 h-4"></i>\n            <span>Sign In</span>\n          </a>\n        \n      </div>\n    </aside>\n\n    
+<!-- Main Content wrapper -->\n    <div class="flex-1 flex flex-col md:pl-64 min-w-0">\n      <!-- Top Mobile / Global 
+Bar -->\n      <header class="h-16 bg-white border-b border-slate-200/80 flex items-center justify-between px-4 
+md:px-8 sticky top-0 z-30">\n        <div class="flex items-center gap-3">\n          <button id="menu-toggle" 
+class="md:hidden p-2 text-slate-600 hover:text-slate-900 rounded-lg hover:bg-slate-100">\n            <i 
+data-lucide="menu" class="w-6 h-6"></i>\n          </button>\n          <div class="hidden sm:flex items-center gap-2 
+text-xs font-medium text-slate-500">\n            <span class="flex items-center gap-1"><i data-lucide="shield-check" 
+class="w-3.5 h-3.5 text-emerald-500"></i> Enterprise LMS</span>\n            <span>&bull;</span>\n            
+<span>Capacity Building Network</span>\n          </div>\n        </div>\n\n        <div class="flex items-center 
+gap-3">\n          <a href="/courses" class="hidden sm:inline-flex items-center gap-2 text-xs font-semibold px-3 
+py-1.5 rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-50 transition">\n            <i 
+data-lucide="compass" class="w-3.5 h-3.5 text-indigo-600"></i>\n            <span>Explore Catalog</span>\n          
+</a>\n\n          \n            <a href="/auth/login" class="text-xs font-bold text-indigo-600 
+hover:text-indigo-700">Log In</a>\n          \n        </div>\n      </header>\n\n      <!-- Toast / Flash messages 
+-->\n      <div class="px-4 md:px-8 pt-4">\n        \n          \n            \n              <div class="mb-3 p-3.5 
+rounded-xl border text-sm flex items-center justify-between shadow-sm transition-all\n                bg-rose-50 
+border-rose-200 text-rose-800\n                ">\n                <div class="flex items-center gap-2.5">\n           
+       <i data-lucide="alert-triangle" class="w-4 h-4"></i>\n                  <span>An account with this email 
+address already exists.</span>\n                </div>\n                <button onclick="this.parentElement.remove()" 
+class="text-slate-400 hover:text-slate-600">&times;</button>\n              </div>\n            \n          \n        
+\n      </div>\n\n      <!-- Main Page Content -->\n      <main class="flex-1 p-4 md:p-8">\n        \n<div 
+class="max-w-xl mx-auto my-8">\n  <div class="bg-white rounded-3xl p-8 border border-slate-200/80 shadow-xl">\n    
+<div class="text-center mb-6">\n      <div class="w-14 h-14 rounded-2xl bg-indigo-600/10 text-indigo-600 flex 
+items-center justify-center mx-auto mb-3 border border-indigo-100">\n        <i data-lucide="user-plus" class="w-7 
+h-7"></i>\n      </div>\n      <h2 class="text-2xl font-extrabold text-slate-900 tracking-tight">Join Capacity 
+Connect</h2>\n      <p class="text-xs text-slate-500 mt-1">Register for organizational capacity building and 
+competency tracking</p>\n      <div class="mt-3 p-2.5 rounded-xl bg-amber-50 border border-amber-200/80 text-[11px] 
+text-amber-800 font-medium flex items-center justify-center gap-2">\n        <i data-lucide="shield-alert" class="w-4 
+h-4 text-amber-600 flex-shrink-0"></i>\n        <span>Notice: All new accounts require Administrator approval before 
+portal access is enabled.</span>\n      </div>\n    </div>\n\n    <form method="POST" action="/auth/register" 
+class="space-y-4">\n      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">\n        <div>\n          <label 
+class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Full Name *</label>\n          <input 
+type="text" name="name" required placeholder="e.g. John Doe" class="w-full px-4 py-2.5 bg-slate-50 border 
+border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white 
+transition">\n        </div>\n        <div>\n          <label class="block text-xs font-bold text-slate-700 uppercase 
+tracking-wider mb-1.5">Work Email *</label>\n          <input type="email" name="email" required 
+placeholder="name@organization.com" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm 
+focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition">\n        </div>\n      </div>\n\n    
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">\n        <div>\n          <label class="block text-xs font-bold 
+text-slate-700 uppercase tracking-wider mb-1.5">Password *</label>\n          <input type="password" name="password" 
+required placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;" class="w-full px-4 py-2.5 bg-slate-50 border 
+border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white 
+transition">\n        </div>\n        <div>\n          <label class="block text-xs font-bold text-slate-700 uppercase 
+tracking-wider mb-1.5">Job Title / Designation</label>\n          <input type="text" name="job_title" 
+placeholder="e.g. Cloud Architect, Senior Analyst" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 
+rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition">\n        </div>\n 
+     </div>\n\n      <div>\n        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider 
+mb-1.5">Organization / Department</label>\n        <input type="text" name="organization" placeholder="e.g. Digital 
+Transformation Dept, Tech Corp" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm 
+focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition">\n      </div>\n\n      <!-- Role 
+Selection Cards -->\n      <div>\n        <label class="block text-xs font-bold text-slate-700 uppercase 
+tracking-wider mb-2">Select Your Platform Role *</label>\n        <div class="grid grid-cols-1 sm:grid-cols-3 
+gap-3">\n          <label class="relative flex flex-col p-4 border-2 border-slate-200 rounded-2xl cursor-pointer 
+hover:border-indigo-400 transition bg-slate-50 has-[:checked]:border-indigo-600 has-[:checked]:bg-indigo-50/50">\n     
+       <input type="radio" name="role" value="trainee" checked class="sr-only">\n            <div class="w-8 h-8 
+rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center mb-2">\n              <i 
+data-lucide="graduation-cap" class="w-4 h-4"></i>\n            </div>\n            <span class="font-bold 
+text-slate-900 text-sm">Trainee</span>\n            <span class="text-[11px] text-slate-500 mt-1">Enroll in courses, 
+take quizzes, earn certificates.</span>\n          </label>\n\n          <label class="relative flex flex-col p-4 
+border-2 border-slate-200 rounded-2xl cursor-pointer hover:border-indigo-400 transition bg-slate-50 
+has-[:checked]:border-indigo-600 has-[:checked]:bg-indigo-50/50">\n            <input type="radio" name="role" 
+value="trainer" class="sr-only">\n            <div class="w-8 h-8 rounded-lg bg-amber-100 text-amber-700 flex 
+items-center justify-center mb-2">\n              <i data-lucide="award" class="w-4 h-4"></i>\n            </div>\n    
+        <span class="font-bold text-slate-900 text-sm">Trainer</span>\n            <span class="text-[11px] 
+text-slate-500 mt-1">Create quizzes, upload library resources, track trainees.</span>\n          </label>\n\n          
+<label class="relative flex flex-col p-4 border-2 border-slate-200 rounded-2xl cursor-pointer hover:border-indigo-400 
+transition bg-slate-50 has-[:checked]:border-indigo-600 has-[:checked]:bg-indigo-50/50">\n            <input 
+type="radio" name="role" value="admin" class="sr-only">\n            <div class="w-8 h-8 rounded-lg bg-purple-100 
+text-purple-700 flex items-center justify-center mb-2">\n              <i data-lucide="shield" class="w-4 h-4"></i>\n  
+          </div>\n            <span class="font-bold text-slate-900 text-sm">Admin</span>\n            <span 
+class="text-[11px] text-slate-500 mt-1">Approvals, analytics, announcements, competency matrix.</span>\n          
+</label>\n        </div>\n      </div>\n\n      <button type="submit" class="w-full py-3 px-4 bg-indigo-600 
+hover:bg-indigo-700 text-white font-bold rounded-xl text-sm shadow-md transition-all flex items-center justify-center 
+gap-2">\n        <span>Create Account</span>\n        <i data-lucide="check" class="w-4 h-4"></i>\n      </button>\n   
+ </form>\n\n    <div class="mt-6 pt-5 border-t border-slate-100 text-center text-xs text-slate-500">\n      Already 
+have an account?\n      <a href="/auth/login" class="font-bold text-indigo-600 hover:text-indigo-800 ml-1">Sign In 
+&rarr;</a>\n    </div>\n  </div>\n</div>\n\n      </main>\n\n      <!-- Footer -->\n      <footer class="bg-white 
+border-t border-slate-200 py-4 px-6 text-center text-xs text-slate-400">\n        &copy; 2026 Capacity Connect &mdash; 
+Digital Capacity Building and Learning Management Portal. All rights reserved.\n      </footer>\n    </div>\n  
+</div>\n\n  <script>\n    // Initialize Lucide icons\n    lucide.createIcons();\n\n    // Mobile sidebar drawer 
+toggle\n    const toggleBtn = document.getElementById(\'menu-toggle\');\n    const sidebar = 
+document.getElementById(\'sidebar\');\n    if (toggleBtn && sidebar) {\n      toggleBtn.addEventListener(\'click\', () 
+=> {\n        sidebar.classList.toggle(\'-translate-x-full\');\n      });\n    }\n  </script>\n  \n</body>\n</html>'
+
+======================================================================
+FAIL: test_12_trainer_create_questionnaire_and_assessment 
+(test_app.CapacityConnectTestCase.test_12_trainer_create_questionnaire_and_assessment)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Gaming\.gemini\antigravity\scratch\capacity-connect\test_app.py", line 203, in 
+test_12_trainer_create_questionnaire_and_assessment
+    self.assertIn(b'Create Timed MCQ Assessment', res_get.data)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: b'Create Timed MCQ Assessment' not found in b'\xef\xbb\xbf<!DOCTYPE html>\n<html lang="en" 
+class="h-full bg-slate-50">\n<head>\n  <meta charset="UTF-8">\n  <meta name="viewport" content="width=device-width, 
+initial-scale=1.0">\n  <title>Create Assessment Questionnaire - Capacity Connect</title>\n  \n  <!-- Tailwind CSS CDN 
+-->\n  <script src="https://cdn.tailwindcss.com"></script>\n  <!-- Lucide Icons -->\n  <script 
+src="https://unpkg.com/lucide@latest"></script>\n  <!-- Chart.js -->\n  <script 
+src="https://cdn.jsdelivr.net/npm/chart.js"></script>\n\n  <!-- Google Fonts: Inter & Plus Jakarta Sans -->\n  <link 
+rel="preconnect" href="https://fonts.googleapis.com">\n  <link rel="preconnect" href="https://fonts.gstatic.com" 
+crossorigin>\n  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&fam
+ily=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">\n\n  <script>\n    tailwind.config = {\n      theme: 
+{\n        extend: {\n          fontFamily: {\n            sans: [\'"Plus Jakarta Sans"\', \'Inter\', 
+\'sans-serif\'],\n          },\n          colors: {\n            brand: {\n              sidebar: \'#16162a\',\n       
+       sidebarHover: \'#23233c\',\n              sidebarActive: \'#2d2d4e\',\n              indigo: \'#4f46e5\',\n     
+         darkIndigo: \'#3730a3\',\n            }\n          }\n        }\n      }\n    }\n  </script>\n  <style>\n    
+body {\n      font-family: \'Plus Jakarta Sans\', sans-serif;\n    }\n    .custom-scrollbar::-webkit-scrollbar {\n     
+ width: 5px;\n      height: 5px;\n    }\n    .custom-scrollbar::-webkit-scrollbar-thumb {\n      background-color: 
+#cbd5e1;\n      border-radius: 9999px;\n    }\n  </style>\n  \n</head>\n<body class="h-full flex flex-col antialiased 
+text-slate-800">\n\n  <div class="min-h-full flex">\n    <!-- Left Sidebar -->\n    <aside id="sidebar" class="w-64 
+bg-[#16162a] text-slate-300 flex flex-col fixed inset-y-0 z-50 transition-transform duration-300 -translate-x-full 
+md:translate-x-0">\n      <!-- App Header / Logo -->\n      <div class="h-16 flex items-center gap-3 px-6 border-b 
+border-white/5">\n        <div class="w-9 h-9 rounded-xl bg-indigo-600/30 flex items-center justify-center 
+text-indigo-400 border border-indigo-500/30">\n          <i data-lucide="graduation-cap" class="w-5 h-5"></i>\n        
+</div>\n        <a href="/home" class="font-bold text-lg text-white tracking-tight flex items-center gap-1.5">\n       
+   <span>Capacity Connect</span>\n        </a>\n      </div>\n\n      <!-- Quick Role Switcher Banner (For smooth 
+testing across all 3 roles) -->\n      <div class="mx-4 mt-3 p-2 rounded-xl bg-white/5 border border-white/10 text-xs 
+text-slate-300">\n        <div class="text-[10px] uppercase tracking-wider font-semibold text-slate-400 mb-1 flex 
+items-center justify-between">\n          <span>Demo Switcher</span>\n          <span class="w-1.5 h-1.5 rounded-full 
+bg-emerald-400 animate-pulse"></span>\n        </div>\n        <div class="grid grid-cols-3 gap-1">\n          <a 
+href="/auth/quick-login/admin" class="px-1.5 py-1 text-center rounded hover:bg-white/10 text-slate-400">Admin</a>\n    
+      <a href="/auth/quick-login/trainer" class="px-1.5 py-1 text-center rounded bg-indigo-600 text-white 
+font-semibold">Trainer</a>\n          <a href="/auth/quick-login/trainee" class="px-1.5 py-1 text-center rounded 
+hover:bg-white/10 text-slate-400">Trainee</a>\n        </div>\n      </div>\n\n      <!-- Navigation Links -->\n      
+<div class="flex-1 overflow-y-auto px-4 py-4 space-y-1 custom-scrollbar">\n        <!-- Main Section -->\n        <div 
+class="px-2 mb-2 text-[11px] font-semibold uppercase tracking-wider text-slate-400">Main</div>\n        \n        <a 
+href="/home" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors 
+hover:bg-white/5 hover:text-white text-slate-300">\n          <i data-lucide="home" class="w-4 h-4"></i>\n          
+<span>Dashboard</span>\n        </a>\n\n        <a href="/landing" class="flex items-center gap-3 px-3 py-2.5 
+rounded-xl text-sm font-medium transition-colors hover:bg-white/5 hover:text-white text-slate-300">\n          <i 
+data-lucide="compass" class="w-4 h-4 text-sky-400"></i>\n          <span>Marketplace</span>\n        </a>\n\n        
+<a href="/courses" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors 
+hover:bg-white/5 hover:text-white text-slate-300">\n          <i data-lucide="book-open" class="w-4 h-4"></i>\n        
+  <span>Courses</span>\n        </a>\n\n        <a href="/assessments" class="flex items-center gap-3 px-3 py-2.5 
+rounded-xl text-sm font-medium transition-colors hover:bg-white/5 hover:text-white text-slate-300">\n          <i 
+data-lucide="check-square" class="w-4 h-4"></i>\n          <span>MCQ Assessments</span>\n        </a>\n\n        <a 
+href="/library" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors 
+hover:bg-white/5 hover:text-white text-slate-300">\n          <i data-lucide="folder-git-2" class="w-4 h-4"></i>\n     
+     <span>Trainer Library</span>\n        </a>\n\n        <a href="/competency-mapping" class="flex items-center 
+gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors hover:bg-white/5 hover:text-white 
+text-slate-300">\n          <i data-lucide="network" class="w-4 h-4 text-indigo-400"></i>\n          <span>Competency 
+Mapping</span>\n        </a>\n\n        <!-- Management Section -->\n        <div class="pt-5 pb-2 px-2 text-[11px] 
+font-semibold uppercase tracking-wider text-slate-400">\n          \n            Trainer Console\n          \n        
+</div>\n\n        \n\n        \n          <a href="/trainer/upload" class="flex items-center gap-3 px-3 py-2.5 
+rounded-xl text-sm font-medium transition-colors hover:bg-white/5 hover:text-white text-slate-300">\n            <i 
+data-lucide="video" class="w-4 h-4 text-rose-400"></i>\n            <span>Upload Lecture Videos</span>\n          
+</a>\n\n          <a href="/trainer/assessments/new" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm 
+font-medium transition-colors bg-[#2a2a48] text-white shadow-sm">\n            <i data-lucide="clipboard-list" 
+class="w-4 h-4"></i>\n            <span>Create Questionnaire</span>\n          </a>\n\n          <a 
+href="/trainer/trainees" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors 
+hover:bg-white/5 hover:text-white text-slate-300">\n            <i data-lucide="user-check" class="w-4 h-4"></i>\n     
+       <span>Trainee Performance</span>\n          </a>\n        \n\n        <a href="/profile" class="flex 
+items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors hover:bg-white/5 hover:text-white 
+text-slate-300">\n          <i data-lucide="user" class="w-4 h-4"></i>\n          <span>My Profile & Skills</span>\n   
+     </a>\n      </div>\n\n      <!-- User Profile Card & Sign Out at Bottom -->\n      <div class="p-4 border-t 
+border-white/5 bg-[#121224]/50">\n        \n          <div class="flex items-center gap-3 mb-3">\n            <div 
+class="w-10 h-10 rounded-full bg-indigo-900/60 border border-indigo-500/30 text-white font-bold flex items-center 
+justify-center text-sm shadow-inner">\n              DJ\n            </div>\n            <div class="flex-1 
+min-w-0">\n              <div class="text-sm font-semibold text-white truncate">Dr. Sarah Jenkins</div>\n              
+<div class="text-xs text-slate-400 capitalize flex items-center gap-1.5">\n                <span class="w-1.5 h-1.5 
+rounded-full bg-amber-400"></span>\n                trainer\n              </div>\n            </div>\n          
+</div>\n          <a href="/auth/logout" class="flex items-center gap-2 text-xs text-slate-400 hover:text-rose-400 
+font-medium transition-colors px-1 py-1">\n            <i data-lucide="log-out" class="w-4 h-4"></i>\n            
+<span>Sign out</span>\n          </a>\n        \n      </div>\n    </aside>\n\n    <!-- Main Content wrapper -->\n    
+<div class="flex-1 flex flex-col md:pl-64 min-w-0">\n      <!-- Top Mobile / Global Bar -->\n      <header class="h-16 
+bg-white border-b border-slate-200/80 flex items-center justify-between px-4 md:px-8 sticky top-0 z-30">\n        <div 
+class="flex items-center gap-3">\n          <button id="menu-toggle" class="md:hidden p-2 text-slate-600 
+hover:text-slate-900 rounded-lg hover:bg-slate-100">\n            <i data-lucide="menu" class="w-6 h-6"></i>\n         
+ </button>\n          <div class="hidden sm:flex items-center gap-2 text-xs font-medium text-slate-500">\n            
+<span class="flex items-center gap-1"><i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-500"></i> 
+Enterprise LMS</span>\n            <span>&bull;</span>\n            <span>Capacity Building Network</span>\n          
+</div>\n        </div>\n\n        <div class="flex items-center gap-3">\n          <a href="/courses" class="hidden 
+sm:inline-flex items-center gap-2 text-xs font-semibold px-3 py-1.5 rounded-lg border border-slate-200 text-slate-700 
+hover:bg-slate-50 transition">\n            <i data-lucide="compass" class="w-3.5 h-3.5 text-indigo-600"></i>\n        
+    <span>Explore Catalog</span>\n          </a>\n\n          \n            <div class="flex items-center gap-2 pl-2 
+border-l border-slate-200">\n              <span class="text-xs font-medium text-slate-600 hidden sm:inline">Signed in 
+as <strong class="text-slate-900">Dr. Sarah Jenkins</strong></span>\n              <span class="text-[11px] 
+font-semibold uppercase px-2 py-0.5 rounded-full bg-amber-100 text-amber-700">\n                trainer\n              
+</span>\n            </div>\n          \n        </div>\n      </header>\n\n      <!-- Toast / Flash messages -->\n    
+  <div class="px-4 md:px-8 pt-4">\n        \n          \n        \n      </div>\n\n      <!-- Main Page Content -->\n  
+    <main class="flex-1 p-4 md:p-8">\n        \n<div class="max-w-4xl mx-auto space-y-6">\n  <div class="bg-white 
+rounded-3xl p-8 border border-slate-200/80 shadow-sm">\n    <div class="flex items-center gap-3 mb-6 pb-4 border-b 
+border-slate-100">\n      <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center 
+justify-center">\n        <i data-lucide="clipboard-edit" class="w-5 h-5"></i>\n      </div>\n      <div>\n        <h1 
+class="text-xl font-bold text-slate-900 tracking-tight">Create MCQ Assessment Questionnaire</h1>\n        <p 
+class="text-xs text-slate-500">Configure passing thresholds, deadlines, and multi-choice question sets</p>\n      
+</div>\n    </div>\n\n    <form method="POST" action="/trainer/assessments/new" class="space-y-6">\n      <!-- General 
+Metadata -->\n      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">\n        <div>\n          <label class="block 
+text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Assessment Title *</label>\n          <input 
+type="text" name="title" required placeholder="e.g. AWS Cloud Architecture Examination" class="w-full px-4 py-2.5 
+bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500">\n       
+ </div>\n        <div>\n          <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider 
+mb-1.5">Subject Area *</label>\n          <input type="text" name="subject" required placeholder="e.g. Cloud 
+Computing, Project Management" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs 
+focus:outline-none focus:ring-2 focus:ring-indigo-500">\n        </div>\n      </div>\n\n      <div class="grid 
+grid-cols-1 md:grid-cols-3 gap-4">\n        <div>\n          <label class="block text-xs font-bold text-slate-700 
+uppercase tracking-wider mb-1.5">Time Limit (Minutes) *</label>\n          <input type="number" 
+name="time_limit_minutes" value="15" min="1" max="180" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 
+rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500">\n        </div>\n        <div>\n          
+<label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Passing Score (%) *</label>\n    
+      <input type="number" name="passing_score" value="70" min="10" max="100" class="w-full px-4 py-2.5 bg-slate-50 
+border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500">\n        </div>\n   
+     <div>\n          <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Submission 
+Deadline</label>\n          <input type="date" name="deadline" class="w-full px-4 py-2.5 bg-slate-50 border 
+border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500">\n        </div>\n      
+</div>\n\n      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">\n        <div>\n          <label class="block 
+text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Associate with Course (Optional)</label>\n          
+<select name="course_id" class="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium 
+focus:outline-none focus:ring-2 focus:ring-indigo-500">\n            <option value="">-- Standalone Subject Assessment 
+--</option>\n            \n              <option value="1">Foundations of Project Management (PRJ-101)</option>\n      
+      \n              <option value="2">Data Analytics with Python (DAT-201)</option>\n            \n              
+<option value="3">Cloud Computing &amp; AWS Fundamentals (CLD-301)</option>\n            \n              <option 
+value="4">Effective Leadership &amp; Team Dynamics (LDR-102)</option>\n            \n              <option 
+value="5">Cybersecurity Essentials &amp; Risk Governance (SEC-202)</option>\n            \n              <option 
+value="6">AI &amp; Generative Intelligence for Business (AI-401)</option>\n            \n          </select>\n        
+</div>\n        <div>\n          <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider 
+mb-1.5">Instructions / Guidelines</label>\n          <input type="text" name="description" placeholder="Answer all 
+questions carefully before submitting..." class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl 
+text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500">\n        </div>\n      </div>\n\n      <!-- Question 
+Items Container -->\n      <div class="pt-4 border-t border-slate-100 space-y-6">\n        <div class="flex 
+items-center justify-between">\n          <h3 class="text-sm font-bold text-slate-900 flex items-center gap-2">\n      
+      <i data-lucide="list-ordered" class="w-4 h-4 text-indigo-600"></i>\n            <span>Multiple Choice 
+Questions</span>\n          </h3>\n          <button type="button" onclick="addQuestionBlock()" class="px-3 py-1.5 
+bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-xs flex items-center gap-1">\n            <i 
+data-lucide="plus" class="w-3.5 h-3.5"></i>\n            <span>Add Question</span>\n          </button>\n        
+</div>\n\n        <input type="hidden" id="question_counter" name="question_counter" value="2">\n\n        <div 
+id="questions-container" class="space-y-6">\n          <!-- Question 1 -->\n          <div class="p-6 rounded-2xl 
+bg-slate-50 border border-slate-200 space-y-3">\n            <span class="font-bold text-xs text-indigo-600 
+block">Question 1</span>\n            <div>\n              <label class="block text-xs font-semibold text-slate-700 
+mb-1">Question Prompt *</label>\n              <textarea name="q_text_1" rows="2" required placeholder="Enter question 
+statement..." class="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl text-xs"></textarea>\n            
+</div>\n            <div class="grid grid-cols-1 md:grid-cols-2 gap-2">\n              <input type="text" name="q_a_1" 
+required placeholder="Option A *" class="px-3 py-2 bg-white border border-slate-200 rounded-xl text-xs">\n             
+ <input type="text" name="q_b_1" required placeholder="Option B *" class="px-3 py-2 bg-white border border-slate-200 
+rounded-xl text-xs">\n              <input type="text" name="q_c_1" placeholder="Option C" class="px-3 py-2 bg-white 
+border border-slate-200 rounded-xl text-xs">\n              <input type="text" name="q_d_1" placeholder="Option D" 
+class="px-3 py-2 bg-white border border-slate-200 rounded-xl text-xs">\n            </div>\n            <div 
+class="grid grid-cols-1 md:grid-cols-2 gap-2 pt-1">\n              <div>\n                <label class="block text-xs 
+font-semibold text-slate-700 mb-1">Correct Option *</label>\n                <select name="q_correct_1" class="w-full 
+px-3 py-2 bg-white border border-slate-200 rounded-xl text-xs font-bold text-indigo-700">\n                  <option 
+value="A">A</option>\n                  <option value="B">B</option>\n                  <option value="C">C</option>\n 
+                 <option value="D">D</option>\n                </select>\n              </div>\n              <div>\n  
+              <label class="block text-xs font-semibold text-slate-700 mb-1">Explanation</label>\n                
+<input type="text" name="q_expl_1" placeholder="Why this option is correct..." class="w-full px-3 py-2 bg-white border 
+border-slate-200 rounded-xl text-xs">\n              </div>\n            </div>\n          </div>\n\n          <!-- 
+Question 2 -->\n          <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">\n            
+<span class="font-bold text-xs text-indigo-600 block">Question 2</span>\n            <div>\n              <label 
+class="block text-xs font-semibold text-slate-700 mb-1">Question Prompt *</label>\n              <textarea 
+name="q_text_2" rows="2" required placeholder="Enter question statement..." class="w-full px-3 py-2 bg-white border 
+border-slate-200 rounded-xl text-xs"></textarea>\n            </div>\n            <div class="grid grid-cols-1 
+md:grid-cols-2 gap-2">\n              <input type="text" name="q_a_2" required placeholder="Option A *" class="px-3 
+py-2 bg-white border border-slate-200 rounded-xl text-xs">\n              <input type="text" name="q_b_2" required 
+placeholder="Option B *" class="px-3 py-2 bg-white border border-slate-200 rounded-xl text-xs">\n              <input 
+type="text" name="q_c_2" placeholder="Option C" class="px-3 py-2 bg-white border border-slate-200 rounded-xl 
+text-xs">\n              <input type="text" name="q_d_2" placeholder="Option D" class="px-3 py-2 bg-white border 
+border-slate-200 rounded-xl text-xs">\n            </div>\n            <div class="grid grid-cols-1 md:grid-cols-2 
+gap-2 pt-1">\n              <div>\n                <label class="block text-xs font-semibold text-slate-700 
+mb-1">Correct Option *</label>\n                <select name="q_correct_2" class="w-full px-3 py-2 bg-white border 
+border-slate-200 rounded-xl text-xs font-bold text-indigo-700">\n                  <option value="A">A</option>\n      
+            <option value="B">B</option>\n                  <option value="C">C</option>\n                  <option 
+value="D">D</option>\n                </select>\n              </div>\n              <div>\n                <label 
+class="block text-xs font-semibold text-slate-700 mb-1">Explanation</label>\n                <input type="text" 
+name="q_expl_2" placeholder="Why this option is correct..." class="w-full px-3 py-2 bg-white border border-slate-200 
+rounded-xl text-xs">\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n\n     
+ <div class="flex justify-end gap-3 pt-6 border-t border-slate-100">\n        <a href="/assessments" class="px-5 
+py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-xs transition">Cancel</a>\n        
+<button type="submit" class="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl text-xs 
+shadow-md transition">Publish Questionnaire</button>\n      </div>\n    </form>\n  </div>\n</div>\n\n      </main>\n\n 
+     <!-- Footer -->\n      <footer class="bg-white border-t border-slate-200 py-4 px-6 text-center text-xs 
+text-slate-400">\n        &copy; 2026 Capacity Connect &mdash; Digital Capacity Building and Learning Management 
+Portal. All rights reserved.\n      </footer>\n    </div>\n  </div>\n\n  <script>\n    // Initialize Lucide icons\n    
+lucide.createIcons();\n\n    // Mobile sidebar drawer toggle\n    const toggleBtn = 
+document.getElementById(\'menu-toggle\');\n    const sidebar = document.getElementById(\'sidebar\');\n    if 
+(toggleBtn && sidebar) {\n      toggleBtn.addEventListener(\'click\', () => {\n        
+sidebar.classList.toggle(\'-translate-x-full\');\n      });\n    }\n  </script>\n  \n<script>\n  let qCount = 2;\n  
+function addQuestionBlock() {\n    qCount++;\n    document.getElementById(\'question_counter\').value = qCount;\n    
+const container = document.getElementById(\'questions-container\');\n    const div = 
+document.createElement(\'div\');\n    div.className = \'p-6 rounded-2xl bg-slate-50 border border-slate-200 
+space-y-3\';\n    div.innerHTML = `\n      <span class="font-bold text-xs text-indigo-600 block">Question 
+${qCount}</span>\n      <div>\n        <label class="block text-xs font-semibold text-slate-700 mb-1">Question Prompt 
+*</label>\n        <textarea name="q_text_${qCount}" rows="2" required placeholder="Enter question statement..." 
+class="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl text-xs"></textarea>\n      </div>\n      <div 
+class="grid grid-cols-1 md:grid-cols-2 gap-2">\n        <input type="text" name="q_a_${qCount}" required 
+placeholder="Option A *" class="px-3 py-2 bg-white border border-slate-200 rounded-xl text-xs">\n        <input 
+type="text" name="q_b_${qCount}" required placeholder="Option B *" class="px-3 py-2 bg-white border border-slate-200 
+rounded-xl text-xs">\n        <input type="text" name="q_c_${qCount}" placeholder="Option C" class="px-3 py-2 bg-white 
+border border-slate-200 rounded-xl text-xs">\n        <input type="text" name="q_d_${qCount}" placeholder="Option D" 
+class="px-3 py-2 bg-white border border-slate-200 rounded-xl text-xs">\n      </div>\n      <div class="grid 
+grid-cols-1 md:grid-cols-2 gap-2 pt-1">\n        <div>\n          <label class="block text-xs font-semibold 
+text-slate-700 mb-1">Correct Option *</label>\n          <select name="q_correct_${qCount}" class="w-full px-3 py-2 
+bg-white border border-slate-200 rounded-xl text-xs font-bold text-indigo-700">\n            <option 
+value="A">A</option>\n            <option value="B">B</option>\n            <option value="C">C</option>\n            
+<option value="D">D</option>\n          </select>\n        </div>\n        <div>\n          <label class="block 
+text-xs font-semibold text-slate-700 mb-1">Explanation</label>\n          <input type="text" name="q_expl_${qCount}" 
+placeholder="Why this option is correct..." class="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl 
+text-xs">\n        </div>\n      </div>\n    `;\n    container.appendChild(div);\n  }\n</script>\n\n</body>\n</html>'
+
+======================================================================
+FAIL: test_13_trainer_dedicated_upload_hub_and_delete 
+(test_app.CapacityConnectTestCase.test_13_trainer_dedicated_upload_hub_and_delete)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Gaming\.gemini\antigravity\scratch\capacity-connect\test_app.py", line 242, in 
+test_13_trainer_dedicated_upload_hub_and_delete
+    self.assertIn(b'Trainer Upload Hub', res_hub.data)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: b'Trainer Upload Hub' not found in b'\xef\xbb\xbf<!DOCTYPE html>\n<html lang="en" class="h-full 
+bg-slate-50">\n<head>\n  <meta charset="UTF-8">\n  <meta name="viewport" content="width=device-width, 
+initial-scale=1.0">\n  <title>Upload Video Lectures & Materials - Capacity Connect</title>\n  \n  <!-- Tailwind CSS 
+CDN -->\n  <script src="https://cdn.tailwindcss.com"></script>\n  <!-- Lucide Icons -->\n  <script 
+src="https://unpkg.com/lucide@latest"></script>\n  <!-- Chart.js -->\n  <script 
+src="https://cdn.jsdelivr.net/npm/chart.js"></script>\n\n  <!-- Google Fonts: Inter & Plus Jakarta Sans -->\n  <link 
+rel="preconnect" href="https://fonts.googleapis.com">\n  <link rel="preconnect" href="https://fonts.gstatic.com" 
+crossorigin>\n  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&fam
+ily=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">\n\n  <script>\n    tailwind.config = {\n      theme: 
+{\n        extend: {\n          fontFamily: {\n            sans: [\'"Plus Jakarta Sans"\', \'Inter\', 
+\'sans-serif\'],\n          },\n          colors: {\n            brand: {\n              sidebar: \'#16162a\',\n       
+       sidebarHover: \'#23233c\',\n              sidebarActive: \'#2d2d4e\',\n              indigo: \'#4f46e5\',\n     
+         darkIndigo: \'#3730a3\',\n            }\n          }\n        }\n      }\n    }\n  </script>\n  <style>\n    
+body {\n      font-family: \'Plus Jakarta Sans\', sans-serif;\n    }\n    .custom-scrollbar::-webkit-scrollbar {\n     
+ width: 5px;\n      height: 5px;\n    }\n    .custom-scrollbar::-webkit-scrollbar-thumb {\n      background-color: 
+#cbd5e1;\n      border-radius: 9999px;\n    }\n  </style>\n  \n</head>\n<body class="h-full flex flex-col antialiased 
+text-slate-800">\n\n  <div class="min-h-full flex">\n    <!-- Left Sidebar -->\n    <aside id="sidebar" class="w-64 
+bg-[#16162a] text-slate-300 flex flex-col fixed inset-y-0 z-50 transition-transform duration-300 -translate-x-full 
+md:translate-x-0">\n      <!-- App Header / Logo -->\n      <div class="h-16 flex items-center gap-3 px-6 border-b 
+border-white/5">\n        <div class="w-9 h-9 rounded-xl bg-indigo-600/30 flex items-center justify-center 
+text-indigo-400 border border-indigo-500/30">\n          <i data-lucide="graduation-cap" class="w-5 h-5"></i>\n        
+</div>\n        <a href="/home" class="font-bold text-lg text-white tracking-tight flex items-center gap-1.5">\n       
+   <span>Capacity Connect</span>\n        </a>\n      </div>\n\n      <!-- Quick Role Switcher Banner (For smooth 
+testing across all 3 roles) -->\n      <div class="mx-4 mt-3 p-2 rounded-xl bg-white/5 border border-white/10 text-xs 
+text-slate-300">\n        <div class="text-[10px] uppercase tracking-wider font-semibold text-slate-400 mb-1 flex 
+items-center justify-between">\n          <span>Demo Switcher</span>\n          <span class="w-1.5 h-1.5 rounded-full 
+bg-emerald-400 animate-pulse"></span>\n        </div>\n        <div class="grid grid-cols-3 gap-1">\n          <a 
+href="/auth/quick-login/admin" class="px-1.5 py-1 text-center rounded hover:bg-white/10 text-slate-400">Admin</a>\n    
+      <a href="/auth/quick-login/trainer" class="px-1.5 py-1 text-center rounded bg-indigo-600 text-white 
+font-semibold">Trainer</a>\n          <a href="/auth/quick-login/trainee" class="px-1.5 py-1 text-center rounded 
+hover:bg-white/10 text-slate-400">Trainee</a>\n        </div>\n      </div>\n\n      <!-- Navigation Links -->\n      
+<div class="flex-1 overflow-y-auto px-4 py-4 space-y-1 custom-scrollbar">\n        <!-- Main Section -->\n        <div 
+class="px-2 mb-2 text-[11px] font-semibold uppercase tracking-wider text-slate-400">Main</div>\n        \n        <a 
+href="/home" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors 
+hover:bg-white/5 hover:text-white text-slate-300">\n          <i data-lucide="home" class="w-4 h-4"></i>\n          
+<span>Dashboard</span>\n        </a>\n\n        <a href="/landing" class="flex items-center gap-3 px-3 py-2.5 
+rounded-xl text-sm font-medium transition-colors hover:bg-white/5 hover:text-white text-slate-300">\n          <i 
+data-lucide="compass" class="w-4 h-4 text-sky-400"></i>\n          <span>Marketplace</span>\n        </a>\n\n        
+<a href="/courses" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors 
+hover:bg-white/5 hover:text-white text-slate-300">\n          <i data-lucide="book-open" class="w-4 h-4"></i>\n        
+  <span>Courses</span>\n        </a>\n\n        <a href="/assessments" class="flex items-center gap-3 px-3 py-2.5 
+rounded-xl text-sm font-medium transition-colors hover:bg-white/5 hover:text-white text-slate-300">\n          <i 
+data-lucide="check-square" class="w-4 h-4"></i>\n          <span>MCQ Assessments</span>\n        </a>\n\n        <a 
+href="/library" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors 
+hover:bg-white/5 hover:text-white text-slate-300">\n          <i data-lucide="folder-git-2" class="w-4 h-4"></i>\n     
+     <span>Trainer Library</span>\n        </a>\n\n        <a href="/competency-mapping" class="flex items-center 
+gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors hover:bg-white/5 hover:text-white 
+text-slate-300">\n          <i data-lucide="network" class="w-4 h-4 text-indigo-400"></i>\n          <span>Competency 
+Mapping</span>\n        </a>\n\n        <!-- Management Section -->\n        <div class="pt-5 pb-2 px-2 text-[11px] 
+font-semibold uppercase tracking-wider text-slate-400">\n          \n            Trainer Console\n          \n        
+</div>\n\n        \n\n        \n          <a href="/trainer/upload" class="flex items-center gap-3 px-3 py-2.5 
+rounded-xl text-sm font-medium transition-colors bg-[#2a2a48] text-white shadow-sm">\n            <i 
+data-lucide="video" class="w-4 h-4 text-rose-400"></i>\n            <span>Upload Lecture Videos</span>\n          
+</a>\n\n          <a href="/trainer/assessments/new" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm 
+font-medium transition-colors hover:bg-white/5 hover:text-white text-slate-300">\n            <i 
+data-lucide="clipboard-list" class="w-4 h-4"></i>\n            <span>Create Questionnaire</span>\n          </a>\n\n   
+       <a href="/trainer/trainees" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium 
+transition-colors hover:bg-white/5 hover:text-white text-slate-300">\n            <i data-lucide="user-check" 
+class="w-4 h-4"></i>\n            <span>Trainee Performance</span>\n          </a>\n        \n\n        <a 
+href="/profile" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors 
+hover:bg-white/5 hover:text-white text-slate-300">\n          <i data-lucide="user" class="w-4 h-4"></i>\n          
+<span>My Profile & Skills</span>\n        </a>\n      </div>\n\n      <!-- User Profile Card & Sign Out at Bottom 
+-->\n      <div class="p-4 border-t border-white/5 bg-[#121224]/50">\n        \n          <div class="flex 
+items-center gap-3 mb-3">\n            <div class="w-10 h-10 rounded-full bg-indigo-900/60 border border-indigo-500/30 
+text-white font-bold flex items-center justify-center text-sm shadow-inner">\n              DJ\n            </div>\n   
+         <div class="flex-1 min-w-0">\n              <div class="text-sm font-semibold text-white truncate">Dr. Sarah 
+Jenkins</div>\n              <div class="text-xs text-slate-400 capitalize flex items-center gap-1.5">\n               
+ <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>\n                trainer\n              </div>\n          
+  </div>\n          </div>\n          <a href="/auth/logout" class="flex items-center gap-2 text-xs text-slate-400 
+hover:text-rose-400 font-medium transition-colors px-1 py-1">\n            <i data-lucide="log-out" class="w-4 
+h-4"></i>\n            <span>Sign out</span>\n          </a>\n        \n      </div>\n    </aside>\n\n    <!-- Main 
+Content wrapper -->\n    <div class="flex-1 flex flex-col md:pl-64 min-w-0">\n      <!-- Top Mobile / Global Bar -->\n 
+     <header class="h-16 bg-white border-b border-slate-200/80 flex items-center justify-between px-4 md:px-8 sticky 
+top-0 z-30">\n        <div class="flex items-center gap-3">\n          <button id="menu-toggle" class="md:hidden p-2 
+text-slate-600 hover:text-slate-900 rounded-lg hover:bg-slate-100">\n            <i data-lucide="menu" class="w-6 
+h-6"></i>\n          </button>\n          <div class="hidden sm:flex items-center gap-2 text-xs font-medium 
+text-slate-500">\n            <span class="flex items-center gap-1"><i data-lucide="shield-check" class="w-3.5 h-3.5 
+text-emerald-500"></i> Enterprise LMS</span>\n            <span>&bull;</span>\n            <span>Capacity Building 
+Network</span>\n          </div>\n        </div>\n\n        <div class="flex items-center gap-3">\n          <a 
+href="/courses" class="hidden sm:inline-flex items-center gap-2 text-xs font-semibold px-3 py-1.5 rounded-lg border 
+border-slate-200 text-slate-700 hover:bg-slate-50 transition">\n            <i data-lucide="compass" class="w-3.5 
+h-3.5 text-indigo-600"></i>\n            <span>Explore Catalog</span>\n          </a>\n\n          \n            <div 
+class="flex items-center gap-2 pl-2 border-l border-slate-200">\n              <span class="text-xs font-medium 
+text-slate-600 hidden sm:inline">Signed in as <strong class="text-slate-900">Dr. Sarah Jenkins</strong></span>\n       
+       <span class="text-[11px] font-semibold uppercase px-2 py-0.5 rounded-full bg-amber-100 text-amber-700">\n       
+         trainer\n              </span>\n            </div>\n          \n        </div>\n      </header>\n\n      <!-- 
+Toast / Flash messages -->\n      <div class="px-4 md:px-8 pt-4">\n        \n          \n        \n      </div>\n\n    
+  <!-- Main Page Content -->\n      <main class="flex-1 p-4 md:p-8">\n        \n<div class="max-w-7xl mx-auto 
+space-y-8">\n  <!-- Header Banner -->\n  <div class="bg-white rounded-3xl p-6 md:p-8 border border-slate-200/80 
+shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">\n    <div>\n      <div 
+class="flex items-center gap-2 mb-1">\n        <h1 class="text-2xl md:text-3xl font-extrabold text-slate-900 
+tracking-tight">Trainer Video & Lecture Upload Hub</h1>\n        <span class="text-[10px] font-bold uppercase 
+tracking-wider px-2.5 py-1 rounded-full bg-rose-50 text-rose-700 border border-rose-100 flex items-center gap-1">\n    
+      <i data-lucide="video" class="w-3 h-3"></i> Video Portal\n        </span>\n      </div>\n      <p class="text-xs 
+md:text-sm text-slate-500">Upload recorded video lectures, presentations, and study guides accessible to trainees 
+across all enrolled courses</p>\n    </div>\n\n    <div class="flex items-center gap-2">\n      <a href="/library" 
+class="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-xs transition flex 
+items-center gap-1.5 shadow-sm">\n        <i data-lucide="folder-open" class="w-4 h-4 text-indigo-600"></i>\n        
+<span>Browse Trainer Library</span>\n      </a>\n    </div>\n  </div>\n\n  <div class="grid grid-cols-1 
+lg:grid-cols-12 gap-8">\n    <!-- Left Column: Upload Form (~55%) -->\n    <div class="lg:col-span-6 space-y-6">\n     
+ <div class="bg-white rounded-3xl p-6 md:p-8 border border-slate-200/80 shadow-sm">\n        <div class="flex 
+items-center gap-3 mb-6 pb-4 border-b border-slate-100">\n          <div class="w-10 h-10 rounded-xl bg-rose-50 
+text-rose-600 flex items-center justify-center">\n            <i data-lucide="video" class="w-5 h-5"></i>\n          
+</div>\n          <div>\n            <h2 class="text-base font-bold text-slate-900">Upload Video Lecture or Study 
+Resource</h2>\n            <p class="text-xs text-slate-500">Add materials to your course curriculum and 
+organizational library</p>\n          </div>\n        </div>\n\n        <form method="POST" action="/trainer/upload" 
+enctype="multipart/form-data" class="space-y-4">\n          <div>\n            <label class="block text-xs font-bold 
+text-slate-700 uppercase tracking-wider mb-1.5">Lecture / Resource Title *</label>\n            <input type="text" 
+name="title" required placeholder="e.g. AWS Cloud Architecture: High Availability & Scaling" class="w-full px-4 py-2.5 
+bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-rose-500 
+focus:bg-white transition">\n          </div>\n\n          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">\n       
+     <div>\n              <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider 
+mb-1.5">Resource Type *</label>\n              <select name="resource_type" id="resource_type" 
+onchange="toggleResourceInputs()" class="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs 
+font-semibold focus:outline-none focus:ring-2 focus:ring-rose-500">\n                <option value="video" 
+selected>\xf0\x9f\x8e\xa5 Recorded Video Lecture</option>\n                <option 
+value="presentation">\xf0\x9f\x93\x8a Slide Deck (PDF/PPTX)</option>\n                <option 
+value="document">\xf0\x9f\x93\x84 Study Notes & Runbook (PDF/DOCX)</option>\n              </select>\n            
+</div>\n\n            <div>\n              <label class="block text-xs font-bold text-slate-700 uppercase 
+tracking-wider mb-1.5">Subject / Category *</label>\n              <input type="text" name="category" 
+value="Technology" required placeholder="e.g. Cloud, Project Mgmt, Python" class="w-full px-4 py-2.5 bg-slate-50 
+border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-rose-500">\n            </div>\n 
+         </div>\n\n          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">\n            <div>\n              
+<label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Attach to Course 
+(Optional)</label>\n              <select name="course_id" class="w-full px-3 py-2.5 bg-slate-50 border 
+border-slate-200 rounded-xl text-xs font-medium focus:outline-none focus:ring-2 focus:ring-rose-500">\n                
+<option value="">-- General Knowledge Library --</option>\n                \n                  <option 
+value="1">Foundations of Project Management (PRJ-101)</option>\n                \n                  <option 
+value="2">Data Analytics with Python (DAT-201)</option>\n                \n                  <option value="3">Cloud 
+Computing &amp; AWS Fundamentals (CLD-301)</option>\n                \n                  <option value="4">Effective 
+Leadership &amp; Team Dynamics (LDR-102)</option>\n                \n                  <option value="5">Cybersecurity 
+Essentials &amp; Risk Governance (SEC-202)</option>\n                \n                  <option value="6">AI &amp; 
+Generative Intelligence for Business (AI-401)</option>\n                \n              </select>\n            
+</div>\n\n            <div>\n              <label class="block text-xs font-bold text-slate-700 uppercase 
+tracking-wider mb-1.5">Estimated Duration</label>\n              <input type="text" name="duration" value="45 mins" 
+placeholder="e.g. 45 mins, 30 slides" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs 
+focus:outline-none focus:ring-2 focus:ring-rose-500">\n            </div>\n          </div>\n\n          <!-- Video 
+File Upload Area -->\n          <div class="p-4 rounded-2xl bg-rose-50/40 border-2 border-dashed border-rose-200 
+space-y-2">\n            <div class="flex items-center gap-2">\n              <i data-lucide="upload" class="w-4 h-4 
+text-rose-600"></i>\n              <label class="text-xs font-bold text-slate-800 uppercase tracking-wider">Option A: 
+Upload Video / Document File</label>\n            </div>\n            <p class="text-[11px] text-slate-500">Select 
+MP4, WebM, PDF, PPTX, or DOCX file from your computer.</p>\n            <input type="file" name="resource_file" 
+accept=".mp4,.webm,.mov,.pdf,.pptx,.docx" class="w-full text-xs text-slate-600 file:mr-3 file:py-2 file:px-4 
+file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-rose-600 file:text-white hover:file:bg-rose-700 
+transition">\n          </div>\n\n          <!-- Video Stream / Embed URL Area -->\n          <div class="p-4 
+rounded-2xl bg-slate-50 border border-slate-200 space-y-2">\n            <div class="flex items-center gap-2">\n       
+       <i data-lucide="link-2" class="w-4 h-4 text-indigo-600"></i>\n              <label class="text-xs font-bold 
+text-slate-800 uppercase tracking-wider">Option B: Online Video Streaming Link</label>\n            </div>\n           
+ <p class="text-[11px] text-slate-500">Or paste a direct streaming URL (YouTube, Vimeo, CloudFront, Loom, Google 
+Drive, MP4 URL).</p>\n            <input type="url" name="external_url" 
+placeholder="https://commondatastorage.googleapis.com/... or https://..." class="w-full px-3.5 py-2 bg-white border 
+border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500">\n          </div>\n\n      
+    <div>\n            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Lecture 
+Description & Takeaways</label>\n            <textarea name="description" rows="3" placeholder="Summary of key 
+principles, timestamps, or practical application exercises..." class="w-full px-4 py-2.5 bg-slate-50 border 
+border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-rose-500"></textarea>\n          
+</div>\n\n          <button type="submit" class="w-full py-3 px-4 bg-rose-600 hover:bg-rose-700 text-white font-bold 
+rounded-2xl text-xs shadow-md transition flex items-center justify-center gap-2">\n            <i data-lucide="check" 
+class="w-4 h-4"></i>\n            <span>Publish Video / Material to Library</span>\n          </button>\n        
+</form>\n      </div>\n    </div>\n\n    <!-- Right Column: My Uploaded Videos & Materials (~45%) -->\n    <div 
+class="lg:col-span-6 space-y-4">\n      <div class="flex items-center justify-between">\n        <h2 class="text-base 
+font-bold text-slate-900 flex items-center gap-2">\n          <i data-lucide="folder-check" class="w-4 h-4 
+text-indigo-600"></i>\n          <span>My Uploaded Lectures & Library Materials (9)</span>\n        </h2>\n      
+</div>\n\n      <div class="space-y-3">\n        \n          <div class="bg-white rounded-2xl p-4 border 
+border-slate-200/80 shadow-sm hover:border-indigo-200 transition flex items-start gap-3">\n            <div 
+class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0\n              bg-rose-50 text-rose-600\n   
+           ">\n              <i data-lucide="play-circle" class="w-5 h-5"></i>\n            </div>\n\n            <div 
+class="flex-1 min-w-0">\n              <div class="flex items-center gap-2 mb-1">\n                <h3 
+class="font-bold text-slate-900 text-xs truncate">Test Agile Video Stream</h3>\n                <span 
+class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-slate-100 text-slate-700 
+flex-shrink-0">\n                  video\n                </span>\n              </div>\n              <p 
+class="text-[11px] text-slate-500 line-clamp-1 mb-2">Test resource description</p>\n              <div 
+class="text-[10px] text-slate-400 flex items-center gap-3">\n                <span>Web Link</span>\n                
+<span>&bull;</span>\n                <span>15 mins</span>\n                \n              </div>\n            
+</div>\n\n            <div class="flex items-center gap-1.5 flex-shrink-0">\n              \n                <button 
+onclick="playLectureVideo(\'https://example.com/test.mp4\', \'Test Agile Video Stream\')" class="p-2 rounded-xl 
+bg-rose-50 hover:bg-rose-100 text-rose-700 transition" title="Preview Video">\n                  <i data-lucide="play" 
+class="w-3.5 h-3.5 fill-current"></i>\n                </button>\n              \n\n              <form method="POST" 
+action="/trainer/delete-resource/12" onsubmit="return confirm(\'Delete this resource from the library?\');">\n         
+       <button type="submit" class="p-2 rounded-xl bg-slate-50 hover:bg-rose-50 text-slate-400 hover:text-rose-600 
+transition" title="Delete">\n                  <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>\n                
+</button>\n              </form>\n            </div>\n          </div>\n        \n          <div class="bg-white 
+rounded-2xl p-4 border border-slate-200/80 shadow-sm hover:border-indigo-200 transition flex items-start gap-3">\n     
+       <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0\n              bg-rose-50 
+text-rose-600\n              ">\n              <i data-lucide="play-circle" class="w-5 h-5"></i>\n            
+</div>\n\n            <div class="flex-1 min-w-0">\n              <div class="flex items-center gap-2 mb-1">\n         
+       <h3 class="font-bold text-slate-900 text-xs truncate">Test Agile Video Stream</h3>\n                <span 
+class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-slate-100 text-slate-700 
+flex-shrink-0">\n                  video\n                </span>\n              </div>\n              <p 
+class="text-[11px] text-slate-500 line-clamp-1 mb-2">Test resource description</p>\n              <div 
+class="text-[10px] text-slate-400 flex items-center gap-3">\n                <span>Web Link</span>\n                
+<span>&bull;</span>\n                <span>15 mins</span>\n                \n              </div>\n            
+</div>\n\n            <div class="flex items-center gap-1.5 flex-shrink-0">\n              \n                <button 
+onclick="playLectureVideo(\'https://example.com/test.mp4\', \'Test Agile Video Stream\')" class="p-2 rounded-xl 
+bg-rose-50 hover:bg-rose-100 text-rose-700 transition" title="Preview Video">\n                  <i data-lucide="play" 
+class="w-3.5 h-3.5 fill-current"></i>\n                </button>\n              \n\n              <form method="POST" 
+action="/trainer/delete-resource/11" onsubmit="return confirm(\'Delete this resource from the library?\');">\n         
+       <button type="submit" class="p-2 rounded-xl bg-slate-50 hover:bg-rose-50 text-slate-400 hover:text-rose-600 
+transition" title="Delete">\n                  <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>\n                
+</button>\n              </form>\n            </div>\n          </div>\n        \n          <div class="bg-white 
+rounded-2xl p-4 border border-slate-200/80 shadow-sm hover:border-indigo-200 transition flex items-start gap-3">\n     
+       <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0\n              bg-rose-50 
+text-rose-600\n              ">\n              <i data-lucide="play-circle" class="w-5 h-5"></i>\n            
+</div>\n\n            <div class="flex-1 min-w-0">\n              <div class="flex items-center gap-2 mb-1">\n         
+       <h3 class="font-bold text-slate-900 text-xs truncate">Test Agile Video Stream</h3>\n                <span 
+class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-slate-100 text-slate-700 
+flex-shrink-0">\n                  video\n                </span>\n              </div>\n              <p 
+class="text-[11px] text-slate-500 line-clamp-1 mb-2">Test resource description</p>\n              <div 
+class="text-[10px] text-slate-400 flex items-center gap-3">\n                <span>Web Link</span>\n                
+<span>&bull;</span>\n                <span>15 mins</span>\n                \n              </div>\n            
+</div>\n\n            <div class="flex items-center gap-1.5 flex-shrink-0">\n              \n                <button 
+onclick="playLectureVideo(\'https://example.com/test.mp4\', \'Test Agile Video Stream\')" class="p-2 rounded-xl 
+bg-rose-50 hover:bg-rose-100 text-rose-700 transition" title="Preview Video">\n                  <i data-lucide="play" 
+class="w-3.5 h-3.5 fill-current"></i>\n                </button>\n              \n\n              <form method="POST" 
+action="/trainer/delete-resource/10" onsubmit="return confirm(\'Delete this resource from the library?\');">\n         
+       <button type="submit" class="p-2 rounded-xl bg-slate-50 hover:bg-rose-50 text-slate-400 hover:text-rose-600 
+transition" title="Delete">\n                  <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>\n                
+</button>\n              </form>\n            </div>\n          </div>\n        \n          <div class="bg-white 
+rounded-2xl p-4 border border-slate-200/80 shadow-sm hover:border-indigo-200 transition flex items-start gap-3">\n     
+       <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0\n              bg-rose-50 
+text-rose-600\n              ">\n              <i data-lucide="play-circle" class="w-5 h-5"></i>\n            
+</div>\n\n            <div class="flex-1 min-w-0">\n              <div class="flex items-center gap-2 mb-1">\n         
+       <h3 class="font-bold text-slate-900 text-xs truncate">Test Agile Video Stream</h3>\n                <span 
+class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-slate-100 text-slate-700 
+flex-shrink-0">\n                  video\n                </span>\n              </div>\n              <p 
+class="text-[11px] text-slate-500 line-clamp-1 mb-2">Test resource description</p>\n              <div 
+class="text-[10px] text-slate-400 flex items-center gap-3">\n                <span>Web Link</span>\n                
+<span>&bull;</span>\n                <span>15 mins</span>\n                \n              </div>\n            
+</div>\n\n            <div class="flex items-center gap-1.5 flex-shrink-0">\n              \n                <button 
+onclick="playLectureVideo(\'https://example.com/test.mp4\', \'Test Agile Video Stream\')" class="p-2 rounded-xl 
+bg-rose-50 hover:bg-rose-100 text-rose-700 transition" title="Preview Video">\n                  <i data-lucide="play" 
+class="w-3.5 h-3.5 fill-current"></i>\n                </button>\n              \n\n              <form method="POST" 
+action="/trainer/delete-resource/9" onsubmit="return confirm(\'Delete this resource from the library?\');">\n          
+      <button type="submit" class="p-2 rounded-xl bg-slate-50 hover:bg-rose-50 text-slate-400 hover:text-rose-600 
+transition" title="Delete">\n                  <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>\n                
+</button>\n              </form>\n            </div>\n          </div>\n        \n          <div class="bg-white 
+rounded-2xl p-4 border border-slate-200/80 shadow-sm hover:border-indigo-200 transition flex items-start gap-3">\n     
+       <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0\n              bg-rose-50 
+text-rose-600\n              ">\n              <i data-lucide="play-circle" class="w-5 h-5"></i>\n            
+</div>\n\n            <div class="flex-1 min-w-0">\n              <div class="flex items-center gap-2 mb-1">\n         
+       <h3 class="font-bold text-slate-900 text-xs truncate">Test Agile Video Stream</h3>\n                <span 
+class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-slate-100 text-slate-700 
+flex-shrink-0">\n                  video\n                </span>\n              </div>\n              <p 
+class="text-[11px] text-slate-500 line-clamp-1 mb-2">Test resource description</p>\n              <div 
+class="text-[10px] text-slate-400 flex items-center gap-3">\n                <span>Web Link</span>\n                
+<span>&bull;</span>\n                <span>15 mins</span>\n                \n              </div>\n            
+</div>\n\n            <div class="flex items-center gap-1.5 flex-shrink-0">\n              \n                <button 
+onclick="playLectureVideo(\'https://example.com/test.mp4\', \'Test Agile Video Stream\')" class="p-2 rounded-xl 
+bg-rose-50 hover:bg-rose-100 text-rose-700 transition" title="Preview Video">\n                  <i data-lucide="play" 
+class="w-3.5 h-3.5 fill-current"></i>\n                </button>\n              \n\n              <form method="POST" 
+action="/trainer/delete-resource/8" onsubmit="return confirm(\'Delete this resource from the library?\');">\n          
+      <button type="submit" class="p-2 rounded-xl bg-slate-50 hover:bg-rose-50 text-slate-400 hover:text-rose-600 
+transition" title="Delete">\n                  <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>\n                
+</button>\n              </form>\n            </div>\n          </div>\n        \n          <div class="bg-white 
+rounded-2xl p-4 border border-slate-200/80 shadow-sm hover:border-indigo-200 transition flex items-start gap-3">\n     
+       <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0\n              bg-rose-50 
+text-rose-600\n              ">\n              <i data-lucide="play-circle" class="w-5 h-5"></i>\n            
+</div>\n\n            <div class="flex-1 min-w-0">\n              <div class="flex items-center gap-2 mb-1">\n         
+       <h3 class="font-bold text-slate-900 text-xs truncate">Test Agile Video Stream</h3>\n                <span 
+class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-slate-100 text-slate-700 
+flex-shrink-0">\n                  video\n                </span>\n              </div>\n              <p 
+class="text-[11px] text-slate-500 line-clamp-1 mb-2">Test resource description</p>\n              <div 
+class="text-[10px] text-slate-400 flex items-center gap-3">\n                <span>Web Link</span>\n                
+<span>&bull;</span>\n                <span>15 mins</span>\n                \n              </div>\n            
+</div>\n\n            <div class="flex items-center gap-1.5 flex-shrink-0">\n              \n                <button 
+onclick="playLectureVideo(\'https://example.com/test.mp4\', \'Test Agile Video Stream\')" class="p-2 rounded-xl 
+bg-rose-50 hover:bg-rose-100 text-rose-700 transition" title="Preview Video">\n                  <i data-lucide="play" 
+class="w-3.5 h-3.5 fill-current"></i>\n                </button>\n              \n\n              <form method="POST" 
+action="/trainer/delete-resource/7" onsubmit="return confirm(\'Delete this resource from the library?\');">\n          
+      <button type="submit" class="p-2 rounded-xl bg-slate-50 hover:bg-rose-50 text-slate-400 hover:text-rose-600 
+transition" title="Delete">\n                  <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>\n                
+</button>\n              </form>\n            </div>\n          </div>\n        \n          <div class="bg-white 
+rounded-2xl p-4 border border-slate-200/80 shadow-sm hover:border-indigo-200 transition flex items-start gap-3">\n     
+       <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0\n              bg-rose-50 
+text-rose-600\n              ">\n              <i data-lucide="play-circle" class="w-5 h-5"></i>\n            
+</div>\n\n            <div class="flex-1 min-w-0">\n              <div class="flex items-center gap-2 mb-1">\n         
+       <h3 class="font-bold text-slate-900 text-xs truncate">Test Agile Video Stream</h3>\n                <span 
+class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-slate-100 text-slate-700 
+flex-shrink-0">\n                  video\n                </span>\n              </div>\n              <p 
+class="text-[11px] text-slate-500 line-clamp-1 mb-2">Test resource description</p>\n              <div 
+class="text-[10px] text-slate-400 flex items-center gap-3">\n                <span>Web Link</span>\n                
+<span>&bull;</span>\n                <span>15 mins</span>\n                \n              </div>\n            
+</div>\n\n            <div class="flex items-center gap-1.5 flex-shrink-0">\n              \n                <button 
+onclick="playLectureVideo(\'https://example.com/test.mp4\', \'Test Agile Video Stream\')" class="p-2 rounded-xl 
+bg-rose-50 hover:bg-rose-100 text-rose-700 transition" title="Preview Video">\n                  <i data-lucide="play" 
+class="w-3.5 h-3.5 fill-current"></i>\n                </button>\n              \n\n              <form method="POST" 
+action="/trainer/delete-resource/6" onsubmit="return confirm(\'Delete this resource from the library?\');">\n          
+      <button type="submit" class="p-2 rounded-xl bg-slate-50 hover:bg-rose-50 text-slate-400 hover:text-rose-600 
+transition" title="Delete">\n                  <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>\n                
+</button>\n              </form>\n            </div>\n          </div>\n        \n          <div class="bg-white 
+rounded-2xl p-4 border border-slate-200/80 shadow-sm hover:border-indigo-200 transition flex items-start gap-3">\n     
+       <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0\n              bg-rose-50 
+text-rose-600\n              ">\n              <i data-lucide="play-circle" class="w-5 h-5"></i>\n            
+</div>\n\n            <div class="flex-1 min-w-0">\n              <div class="flex items-center gap-2 mb-1">\n         
+       <h3 class="font-bold text-slate-900 text-xs truncate">Organizational Emotional Intelligence &amp; Constructive 
+Feedback</h3>\n                <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md 
+bg-slate-100 text-slate-700 flex-shrink-0">\n                  video\n                </span>\n              </div>\n  
+            <p class="text-[11px] text-slate-500 line-clamp-1 mb-2">Recorded video seminar on handling high-stakes 
+stakeholder discussions, de-escalation, and non-violent communication.</p>\n              <div class="text-[10px] 
+text-slate-400 flex items-center gap-3">\n                <span>310 MB</span>\n                <span>&bull;</span>\n   
+             <span>45 mins</span>\n                \n                  <span>&bull;</span>\n                  <span 
+class="text-indigo-600 font-medium truncate max-w-[120px]">Effective Leadership &amp; Team Dynamics</span>\n           
+     \n              </div>\n            </div>\n\n            <div class="flex items-center gap-1.5 flex-shrink-0">\n 
+             \n                <button 
+onclick="playLectureVideo(\'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4\', 
+\'Organizational Emotional Intelligence &amp; Constructive Feedback\')" class="p-2 rounded-xl bg-rose-50 
+hover:bg-rose-100 text-rose-700 transition" title="Preview Video">\n                  <i data-lucide="play" 
+class="w-3.5 h-3.5 fill-current"></i>\n                </button>\n              \n\n              <form method="POST" 
+action="/trainer/delete-resource/4" onsubmit="return confirm(\'Delete this resource from the library?\');">\n          
+      <button type="submit" class="p-2 rounded-xl bg-slate-50 hover:bg-rose-50 text-slate-400 hover:text-rose-600 
+transition" title="Delete">\n                  <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>\n                
+</button>\n              </form>\n            </div>\n          </div>\n        \n          <div class="bg-white 
+rounded-2xl p-4 border border-slate-200/80 shadow-sm hover:border-indigo-200 transition flex items-start gap-3">\n     
+       <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0\n              bg-amber-50 
+text-amber-600\n              ">\n              <i data-lucide="presentation" class="w-5 h-5"></i>\n            
+</div>\n\n            <div class="flex-1 min-w-0">\n              <div class="flex items-center gap-2 mb-1">\n         
+       <h3 class="font-bold text-slate-900 text-xs truncate">Agile Sprint Planning &amp; Velocity Estimation 
+Guide</h3>\n                <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md 
+bg-slate-100 text-slate-700 flex-shrink-0">\n                  presentation\n                </span>\n              
+</div>\n              <p class="text-[11px] text-slate-500 line-clamp-1 mb-2">Executive slide presentation detailing 
+Story Points, Planning Poker, Scrum artifacts, and burn-down analytics.</p>\n              <div class="text-[10px] 
+text-slate-400 flex items-center gap-3">\n                <span>6.8 MB</span>\n                <span>&bull;</span>\n   
+             <span>38 slides</span>\n                \n                  <span>&bull;</span>\n                  <span 
+class="text-indigo-600 font-medium truncate max-w-[120px]">Foundations of Project Management</span>\n                
+\n              </div>\n            </div>\n\n            <div class="flex items-center gap-1.5 flex-shrink-0">\n      
+        \n                <a href="/static/uploads/agile_planning_slides.pdf" target="_blank" class="p-2 rounded-xl 
+bg-indigo-50 hover:bg-indigo-100 text-indigo-700 transition" title="View Document">\n                  <i 
+data-lucide="external-link" class="w-3.5 h-3.5"></i>\n                </a>\n              \n\n              <form 
+method="POST" action="/trainer/delete-resource/2" onsubmit="return confirm(\'Delete this resource from the 
+library?\');">\n                <button type="submit" class="p-2 rounded-xl bg-slate-50 hover:bg-rose-50 
+text-slate-400 hover:text-rose-600 transition" title="Delete">\n                  <i data-lucide="trash-2" 
+class="w-3.5 h-3.5"></i>\n                </button>\n              </form>\n            </div>\n          </div>\n     
+   \n      </div>\n    </div>\n  </div>\n</div>\n\n<!-- Embedded Video Player Preview Modal -->\n<div 
+id="trainer-video-modal" class="hidden fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 flex items-center 
+justify-center p-4">\n  <div class="bg-slate-900 rounded-3xl max-w-3xl w-full p-4 shadow-2xl border border-white/10 
+text-white">\n    <div class="flex items-center justify-between pb-3 border-b border-white/10 px-2">\n      <h3 
+id="trainer-video-title" class="font-bold text-sm text-white truncate">Recorded Lecture Player</h3>\n      <button 
+onclick="closeTrainerVideoModal()" class="text-slate-400 hover:text-white text-xl font-bold">&times;</button>\n    
+</div>\n    <div class="mt-3 aspect-video bg-black rounded-2xl overflow-hidden relative">\n      <video 
+id="trainer-lecture-video" controls class="w-full h-full object-contain">\n        <source id="trainer-video-source" 
+src="" type="video/mp4">\n        Your browser does not support the video tag.\n      </video>\n    </div>\n  
+</div>\n</div>\n\n      </main>\n\n      <!-- Footer -->\n      <footer class="bg-white border-t border-slate-200 py-4 
+px-6 text-center text-xs text-slate-400">\n        &copy; 2026 Capacity Connect &mdash; Digital Capacity Building and 
+Learning Management Portal. All rights reserved.\n      </footer>\n    </div>\n  </div>\n\n  <script>\n    // 
+Initialize Lucide icons\n    lucide.createIcons();\n\n    // Mobile sidebar drawer toggle\n    const toggleBtn = 
+document.getElementById(\'menu-toggle\');\n    const sidebar = document.getElementById(\'sidebar\');\n    if 
+(toggleBtn && sidebar) {\n      toggleBtn.addEventListener(\'click\', () => {\n        
+sidebar.classList.toggle(\'-translate-x-full\');\n      });\n    }\n  </script>\n  \n<script>\n  function 
+playLectureVideo(url, title) {\n    const modal = document.getElementById(\'trainer-video-modal\');\n    const video = 
+document.getElementById(\'trainer-lecture-video\');\n    const source = 
+document.getElementById(\'trainer-video-source\');\n    const titleEl = 
+document.getElementById(\'trainer-video-title\');\n\n    titleEl.textContent = title;\n    source.src = url;\n    
+video.load();\n    video.play();\n    modal.classList.remove(\'hidden\');\n  }\n\n  function closeTrainerVideoModal() 
+{\n    const modal = document.getElementById(\'trainer-video-modal\');\n    const video = 
+document.getElementById(\'trainer-lecture-video\');\n    video.pause();\n    modal.classList.add(\'hidden\');\n  
+}\n</script>\n\n</body>\n</html>'
+
+======================================================================
+FAIL: test_14_profile_management (test_app.CapacityConnectTestCase.test_14_profile_management)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Gaming\.gemini\antigravity\scratch\capacity-connect\test_app.py", line 287, in 
+test_14_profile_management
+    self.assertEqual(res_edit.status_code, 200)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 404 != 200
+
+======================================================================
+FAIL: test_15_admin_announcements_creation (test_app.CapacityConnectTestCase.test_15_admin_announcements_creation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Gaming\.gemini\antigravity\scratch\capacity-connect\test_app.py", line 309, in 
+test_15_admin_announcements_creation
+    self.assertIn(b'Announcement published successfully', res_create.data)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: b'Announcement published successfully' not found in b'\xef\xbb\xbf<!DOCTYPE html>\n<html lang="en" 
+class="h-full bg-slate-50">\n<head>\n  <meta charset="UTF-8">\n  <meta name="viewport" content="width=device-width, 
+initial-scale=1.0">\n  <title>Homepage Announcements & Updates - Capacity Connect</title>\n  \n  <!-- Tailwind CSS CDN 
+-->\n  <script src="https://cdn.tailwindcss.com"></script>\n  <!-- Lucide Icons -->\n  <script 
+src="https://unpkg.com/lucide@latest"></script>\n  <!-- Chart.js -->\n  <script 
+src="https://cdn.jsdelivr.net/npm/chart.js"></script>\n\n  <!-- Google Fonts: Inter & Plus Jakarta Sans -->\n  <link 
+rel="preconnect" href="https://fonts.googleapis.com">\n  <link rel="preconnect" href="https://fonts.gstatic.com" 
+crossorigin>\n  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&fam
+ily=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">\n\n  <script>\n    tailwind.config = {\n      theme: 
+{\n        extend: {\n          fontFamily: {\n            sans: [\'"Plus Jakarta Sans"\', \'Inter\', 
+\'sans-serif\'],\n          },\n          colors: {\n            brand: {\n              sidebar: \'#16162a\',\n       
+       sidebarHover: \'#23233c\',\n              sidebarActive: \'#2d2d4e\',\n              indigo: \'#4f46e5\',\n     
+         darkIndigo: \'#3730a3\',\n            }\n          }\n        }\n      }\n    }\n  </script>\n  <style>\n    
+body {\n      font-family: \'Plus Jakarta Sans\', sans-serif;\n    }\n    .custom-scrollbar::-webkit-scrollbar {\n     
+ width: 5px;\n      height: 5px;\n    }\n    .custom-scrollbar::-webkit-scrollbar-thumb {\n      background-color: 
+#cbd5e1;\n      border-radius: 9999px;\n    }\n  </style>\n  \n</head>\n<body class="h-full flex flex-col antialiased 
+text-slate-800">\n\n  <div class="min-h-full flex">\n    <!-- Left Sidebar -->\n    <aside id="sidebar" class="w-64 
+bg-[#16162a] text-slate-300 flex flex-col fixed inset-y-0 z-50 transition-transform duration-300 -translate-x-full 
+md:translate-x-0">\n      <!-- App Header / Logo -->\n      <div class="h-16 flex items-center gap-3 px-6 border-b 
+border-white/5">\n        <div class="w-9 h-9 rounded-xl bg-indigo-600/30 flex items-center justify-center 
+text-indigo-400 border border-indigo-500/30">\n          <i data-lucide="graduation-cap" class="w-5 h-5"></i>\n        
+</div>\n        <a href="/home" class="font-bold text-lg text-white tracking-tight flex items-center gap-1.5">\n       
+   <span>Capacity Connect</span>\n        </a>\n      </div>\n\n      <!-- Quick Role Switcher Banner (For smooth 
+testing across all 3 roles) -->\n      <div class="mx-4 mt-3 p-2 rounded-xl bg-white/5 border border-white/10 text-xs 
+text-slate-300">\n        <div class="text-[10px] uppercase tracking-wider font-semibold text-slate-400 mb-1 flex 
+items-center justify-between">\n          <span>Demo Switcher</span>\n          <span class="w-1.5 h-1.5 rounded-full 
+bg-emerald-400 animate-pulse"></span>\n        </div>\n        <div class="grid grid-cols-3 gap-1">\n          <a 
+href="/auth/quick-login/admin" class="px-1.5 py-1 text-center rounded bg-indigo-600 text-white 
+font-semibold">Admin</a>\n          <a href="/auth/quick-login/trainer" class="px-1.5 py-1 text-center rounded 
+hover:bg-white/10 text-slate-400">Trainer</a>\n          <a href="/auth/quick-login/trainee" class="px-1.5 py-1 
+text-center rounded hover:bg-white/10 text-slate-400">Trainee</a>\n        </div>\n      </div>\n\n      <!-- 
+Navigation Links -->\n      <div class="flex-1 overflow-y-auto px-4 py-4 space-y-1 custom-scrollbar">\n        <!-- 
+Main Section -->\n        <div class="px-2 mb-2 text-[11px] font-semibold uppercase tracking-wider 
+text-slate-400">Main</div>\n        \n        <a href="/home" class="flex items-center gap-3 px-3 py-2.5 rounded-xl 
+text-sm font-medium transition-colors hover:bg-white/5 hover:text-white text-slate-300">\n          <i 
+data-lucide="home" class="w-4 h-4"></i>\n          <span>Dashboard</span>\n        </a>\n\n        <a href="/landing" 
+class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors hover:bg-white/5 
+hover:text-white text-slate-300">\n          <i data-lucide="compass" class="w-4 h-4 text-sky-400"></i>\n          
+<span>Marketplace</span>\n        </a>\n\n        <a href="/courses" class="flex items-center gap-3 px-3 py-2.5 
+rounded-xl text-sm font-medium transition-colors hover:bg-white/5 hover:text-white text-slate-300">\n          <i 
+data-lucide="book-open" class="w-4 h-4"></i>\n          <span>Courses</span>\n        </a>\n\n        <a 
+href="/assessments" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors 
+hover:bg-white/5 hover:text-white text-slate-300">\n          <i data-lucide="check-square" class="w-4 h-4"></i>\n     
+     <span>MCQ Assessments</span>\n        </a>\n\n        <a href="/library" class="flex items-center gap-3 px-3 
+py-2.5 rounded-xl text-sm font-medium transition-colors hover:bg-white/5 hover:text-white text-slate-300">\n          
+<i data-lucide="folder-git-2" class="w-4 h-4"></i>\n          <span>Trainer Library</span>\n        </a>\n\n        <a 
+href="/competency-mapping" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors 
+hover:bg-white/5 hover:text-white text-slate-300">\n          <i data-lucide="network" class="w-4 h-4 
+text-indigo-400"></i>\n          <span>Competency Mapping</span>\n        </a>\n\n        <!-- Management Section 
+-->\n        <div class="pt-5 pb-2 px-2 text-[11px] font-semibold uppercase tracking-wider text-slate-400">\n          
+\n            Admin Console\n          \n        </div>\n\n        \n          <a href="/admin/dashboard" class="flex 
+items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors hover:bg-white/5 hover:text-white 
+text-slate-300">\n            <i data-lucide="layout-dashboard" class="w-4 h-4"></i>\n            
+<span>Dashboard</span>\n          </a>\n\n          <a href="/admin/users" class="flex items-center gap-3 px-3 py-2.5 
+rounded-xl text-sm font-medium transition-colors hover:bg-white/5 hover:text-white text-slate-300">\n            <i 
+data-lucide="users" class="w-4 h-4"></i>\n            <span>Manage Users</span>\n            \n          </a>\n\n      
+    <a href="/admin/announcements" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium 
+transition-colors bg-[#2a2a48] text-white shadow-sm">\n            <i data-lucide="bell" class="w-4 h-4"></i>\n        
+    <span>Announcements</span>\n          </a>\n        \n\n        \n          <a href="/trainer/upload" class="flex 
+items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors hover:bg-white/5 hover:text-white 
+text-slate-300">\n            <i data-lucide="video" class="w-4 h-4 text-rose-400"></i>\n            <span>Upload 
+Lecture Videos</span>\n          </a>\n\n          <a href="/trainer/assessments/new" class="flex items-center gap-3 
+px-3 py-2.5 rounded-xl text-sm font-medium transition-colors hover:bg-white/5 hover:text-white text-slate-300">\n      
+      <i data-lucide="clipboard-list" class="w-4 h-4"></i>\n            <span>Create Questionnaire</span>\n          
+</a>\n\n          <a href="/trainer/trainees" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm 
+font-medium transition-colors hover:bg-white/5 hover:text-white text-slate-300">\n            <i 
+data-lucide="user-check" class="w-4 h-4"></i>\n            <span>Trainee Performance</span>\n          </a>\n        
+\n\n        <a href="/profile" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium 
+transition-colors hover:bg-white/5 hover:text-white text-slate-300">\n          <i data-lucide="user" class="w-4 
+h-4"></i>\n          <span>My Profile & Skills</span>\n        </a>\n      </div>\n\n      <!-- User Profile Card & 
+Sign Out at Bottom -->\n      <div class="p-4 border-t border-white/5 bg-[#121224]/50">\n        \n          <div 
+class="flex items-center gap-3 mb-3">\n            <div class="w-10 h-10 rounded-full bg-indigo-900/60 border 
+border-indigo-500/30 text-white font-bold flex items-center justify-center text-sm shadow-inner">\n              M\n   
+         </div>\n            <div class="flex-1 min-w-0">\n              <div class="text-sm font-semibold text-white 
+truncate">Mayank</div>\n              <div class="text-xs text-slate-400 capitalize flex items-center gap-1.5">\n      
+          <span class="w-1.5 h-1.5 rounded-full bg-purple-400"></span>\n                admin\n              </div>\n  
+          </div>\n          </div>\n          <a href="/auth/logout" class="flex items-center gap-2 text-xs 
+text-slate-400 hover:text-rose-400 font-medium transition-colors px-1 py-1">\n            <i data-lucide="log-out" 
+class="w-4 h-4"></i>\n            <span>Sign out</span>\n          </a>\n        \n      </div>\n    </aside>\n\n    
+<!-- Main Content wrapper -->\n    <div class="flex-1 flex flex-col md:pl-64 min-w-0">\n      <!-- Top Mobile / Global 
+Bar -->\n      <header class="h-16 bg-white border-b border-slate-200/80 flex items-center justify-between px-4 
+md:px-8 sticky top-0 z-30">\n        <div class="flex items-center gap-3">\n          <button id="menu-toggle" 
+class="md:hidden p-2 text-slate-600 hover:text-slate-900 rounded-lg hover:bg-slate-100">\n            <i 
+data-lucide="menu" class="w-6 h-6"></i>\n          </button>\n          <div class="hidden sm:flex items-center gap-2 
+text-xs font-medium text-slate-500">\n            <span class="flex items-center gap-1"><i data-lucide="shield-check" 
+class="w-3.5 h-3.5 text-emerald-500"></i> Enterprise LMS</span>\n            <span>&bull;</span>\n            
+<span>Capacity Building Network</span>\n          </div>\n        </div>\n\n        <div class="flex items-center 
+gap-3">\n          <a href="/courses" class="hidden sm:inline-flex items-center gap-2 text-xs font-semibold px-3 
+py-1.5 rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-50 transition">\n            <i 
+data-lucide="compass" class="w-3.5 h-3.5 text-indigo-600"></i>\n            <span>Explore Catalog</span>\n          
+</a>\n\n          \n            <div class="flex items-center gap-2 pl-2 border-l border-slate-200">\n              
+<span class="text-xs font-medium text-slate-600 hidden sm:inline">Signed in as <strong 
+class="text-slate-900">Mayank</strong></span>\n              <span class="text-[11px] font-semibold uppercase px-2 
+py-0.5 rounded-full bg-purple-100 text-purple-700">\n                admin\n              </span>\n            
+</div>\n          \n        </div>\n      </header>\n\n      <!-- Toast / Flash messages -->\n      <div class="px-4 
+md:px-8 pt-4">\n        \n          \n        \n      </div>\n\n      <!-- Main Page Content -->\n      <main 
+class="flex-1 p-4 md:p-8">\n        \n<div class="max-w-6xl mx-auto space-y-6">\n  <!-- Header -->\n  <div 
+class="bg-white rounded-3xl p-6 md:p-8 border border-slate-200/80 shadow-sm flex flex-col md:flex-row items-start 
+md:items-center justify-between gap-4">\n    <div>\n      <h1 class="text-2xl md:text-3xl font-extrabold 
+text-slate-900 tracking-tight">Homepage Announcements & Feed Management</h1>\n      <p class="text-xs md:text-sm 
+text-slate-500 mt-1">Broadcast new learning content, organizational achievements, schedules, and important 
+alerts</p>\n    </div>\n\n    <button 
+onclick="document.getElementById(\'create-ann-modal\').classList.remove(\'hidden\')" class="px-4 py-2.5 bg-indigo-600 
+hover:bg-indigo-700 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-md 
+flex-shrink-0">\n      <i data-lucide="plus-circle" class="w-4 h-4"></i>\n      <span>Publish Announcement</span>\n    
+</button>\n  </div>\n\n  <!-- Announcements List -->\n  <div class="bg-white rounded-3xl border border-slate-200/80 
+shadow-sm overflow-hidden p-6 md:p-8 space-y-4">\n    <h2 class="text-base font-bold text-slate-900 mb-2">Live 
+Published Announcements (4)</h2>\n\n    <div class="space-y-4">\n      \n        <div class="p-5 rounded-2xl border 
+border-slate-200/80 bg-slate-50/50 flex flex-col sm:flex-row sm:items-center justify-between gap-4">\n          <div 
+class="flex items-start gap-4">\n            <div class="w-10 h-10 rounded-xl flex items-center justify-center 
+flex-shrink-0\n              bg-amber-50 text-amber-600">\n              <i data-lucide="trophy" class="w-5 
+h-5"></i>\n            </div>\n            <div>\n              <div class="flex items-center gap-2 mb-1">\n           
+     <h3 class="font-bold text-slate-900 text-sm">Annual Capacity Excellence Awards Announced</h3>\n                
+<span class="text-[10px] font-bold px-2 py-0.5 rounded-full\n                  bg-amber-100 text-amber-800">\n         
+         Achievement\n                </span>\n                \n              </div>\n              <p class="text-xs 
+text-slate-600 leading-relaxed max-w-2xl">Congratulations to all department teams who completed over 90% of their 
+learning modules this quarter! Digital badges and certificates have been awarded.</p>\n              <div 
+class="text-[10px] text-slate-400 mt-1 font-mono">\n                By Admin Team &bull; Sep 06, 2026\n              
+</div>\n            </div>\n          </div>\n\n          <form method="POST" action="/admin/announcements" 
+onsubmit="return confirm(\'Delete this announcement?\');" class="flex-shrink-0">\n            <input type="hidden" 
+name="action" value="delete">\n            <input type="hidden" name="ann_id" value="4">\n            <button 
+type="submit" class="px-3 py-1.5 bg-white hover:bg-rose-50 border border-slate-200 text-slate-500 hover:text-rose-600 
+font-bold rounded-xl text-xs transition">\n              Remove\n            </button>\n          </form>\n        
+</div>\n      \n        <div class="p-5 rounded-2xl border border-slate-200/80 bg-slate-50/50 flex flex-col 
+sm:flex-row sm:items-center justify-between gap-4">\n          <div class="flex items-start gap-4">\n            <div 
+class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0\n              bg-blue-50 text-blue-600\n   
+           ">\n              <i data-lucide="bell" class="w-5 h-5"></i>\n            </div>\n            <div>\n       
+       <div class="flex items-center gap-2 mb-1">\n                <h3 class="font-bold text-slate-900 text-sm">Q3 
+Training Schedule Released</h3>\n                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full\n         
+         bg-blue-100 text-blue-800\n                  ">\n                  Notification\n                </span>\n    
+            \n              </div>\n              <p class="text-xs text-slate-600 leading-relaxed max-w-2xl">The 
+training schedule for Q3 2026 has been published. Check the course catalog for upcoming sessions, live workshops, and 
+expert office hours.</p>\n              <div class="text-[10px] text-slate-400 mt-1 font-mono">\n                By 
+Admin Team &bull; Sep 05, 2026\n              </div>\n            </div>\n          </div>\n\n          <form 
+method="POST" action="/admin/announcements" onsubmit="return confirm(\'Delete this announcement?\');" 
+class="flex-shrink-0">\n            <input type="hidden" name="action" value="delete">\n            <input 
+type="hidden" name="ann_id" value="3">\n            <button type="submit" class="px-3 py-1.5 bg-white hover:bg-rose-50 
+border border-slate-200 text-slate-500 hover:text-rose-600 font-bold rounded-xl text-xs transition">\n              
+Remove\n            </button>\n          </form>\n        </div>\n      \n        <div class="p-5 rounded-2xl border 
+border-slate-200/80 bg-slate-50/50 flex flex-col sm:flex-row sm:items-center justify-between gap-4">\n          <div 
+class="flex items-start gap-4">\n            <div class="w-10 h-10 rounded-xl flex items-center justify-center 
+flex-shrink-0\n              bg-emerald-50 text-emerald-600\n              ">\n              <i 
+data-lucide="book-open" class="w-5 h-5"></i>\n            </div>\n            <div>\n              <div class="flex 
+items-center gap-2 mb-1">\n                <h3 class="font-bold text-slate-900 text-sm">New Course: Cloud Computing 
+&amp; AWS Fundamentals</h3>\n                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full\n             
+     bg-emerald-100 text-emerald-800\n                  ">\n                  New Content\n                </span>\n   
+             \n                  <span class="text-[10px] font-bold text-indigo-600 flex items-center gap-0.5"><i 
+data-lucide="pin" class="w-3 h-3"></i> Pinned</span>\n                \n              </div>\n              <p 
+class="text-xs text-slate-600 leading-relaxed max-w-2xl">A new advanced-level course on AWS cloud services is now 
+available. Enroll now to get hands-on experience with EC2, S3, RDS, and Lambda.</p>\n              <div 
+class="text-[10px] text-slate-400 mt-1 font-mono">\n                By Admin Team &bull; Sep 03, 2026\n              
+</div>\n            </div>\n          </div>\n\n          <form method="POST" action="/admin/announcements" 
+onsubmit="return confirm(\'Delete this announcement?\');" class="flex-shrink-0">\n            <input type="hidden" 
+name="action" value="delete">\n            <input type="hidden" name="ann_id" value="2">\n            <button 
+type="submit" class="px-3 py-1.5 bg-white hover:bg-rose-50 border border-slate-200 text-slate-500 hover:text-rose-600 
+font-bold rounded-xl text-xs transition">\n              Remove\n            </button>\n          </form>\n        
+</div>\n      \n        <div class="p-5 rounded-2xl border border-slate-200/80 bg-slate-50/50 flex flex-col 
+sm:flex-row sm:items-center justify-between gap-4">\n          <div class="flex items-start gap-4">\n            <div 
+class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0\n              bg-indigo-50 
+text-indigo-600\n              ">\n              <i data-lucide="sparkles" class="w-5 h-5"></i>\n            </div>\n  
+          <div>\n              <div class="flex items-center gap-2 mb-1">\n                <h3 class="font-bold 
+text-slate-900 text-sm">Welcome to Capacity Connect!</h3>\n                <span class="text-[10px] font-bold px-2 
+py-0.5 rounded-full\n                  bg-slate-200 text-slate-700\n                  ">\n                  
+Announcement\n                </span>\n                \n                  <span class="text-[10px] font-bold 
+text-indigo-600 flex items-center gap-0.5"><i data-lucide="pin" class="w-3 h-3"></i> Pinned</span>\n                \n 
+             </div>\n              <p class="text-xs text-slate-600 leading-relaxed max-w-2xl">We are excited to 
+launch our new digital capacity building platform. Explore courses, build your professional profile, and start your 
+learning journey today.</p>\n              <div class="text-[10px] text-slate-400 mt-1 font-mono">\n                By 
+Admin Team &bull; Sep 01, 2026\n              </div>\n            </div>\n          </div>\n\n          <form 
+method="POST" action="/admin/announcements" onsubmit="return confirm(\'Delete this announcement?\');" 
+class="flex-shrink-0">\n            <input type="hidden" name="action" value="delete">\n            <input 
+type="hidden" name="ann_id" value="1">\n            <button type="submit" class="px-3 py-1.5 bg-white hover:bg-rose-50 
+border border-slate-200 text-slate-500 hover:text-rose-600 font-bold rounded-xl text-xs transition">\n              
+Remove\n            </button>\n          </form>\n        </div>\n      \n    </div>\n  </div>\n</div>\n\n<!-- Modal: 
+Publish Announcement -->\n<div id="create-ann-modal" class="hidden fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 
+flex items-center justify-center p-4">\n  <div class="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl border 
+border-slate-200">\n    <div class="flex items-center justify-between pb-4 border-b border-slate-100">\n      <h3 
+class="font-bold text-slate-900 text-lg">Broadcast Announcement</h3>\n      <button 
+onclick="document.getElementById(\'create-ann-modal\').classList.add(\'hidden\')" class="text-slate-400 
+hover:text-slate-600">&times;</button>\n    </div>\n    <form method="POST" action="/admin/announcements" 
+class="space-y-4 mt-4">\n      <input type="hidden" name="action" value="create">\n      <div>\n        <label 
+class="block text-xs font-bold text-slate-700 mb-1">Headline / Title *</label>\n        <input type="text" 
+name="title" required placeholder="e.g. Q4 Executive Leadership Cohort Begins" class="w-full px-3 py-2 bg-slate-50 
+border border-slate-200 rounded-xl text-xs">\n      </div>\n\n      <div>\n        <label class="block text-xs 
+font-bold text-slate-700 mb-1">Category Tag *</label>\n        <select name="tag" class="w-full px-3 py-2 bg-slate-50 
+border border-slate-200 rounded-xl text-xs font-medium">\n          <option 
+value="Announcement">Announcement</option>\n          <option value="New Content">New Content</option>\n          
+<option value="Notification">Notification</option>\n          <option value="Achievement">Achievement</option>\n       
+ </select>\n      </div>\n\n      <div>\n        <label class="block text-xs font-bold text-slate-700 
+mb-1">Announcement Body Content *</label>\n        <textarea name="content" rows="3" required placeholder="Message 
+details visible on the homepage feed..." class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl 
+text-xs"></textarea>\n      </div>\n\n      <div class="flex items-center gap-2">\n        <input type="checkbox" 
+id="is_pinned" name="is_pinned" value="1" class="rounded text-indigo-600">\n        <label for="is_pinned" 
+class="text-xs font-semibold text-slate-700 cursor-pointer">Pin to top of homepage</label>\n      </div>\n\n      <div 
+class="flex justify-end gap-2 pt-3">\n        <button type="button" 
+onclick="document.getElementById(\'create-ann-modal\').classList.add(\'hidden\')" class="px-4 py-2 bg-slate-100 
+hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-semibold">Cancel</button>\n        <button type="submit" 
+class="px-5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold shadow">Publish 
+Now</button>\n      </div>\n    </form>\n  </div>\n</div>\n\n      </main>\n\n      <!-- Footer -->\n      <footer 
+class="bg-white border-t border-slate-200 py-4 px-6 text-center text-xs text-slate-400">\n        &copy; 2026 Capacity 
+Connect &mdash; Digital Capacity Building and Learning Management Portal. All rights reserved.\n      </footer>\n    
+</div>\n  </div>\n\n  <script>\n    // Initialize Lucide icons\n    lucide.createIcons();\n\n    // Mobile sidebar 
+drawer toggle\n    const toggleBtn = document.getElementById(\'menu-toggle\');\n    const sidebar = 
+document.getElementById(\'sidebar\');\n    if (toggleBtn && sidebar) {\n      toggleBtn.addEventListener(\'click\', () 
+=> {\n        sidebar.classList.toggle(\'-translate-x-full\');\n      });\n    }\n  </script>\n  \n</body>\n</html>'
+
+----------------------------------------------------------------------
+Ran 16 tests in 1.065s
+
+FAILED (failures=5)

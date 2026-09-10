@@ -1,0 +1,139 @@
+﻿{% extends "base.html" %}
+
+{% block title %}Assessment Result - Capacity Connect{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto space-y-8">
+
+  <!-- Score Summary Hero Card -->
+  <div class="bg-white rounded-3xl p-8 border border-slate-200/80 shadow-md text-center relative overflow-hidden">
+    <div class="w-20 h-20 rounded-3xl mx-auto mb-4 flex items-center justify-center text-3xl shadow-lg
+      {% if submission.passed %}bg-emerald-500 text-white{% else %}bg-rose-500 text-white{% endif %}">
+      <i data-lucide="{% if submission.passed %}award{% else %}alert-circle{% endif %}" class="w-10 h-10"></i>
+    </div>
+
+    <h1 class="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">
+      {% if submission.passed %}
+        Congratulations! You Passed!
+      {% else %}
+        Assessment Incomplete &mdash; Keep Learning!
+      {% endif %}
+    </h1>
+
+    <p class="text-xs md:text-sm text-slate-500 mt-1 max-w-lg mx-auto">
+      {% if submission.passed %}
+        You demonstrated exceptional competency in {{ assessment.subject }}. A verified digital certificate of completion has been issued to your profile.
+      {% else %}
+        You scored below the required passing threshold of {{ assessment.passing_score }}%. Review the detailed explanations below and retake the assessment.
+      {% endif %}
+    </p>
+
+    <!-- Stat Pills -->
+    <div class="flex flex-wrap items-center justify-center gap-6 my-6 pt-6 border-t border-slate-100">
+      <div>
+        <span class="text-[10px] uppercase font-bold text-slate-400 block">Your Score</span>
+        <span class="text-3xl font-extrabold {% if submission.passed %}text-emerald-600{% else %}text-rose-600{% endif %}">
+          {{ submission.score }}%
+        </span>
+      </div>
+      <div class="h-10 w-px bg-slate-200"></div>
+      <div>
+        <span class="text-[10px] uppercase font-bold text-slate-400 block">Correct Answers</span>
+        <span class="text-3xl font-extrabold text-slate-800">
+          {{ submission.correct_count }} / {{ submission.total_questions }}
+        </span>
+      </div>
+      <div class="h-10 w-px bg-slate-200"></div>
+      <div>
+        <span class="text-[10px] uppercase font-bold text-slate-400 block">Passing Mark</span>
+        <span class="text-3xl font-extrabold text-slate-800">
+          {{ assessment.passing_score }}%
+        </span>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="flex flex-wrap items-center justify-center gap-3">
+      {% if certificate %}
+        <a href="{{ url_for('view_certificate', cert_code=certificate.cert_code) }}" target="_blank" class="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl text-xs shadow-md transition flex items-center gap-2">
+          <i data-lucide="shield-check" class="w-4 h-4 text-amber-300"></i>
+          <span>View & Print Official Certificate</span>
+        </a>
+      {% endif %}
+
+      <a href="{{ url_for('assessments.take_assessment', assessment_id=assessment.id) }}" class="px-5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-xs transition flex items-center gap-2">
+        <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
+        <span>Retake Quiz</span>
+      </a>
+
+      <a href="{{ url_for('assessments.list_assessments') }}" class="px-5 py-2.5 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 font-bold rounded-xl text-xs transition">
+        Back to Assessments
+      </a>
+    </div>
+  </div>
+
+  <!-- Question-by-Question Review Breakdown -->
+  <div class="bg-white rounded-3xl p-6 md:p-8 border border-slate-200/80 shadow-sm space-y-6">
+    <h2 class="text-lg font-bold text-slate-900 tracking-tight flex items-center gap-2">
+      <i data-lucide="help-circle" class="w-5 h-5 text-indigo-600"></i>
+      <span>Comprehensive Question Breakdown & Explanations</span>
+    </h2>
+
+    <div class="space-y-6">
+      {% for q in questions %}
+        {% set user_choice = answers.get(q.id|string, '') %}
+        {% set is_correct = (user_choice == q.correct_option) %}
+
+        <div class="p-6 rounded-2xl border transition {% if is_correct %}bg-emerald-50/40 border-emerald-200{% else %}bg-rose-50/40 border-rose-200{% endif %}">
+          <div class="flex items-start justify-between gap-3 mb-3">
+            <div class="flex items-start gap-3">
+              <span class="w-7 h-7 rounded-lg font-bold text-xs flex items-center justify-center flex-shrink-0 text-white {% if is_correct %}bg-emerald-600{% else %}bg-rose-600{% endif %}">
+                {{ loop.index }}
+              </span>
+              <h3 class="text-sm font-bold text-slate-900">{{ q.question_text }}</h3>
+            </div>
+            <span class="text-xs font-bold px-2.5 py-0.5 rounded-full flex items-center gap-1 flex-shrink-0 {% if is_correct %}bg-emerald-100 text-emerald-800{% else %}bg-rose-100 text-rose-800{% endif %}">
+              {% if is_correct %}
+                <i data-lucide="check" class="w-3.5 h-3.5"></i> Correct
+              {% else %}
+                <i data-lucide="x" class="w-3.5 h-3.5"></i> Incorrect
+              {% endif %}
+            </span>
+          </div>
+
+          <!-- Options Grid -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs mb-3 pl-10">
+            <div class="p-2.5 rounded-xl border {% if q.correct_option == 'A' %}bg-emerald-100/70 border-emerald-300 font-semibold text-emerald-900{% elif user_choice == 'A' %}bg-rose-100/70 border-rose-300 font-semibold text-rose-900{% else %}bg-white border-slate-200 text-slate-600{% endif %}">
+              A. {{ q.option_a }}
+            </div>
+            <div class="p-2.5 rounded-xl border {% if q.correct_option == 'B' %}bg-emerald-100/70 border-emerald-300 font-semibold text-emerald-900{% elif user_choice == 'B' %}bg-rose-100/70 border-rose-300 font-semibold text-rose-900{% else %}bg-white border-slate-200 text-slate-600{% endif %}">
+              B. {{ q.option_b }}
+            </div>
+            {% if q.option_c and q.option_c != 'N/A' %}
+              <div class="p-2.5 rounded-xl border {% if q.correct_option == 'C' %}bg-emerald-100/70 border-emerald-300 font-semibold text-emerald-900{% elif user_choice == 'C' %}bg-rose-100/70 border-rose-300 font-semibold text-rose-900{% else %}bg-white border-slate-200 text-slate-600{% endif %}">
+                C. {{ q.option_c }}
+              </div>
+            {% endif %}
+            {% if q.option_d and q.option_d != 'N/A' %}
+              <div class="p-2.5 rounded-xl border {% if q.correct_option == 'D' %}bg-emerald-100/70 border-emerald-300 font-semibold text-emerald-900{% elif user_choice == 'D' %}bg-rose-100/70 border-rose-300 font-semibold text-rose-900{% else %}bg-white border-slate-200 text-slate-600{% endif %}">
+                D. {{ q.option_d }}
+              </div>
+            {% endif %}
+          </div>
+
+          <!-- Explanation -->
+          {% if q.explanation %}
+            <div class="ml-10 p-3 rounded-xl bg-white border border-slate-200/80 text-xs text-slate-600 flex items-start gap-2">
+              <i data-lucide="info" class="w-4 h-4 text-indigo-600 flex-shrink-0 mt-0.5"></i>
+              <div>
+                <strong class="text-slate-800 font-semibold">Key Concept Explanation:</strong>
+                {{ q.explanation }}
+              </div>
+            </div>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}

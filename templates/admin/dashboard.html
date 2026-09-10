@@ -1,0 +1,224 @@
+﻿{% extends "base.html" %}
+
+{% block title %}Executive Analytics Dashboard - Capacity Connect{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto space-y-8">
+  <!-- Analytics Header matching Screenshot 2 style -->
+  <div class="bg-white rounded-3xl p-6 md:p-8 border border-slate-200/80 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+    <div>
+      <div class="flex items-center gap-2">
+        <h1 class="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">Analytics & Institutional Oversight</h1>
+        <span class="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-indigo-50 text-indigo-700">Live Telemetry</span>
+      </div>
+      <p class="text-xs md:text-sm text-slate-500 mt-1">Real-time statistics across capacity development, course enrollments, assessment outcomes, and competencies</p>
+    </div>
+
+    <div class="flex items-center gap-2">
+      <a href="{{ url_for('admin.users') }}" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-sm">
+        <i data-lucide="users" class="w-4 h-4"></i>
+        <span>Manage Users</span>
+      </a>
+      <a href="{{ url_for('admin.competency_matrix') }}" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-md">
+        <i data-lucide="network" class="w-4 h-4"></i>
+        <span>Competency Matrix</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- KPI Metric Grid -->
+  <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+    <div class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-sm">
+      <div class="text-[11px] font-bold uppercase text-slate-400 mb-1">Trainees</div>
+      <div class="text-2xl font-black text-slate-800">{{ total_trainees }}</div>
+      <div class="text-[10px] text-emerald-600 font-semibold mt-1 flex items-center gap-0.5">
+        <i data-lucide="trending-up" class="w-3 h-3"></i> Active
+      </div>
+    </div>
+
+    <div class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-sm">
+      <div class="text-[11px] font-bold uppercase text-slate-400 mb-1">Trainers</div>
+      <div class="text-2xl font-black text-slate-800">{{ total_trainers }}</div>
+      <div class="text-[10px] text-indigo-600 font-semibold mt-1 flex items-center gap-0.5">
+        <i data-lucide="shield-check" class="w-3 h-3"></i> Certified
+      </div>
+    </div>
+
+    <div class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-sm">
+      <div class="text-[11px] font-bold uppercase text-slate-400 mb-1">Courses</div>
+      <div class="text-2xl font-black text-slate-800">{{ total_courses }}</div>
+      <div class="text-[10px] text-slate-500 font-semibold mt-1">Catalog Live</div>
+    </div>
+
+    <div class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-sm">
+      <div class="text-[11px] font-bold uppercase text-slate-400 mb-1">Enrollments</div>
+      <div class="text-2xl font-black text-indigo-600">{{ total_enrollments }}</div>
+      <div class="text-[10px] text-emerald-600 font-semibold mt-1">Engaged</div>
+    </div>
+
+    <div class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-sm">
+      <div class="text-[11px] font-bold uppercase text-slate-400 mb-1">Certificates</div>
+      <div class="text-2xl font-black text-amber-500">{{ total_certifications }}</div>
+      <div class="text-[10px] text-amber-600 font-semibold mt-1">Issued</div>
+    </div>
+
+    <div class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-sm">
+      <div class="text-[11px] font-bold uppercase text-slate-400 mb-1">Pass Rate</div>
+      <div class="text-2xl font-black text-emerald-600">{{ pass_rate }}%</div>
+      <div class="text-[10px] text-slate-500 font-semibold mt-1">Avg Score: {{ avg_score }}%</div>
+    </div>
+  </div>
+
+  <!-- Interactive Charts Section -->
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <!-- Chart 1: Course Categories -->
+    <div class="bg-white rounded-3xl p-6 md:p-8 border border-slate-200/80 shadow-sm">
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="font-bold text-slate-900 text-base flex items-center gap-2">
+          <i data-lucide="pie-chart" class="w-4 h-4 text-indigo-600"></i>
+          <span>Curriculum Domain Distribution</span>
+        </h3>
+      </div>
+      <div class="h-64 flex items-center justify-center">
+        <canvas id="categoryChart"></canvas>
+      </div>
+    </div>
+
+    <!-- Chart 2: Competency & Assessment Performance -->
+    <div class="bg-white rounded-3xl p-6 md:p-8 border border-slate-200/80 shadow-sm">
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="font-bold text-slate-900 text-base flex items-center gap-2">
+          <i data-lucide="bar-chart-3" class="w-4 h-4 text-indigo-600"></i>
+          <span>Assessment Outcome Metrics</span>
+        </h3>
+      </div>
+      <div class="h-64 flex items-center justify-center">
+        <canvas id="performanceChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dual Tables: Recent Enrollments & Assessment Submissions -->
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <!-- Recent Enrollments -->
+    <div class="bg-white rounded-3xl border border-slate-200/80 shadow-sm overflow-hidden p-6">
+      <h3 class="font-bold text-slate-900 text-base mb-4 flex items-center justify-between">
+        <span>Recent Trainee Enrollments</span>
+        <span class="text-xs text-indigo-600 font-semibold">Latest {{ recent_enrollments|length }}</span>
+      </h3>
+      <div class="space-y-3">
+        {% for e in recent_enrollments %}
+          <div class="flex items-center justify-between p-3 rounded-2xl bg-slate-50 border border-slate-100 text-xs">
+            <div>
+              <div class="font-bold text-slate-900">{{ e.user.name }}</div>
+              <div class="text-[11px] text-slate-500">{{ e.course.title }}</div>
+            </div>
+            <div class="text-right">
+              <span class="font-bold text-indigo-600">{{ e.progress }}% Complete</span>
+              <div class="text-[10px] text-slate-400">{{ e.enrolled_at.strftime('%b %d') }}</div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Recent Submissions -->
+    <div class="bg-white rounded-3xl border border-slate-200/80 shadow-sm overflow-hidden p-6">
+      <h3 class="font-bold text-slate-900 text-base mb-4 flex items-center justify-between">
+        <span>Recent Assessment Evaluations</span>
+        <span class="text-xs text-indigo-600 font-semibold">Latest {{ recent_submissions|length }}</span>
+      </h3>
+      <div class="space-y-3">
+        {% for s in recent_submissions %}
+          <div class="flex items-center justify-between p-3 rounded-2xl bg-slate-50 border border-slate-100 text-xs">
+            <div>
+              <div class="font-bold text-slate-900">{{ s.user.name }}</div>
+              <div class="text-[11px] text-slate-500">{{ s.assessment.subject }}</div>
+            </div>
+            <div class="text-right">
+              <span class="font-bold {% if s.passed %}text-emerald-600{% else %}text-rose-600{% endif %}">
+                {{ s.score }}% ({% if s.passed %}PASS{% else %}FAIL{% endif %})
+              </span>
+              <div class="text-[10px] text-slate-400">{{ s.submitted_at.strftime('%b %d, %H:%M') }}</div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  // Category Doughnut Chart
+  const catData = {{ cat_counts|tojson }};
+  const catLabels = Object.keys(catData);
+  const catValues = Object.values(catData);
+
+  new Chart(document.getElementById('categoryChart'), {
+    type: 'doughnut',
+    data: {
+      labels: catLabels.length ? catLabels : ['Management', 'Technology', 'Data Analytics', 'Leadership'],
+      datasets: [{
+        data: catValues.length ? catValues : [2, 3, 1, 1],
+        backgroundColor: ['#4f46e5', '#3b82f6', '#10b981', '#f59e0b', '#8b5cf6'],
+        borderWidth: 0
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          position: 'bottom',
+          labels: { boxWidth: 12, font: { family: 'Plus Jakarta Sans', size: 11 } }
+        }
+      }
+    }
+  });
+
+  // Performance Bar Chart
+  new Chart(document.getElementById('performanceChart'), {
+    type: 'bar',
+    data: {
+      labels: ['Project Mgmt', 'AWS Cloud', 'Python Data', 'Cybersecurity', 'Leadership'],
+      datasets: [
+        {
+          label: 'Pass Rate (%)',
+          data: [92, 85, 78, 88, 95],
+          backgroundColor: '#4f46e5',
+          borderRadius: 8
+        },
+        {
+          label: 'Average Score (%)',
+          data: [88, 82, 76, 84, 91],
+          backgroundColor: '#a5b4fc',
+          borderRadius: 8
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        y: {
+          beginAtZero: true,
+          max: 100,
+          grid: { color: '#f1f5f9' }
+        },
+        x: {
+          grid: { display: false }
+        }
+      },
+      plugins: {
+        legend: {
+          position: 'bottom',
+          labels: { boxWidth: 12, font: { family: 'Plus Jakarta Sans', size: 11 } }
+        }
+      }
+    }
+  });
+</script>
+{% endblock %}

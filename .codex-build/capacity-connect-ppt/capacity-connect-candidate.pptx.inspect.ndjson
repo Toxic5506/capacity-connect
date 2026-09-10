@@ -1,0 +1,175 @@
+{"kind":"deck","id":"pr/s85jx7","name":"Deck"}
+{"kind":"layout","layoutId":"9a83ebba-f4f7-4f36-b0c8-b8ccd08a5d7c","name":"Master","type":"master"}
+{"kind":"layout","layoutId":"bda91eb6-a68b-4dc4-ab65-45faf87e6b8a","name":"Title Slide","type":"title"}
+{"kind":"slide","id":"sl/qi1tz3","slide":1,"title":"SMART INDIA HACKATHON 2025","textShapes":6}
+{"kind":"textbox","id":"sh/a5o7uhwj","slide":1,"text":"SMART INDIA HACKATHON 2025","textPreview":"SMART INDIA HACKATHON 2025","textChars":26,"textLines":1,"bbox":[145,35,860,55]}
+{"kind":"textbox","id":"sh/xsfqpwvu","slide":1,"text":"SMART INDIA\nHACKATHON\n2025","textPreview":"SMART INDIA | HACKATHON | 2025","textChars":26,"textLines":3,"bbox":[1080,24,170,72]}
+{"kind":"textbox","id":"sh/w76pwru9","slide":1,"text":"TITLE PAGE","textPreview":"TITLE PAGE","textChars":10,"textLines":1,"bbox":[420,145,440,50]}
+{"kind":"textbox","id":"sh/jux8r6d0","slide":1,"text":"•  Problem Statement ID - 26075\n•  Problem Statement Title - CAPACITY CONNECT A Digital Capacity Building and Learning Management Portal\n•  Theme - Smart Education\n•  PS Category - Software\n•  Team ID -\n•  Team Name - byte force","textPreview":"•  Problem Statement ID - 26075 | •  Problem Statement Title - CAPACITY CONNECT A Digital Capacity Building and Learning Management Porta...","textChars":228,"textLines":6,"bbox":[48,235,820,380]}
+{"kind":"shape","id":"sh/ito7y1cf","slide":1,"bbox":[840,175,300,330]}
+{"kind":"textbox","id":"sh/5wzqtwv6","slide":1,"text":"CC","textPreview":"CC","textChars":2,"textLines":1,"bbox":[885,225,210,100]}
+{"kind":"textbox","id":"sh/kvqp0bul","slide":1,"text":"LEARN\nCONNECT\nGROW","textPreview":"LEARN | CONNECT | GROW","textChars":18,"textLines":3,"bbox":[885,345,210,95]}
+{"kind":"notes","id":"nt/qi1tz3","slide":1,"text":"Reference layout: SIH 2025 title slide supplied by the user. Project metadata supplied by the user."}
+{"kind":"slide","id":"sl/4lzfcm","slide":2,"title":"byte force","textShapes":16}
+{"kind":"shape","id":"sh/upobq9cr","slide":2,"bbox":[0,682,1280,38]}
+{"kind":"shape","id":"sh/hczu1ov2","slide":2,"bbox":[0,73,1280,3]}
+{"kind":"shape","id":"sh/gr6tsjuh","slide":2,"bbox":[10,13,150,42]}
+{"kind":"textbox","id":"sh/7mxcvud0","slide":2,"text":"byte force","textPreview":"byte force","textChars":10,"textLines":1,"bbox":[18,20,134,25]}
+{"kind":"textbox","id":"sh/6lobmpcf","slide":2,"text":"Capacity Connect: Digital Capacity Building and Learning Management Portal","textPreview":"Capacity Connect: Digital Capacity Building and Learning Management Portal","textChars":74,"textLines":1,"bbox":[185,20,840,38]}
+{"kind":"textbox","id":"sh/tofux4v6","slide":2,"text":"SMART INDIA\nHACKATHON\n2025","textPreview":"SMART INDIA | HACKATHON | 2025","textChars":26,"textLines":3,"bbox":[1082,12,176,52]}
+{"kind":"textbox","id":"sh/8n6tozul","slide":2,"text":"2","textPreview":"2","textChars":1,"textLines":1,"bbox":[1198,691,30,18]}
+{"kind":"shape","id":"sh/rihc7yd4","slide":2,"bbox":[568,83,1,163]}
+{"kind":"textbox","id":"sh/qh8vytcj","slide":2,"text":"Problem","textPreview":"Problem","textChars":7,"textLines":1,"bbox":[25,87,490,30]}
+{"kind":"shape","id":"sh/47yx8r65","slide":2,"bbox":[25,116,240,1]}
+{"kind":"textbox","id":"sh/p87y1c7q","slide":2,"text":"Capacity-building programmes often keep learning resources, trainee progress, assessment results, and trainer expertise in separate places. Administrators have limited visibility into approvals, course completion, and competency coverage.","textPreview":"Capacity-building programmes often keep learning resources, trainee progress, assessment results, and trainer expertise in separate place...","textChars":238,"textLines":1,"bbox":[25,125,510,115]}
+{"kind":"textbox","id":"sh/25wf6hof","slide":2,"text":"Our Idea","textPreview":"Our Idea","textChars":8,"textLines":1,"bbox":[590,87,460,30]}
+{"kind":"shape","id":"sh/365gzmp0","slide":2,"bbox":[590,116,240,1]}
+{"kind":"textbox","id":"sh/gjex4769","slide":2,"text":"Capacity Connect brings role-based learning, competency mapping, assessments, certificates, and resource sharing into one portal. It gives trainees, trainers, and administrators a shared operational view.","textPreview":"Capacity Connect brings role-based learning, competency mapping, assessments, certificates, and resource sharing into one portal. It give...","textChars":204,"textLines":1,"bbox":[590,125,635,115]}
+{"kind":"shape","id":"sh/h4nyxc7u","slide":2,"bbox":[0,248,1280,1]}
+{"kind":"textbox","id":"sh/uhwf2xo3","slide":2,"text":"Proposed Solution","textPreview":"Proposed Solution","textChars":17,"textLines":1,"bbox":[25,255,470,30]}
+{"kind":"shape","id":"sh/fi5gv2po","slide":2,"bbox":[25,284,240,1]}
+{"kind":"textbox","id":"sh/sfux07qd","slide":2,"text":"•  Role-based accounts with administrator approval for new registrations.\n•  Course catalogue with enrollment, progress tracking, feedback, and linked resources.\n•  Timed MCQ assessments that calculate scores and issue certificates after a pass.","textPreview":"•  Role-based accounts with administrator approval for new registrations. | •  Course catalogue with enrollment, progress tracking, feedb...","textChars":245,"textLines":3,"bbox":[25,295,490,335]}
+{"kind":"textbox","id":"sh/tgnyts7i","slide":2,"text":"Innovation / Uniqueness","textPreview":"Innovation / Uniqueness","textChars":23,"textLines":1,"bbox":[850,255,380,30]}
+{"kind":"shape","id":"sh/9cfexozm","slide":2,"bbox":[850,284,240,1]}
+{"kind":"textbox","id":"sh/8bmd4ji1","slide":2,"text":"•  One workflow connects learning activity with trainer competencies.\n•  Certificates and assessment outcomes become part of each learner profile.\n•  Administrators can monitor users, approvals, courses, submissions, and announcements from one console.","textPreview":"•  One workflow connects learning activity with trainer competencies. | •  Certificates and assessment outcomes become part of each learn...","textChars":252,"textLines":3,"bbox":[850,295,385,310]}
+{"kind":"shape","id":"sh/7adwvehg","slide":2,"bbox":[535,390,205,76]}
+{"kind":"textbox","id":"sh/m94v2t0v","slide":2,"text":"Capacity\nConnect","textPreview":"Capacity | Connect","textChars":16,"textLines":2,"bbox":[540,395,195,66]}
+{"kind":"shape","id":"sh/l8vetoza","slide":2,"bbox":[355,505,150,56]}
+{"kind":"textbox","id":"sh/k7md0jip","slide":2,"text":"Courses &\nResources","textPreview":"Courses & | Resources","textChars":19,"textLines":2,"bbox":[360,510,140,46]}
+{"kind":"shape","id":"sh/z6dwrehk","slide":2,"bbox":[555,515,165,56]}
+{"kind":"textbox","id":"sh/y54vy90z","slide":2,"text":"Assessments &\nCertificates","textPreview":"Assessments & | Certificates","textChars":26,"textLines":2,"bbox":[560,520,155,46]}
+{"kind":"shape","id":"sh/54ze58zu","slide":2,"bbox":[755,505,150,56]}
+{"kind":"textbox","id":"sh/43qxc3i9","slide":2,"text":"Competency\nMapping","textPreview":"Competency | Mapping","textChars":18,"textLines":2,"bbox":[760,510,140,46]}
+{"kind":"shape","id":"sh/290b65gr","slide":2,"bbox":[430,467,175,38]}
+{"kind":"shape","id":"sh/na9szaxc","slide":2,"bbox":[635,467,1.5,48]}
+{"kind":"shape","id":"sh/obit8fyh","slide":2,"bbox":[670,467,160,38]}
+{"kind":"notes","id":"nt/4lzfcm","slide":2,"text":"Solution details based on app.py, models.py, and route modules in the Capacity Connect prototype."}
+{"kind":"slide","id":"sl/lmycmt","slide":3,"title":"byte force","textShapes":18}
+{"kind":"shape","id":"sh/sfidoze1","slide":3,"bbox":[0,682,1280,38]}
+{"kind":"shape","id":"sh/rupcvuxg","slide":3,"bbox":[0,73,1280,3]}
+{"kind":"shape","id":"sh/qtgvmpwv","slide":3,"bbox":[10,13,150,42]}
+{"kind":"textbox","id":"sh/1kru14fi","slide":3,"text":"byte force","textPreview":"byte force","textChars":10,"textLines":1,"bbox":[18,20,134,25]}
+{"kind":"textbox","id":"sh/0jidszed","slide":3,"text":"TECHNICAL APPROACH","textPreview":"TECHNICAL APPROACH","textChars":18,"textLines":1,"bbox":[185,20,840,38]}
+{"kind":"textbox","id":"sh/fi9czuxs","slide":3,"text":"SMART INDIA\nHACKATHON\n2025","textPreview":"SMART INDIA | HACKATHON | 2025","textChars":26,"textLines":3,"bbox":[1082,12,176,52]}
+{"kind":"textbox","id":"sh/eh0vqpw7","slide":3,"text":"3","textPreview":"3","textChars":1,"textLines":1,"bbox":[1198,691,30,18]}
+{"kind":"shape","id":"sh/ho7up0fe","slide":3,"bbox":[375,78,1,602]}
+{"kind":"textbox","id":"sh/gnetgfet","slide":3,"text":"Technology Stack","textPreview":"Technology Stack","textChars":16,"textLines":1,"bbox":[15,95,330,28]}
+{"kind":"textbox","id":"sh/q9g3u5c7","slide":3,"text":"•  Flask routes and Jinja templates render the web interface.\n•  Tailwind CSS, Lucide icons, Chart.js, and Google Fonts shape the UI.\n•  Flask-SQLAlchemy and SQLAlchemy manage application data.\n•  SQLite stores users, courses, assessments, enrolments, certificates, and more.\n•  Werkzeug hashes passwords and safely names uploaded files.\n•  Local static uploads store learning resources and external certificates.","textPreview":"•  Flask routes and Jinja templates render the web interface. | •  Tailwind CSS, Lucide icons, Chart.js, and Google Fonts shape the UI. |...","textChars":413,"textLines":6,"bbox":[12,133,346,465]}
+{"kind":"textbox","id":"sh/rap43ats","slide":3,"text":"Application Flow","textPreview":"Application Flow","textChars":16,"textLines":1,"bbox":[395,92,400,30]}
+{"kind":"shape","id":"sh/cbylwfud","slide":3,"bbox":[395,121,240,1]}
+{"kind":"shape","id":"sh/dcrm5kby","slide":3,"bbox":[460,145,195,42]}
+{"kind":"textbox","id":"sh/ed03ypcj","slide":3,"text":"Sign in / Registration","textPreview":"Sign in / Registration","textChars":22,"textLines":1,"bbox":[465,150,185,32]}
+{"kind":"shape","id":"sh/ze947uto","slide":3,"bbox":[460,215,195,42]}
+{"kind":"textbox","id":"sh/0fil0zu9","slide":3,"text":"Role-based Dashboard","textPreview":"Role-based Dashboard","textChars":20,"textLines":1,"bbox":[465,220,185,32]}
+{"kind":"shape","id":"sh/1grm94bu","slide":3,"bbox":[420,285,275,46]}
+{"kind":"textbox","id":"sh/mh032pcf","slide":3,"text":"Courses, Resources & Enrollment","textPreview":"Courses, Resources & Enrollment","textChars":31,"textLines":1,"bbox":[425,290,265,36]}
+{"kind":"shape","id":"sh/n294but0","slide":3,"bbox":[455,360,205,42]}
+{"kind":"textbox","id":"sh/j6tkze98","slide":3,"text":"Assessment Submission","textPreview":"Assessment Submission","textChars":21,"textLines":1,"bbox":[460,365,195,32]}
+{"kind":"shape","id":"sh/y5k3q9sn","slide":3,"bbox":[410,430,295,46]}
+{"kind":"textbox","id":"sh/l8b214ry","slide":3,"text":"Score, Certificate & Progress Update","textPreview":"Score, Certificate & Progress Update","textChars":36,"textLines":1,"bbox":[415,435,285,36]}
+{"kind":"shape","id":"sh/k72lszqt","slide":3,"bbox":[557,188,2,27]}
+{"kind":"shape","id":"sh/bi9kvu9w","slide":3,"bbox":[557,258,2,27]}
+{"kind":"shape","id":"sh/ah0jmpsb","slide":3,"bbox":[557,331,2,29]}
+{"kind":"shape","id":"sh/x4b2x4r2","slide":3,"bbox":[557,402,2,28]}
+{"kind":"textbox","id":"sh/wj21ozah","slide":3,"text":"Data and Storage","textPreview":"Data and Storage","textChars":16,"textLines":1,"bbox":[760,92,395,30]}
+{"kind":"shape","id":"sh/ne9kra90","slide":3,"bbox":[760,121,240,1]}
+{"kind":"shape","id":"sh/md0jipsf","slide":3,"bbox":[820,165,210,65]}
+{"kind":"textbox","id":"sh/sjehsbqd","slide":3,"text":"Browser\nJinja + Tailwind","textPreview":"Browser | Jinja + Tailwind","textChars":24,"textLines":2,"bbox":[825,170,200,55]}
+{"kind":"shape","id":"sh/dk7i1g7i","slide":3,"bbox":[820,270,210,65]}
+{"kind":"textbox","id":"sh/qhwzql87","slide":3,"text":"Flask\nBlueprint routes","textPreview":"Flask | Blueprint routes","textChars":22,"textLines":2,"bbox":[825,275,200,55]}
+{"kind":"shape","id":"sh/ri50zqps","slide":3,"bbox":[820,375,210,65]}
+{"kind":"textbox","id":"sh/0nyhwvq9","slide":3,"text":"SQLAlchemy\nmodels","textPreview":"SQLAlchemy | models","textChars":17,"textLines":2,"bbox":[825,380,200,55]}
+{"kind":"shape","id":"sh/1o7i507u","slide":3,"bbox":[820,480,210,65]}
+{"kind":"textbox","id":"sh/elgzul83","slide":3,"text":"SQLite DB +\nstatic/uploads","textPreview":"SQLite DB + | static/uploads","textChars":26,"textLines":2,"bbox":[825,485,200,55]}
+{"kind":"shape","id":"sh/zmp03qpo","slide":3,"bbox":[925,230,2,40]}
+{"kind":"shape","id":"sh/gruhkrq5","slide":3,"bbox":[925,335,2,40]}
+{"kind":"shape","id":"sh/hsnytw7q","slide":3,"bbox":[925,440,2,40]}
+{"kind":"shape","id":"sh/9kzi90b6","slide":3,"bbox":[750,590,450,62]}
+{"kind":"textbox","id":"sh/8jqhgvul","slide":3,"text":"Functional local web prototype\nCore LMS workflows are implemented","textPreview":"Functional local web prototype | Core LMS workflows are implemented","textChars":65,"textLines":2,"bbox":[770,603,410,35]}
+{"kind":"notes","id":"nt/lmycmt","slide":3,"text":"Technology statements based on requirements.txt, config.py, app.py, models.py, templates/base.html, and routes/*.py."}
+{"kind":"slide","id":"sl/lpu54r","slide":4,"title":"byte force","textShapes":12}
+{"kind":"shape","id":"sh/yhcnqxg3","slide":4,"bbox":[0,682,1280,38]}
+{"kind":"shape","id":"sh/lk3mlczu","slide":4,"bbox":[0,73,1280,3]}
+{"kind":"shape","id":"sh/0ju5s7y9","slide":4,"bbox":[10,13,150,42]}
+{"kind":"textbox","id":"sh/nm54nmh0","slide":4,"text":"byte force","textPreview":"byte force","textChars":10,"textLines":1,"bbox":[18,20,134,25]}
+{"kind":"textbox","id":"sh/mlwnuhgf","slide":4,"text":"FEASIBILITY AND VIABILITY","textPreview":"FEASIBILITY AND VIABILITY","textChars":25,"textLines":1,"bbox":[185,20,840,38]}
+{"kind":"textbox","id":"sh/9onmpczq","slide":4,"text":"SMART INDIA\nHACKATHON\n2025","textPreview":"SMART INDIA | HACKATHON | 2025","textChars":26,"textLines":3,"bbox":[1082,12,176,52]}
+{"kind":"textbox","id":"sh/8ne5w7y5","slide":4,"text":"4","textPreview":"4","textChars":1,"textLines":1,"bbox":[1198,691,30,18]}
+{"kind":"shape","id":"sh/vq54rmhw","slide":4,"bbox":[640,78,1,602]}
+{"kind":"shape","id":"sh/apwnyhgb","slide":4,"bbox":[0,424,1280,1]}
+{"kind":"textbox","id":"sh/gfidcfut","slide":4,"text":"Feasibility","textPreview":"Feasibility","textChars":11,"textLines":1,"bbox":[15,88,400,30]}
+{"kind":"shape","id":"sh/hgrelkbe","slide":4,"bbox":[15,117,240,1]}
+{"kind":"textbox","id":"sh/ud0va5cn","slide":4,"text":"•  The working prototype already covers accounts, approvals, courses, enrolments, assessments, certificates, and resources.\n•  Flask and SQLite support rapid local deployment with low infrastructure requirements.\n•  The data model separates users, learning activity, trainer competencies, and content records.\n•  Server-rendered pages keep the initial implementation straightforward to maintain.","textPreview":"•  The working prototype already covers accounts, approvals, courses, enrolments, assessments, certificates, and resources. | •  Flask an...","textChars":395,"textLines":4,"bbox":[15,126,590,270]}
+{"kind":"textbox","id":"sh/ve9wjat8","slide":4,"text":"Commercial Feasibility","textPreview":"Commercial Feasibility","textChars":22,"textLines":1,"bbox":[665,108,440,30]}
+{"kind":"shape","id":"sh/432dgzup","slide":4,"bbox":[665,137,240,1]}
+{"kind":"textbox","id":"sh/54bep4ba","slide":4,"text":"•  A shared portal can replace fragmented trackers and manual approval workflows.\n•  Role-based access supports internal academies, training partners, and public-sector capacity programmes.\n•  The modular data model can move from SQLite to a managed database as usage grows.\n•  The platform can add organisation-specific course catalogues and reporting without changing its core user journeys.","textPreview":"•  A shared portal can replace fragmented trackers and manual approval workflows. | •  Role-based access supports internal academies, tra...","textChars":393,"textLines":4,"bbox":[665,150,560,245]}
+{"kind":"textbox","id":"sh/i10vepcj","slide":4,"text":"Challenges","textPreview":"Challenges","textChars":10,"textLines":1,"bbox":[15,435,350,30]}
+{"kind":"shape","id":"sh/329wnut4","slide":4,"bbox":[15,464,240,1]}
+{"kind":"textbox","id":"sh/s72xkzu1","slide":4,"text":"•  Demo quick-login and automatic admin access need removal before deployment.\n•  File uploads need extension validation, virus scanning, and managed storage.\n•  SQLite and local files limit concurrent, multi-server operation.\n•  Forms need CSRF protection and stronger audit trails.","textPreview":"•  Demo quick-login and automatic admin access need removal before deployment. | •  File uploads need extension validation, virus scannin...","textChars":283,"textLines":4,"bbox":[15,470,590,190]}
+{"kind":"textbox","id":"sh/d8bet4b6","slide":4,"text":"Strategy","textPreview":"Strategy","textChars":8,"textLines":1,"bbox":[665,435,350,30]}
+{"kind":"shape","id":"sh/1o7ed43q","slide":4,"bbox":[665,464,240,1]}
+{"kind":"textbox","id":"sh/0nyd4zm5","slide":4,"text":"•  Deploy a production Flask configuration with environment-managed secrets.\n•  Use PostgreSQL and object storage for a multi-organisation rollout.\n•  Add audit logs, notification workflows, and reporting exports.\n•  Pilot with a focused learner cohort, then refine flows from completion and assessment feedback.","textPreview":"•  Deploy a production Flask configuration with environment-managed secrets. | •  Use PostgreSQL and object storage for a multi-organisat...","textChars":312,"textLines":4,"bbox":[665,470,560,190]}
+{"kind":"notes","id":"nt/lpu54r","slide":4,"text":"Feasibility assessment is an engineering assessment based on the current prototype implementation. It does not assert market-size figures."}
+{"kind":"slide","id":"sl/nlgpjk","slide":5,"title":"byte force","textShapes":15}
+{"kind":"shape","id":"sh/wzy1srql","slide":5,"bbox":[0,682,1280,38]}
+{"kind":"shape","id":"sh/vy5kjm9g","slide":5,"bbox":[0,73,1280,3]}
+{"kind":"shape","id":"sh/axwjqh8v","slide":5,"bbox":[10,13,150,42]}
+{"kind":"textbox","id":"sh/9wn2hcra","slide":5,"text":"byte force","textPreview":"byte force","textChars":10,"textLines":1,"bbox":[18,20,134,25]}
+{"kind":"textbox","id":"sh/8ve1orqp","slide":5,"text":"IMPACT AND BENEFITS","textPreview":"IMPACT AND BENEFITS","textChars":19,"textLines":1,"bbox":[185,20,840,38]}
+{"kind":"textbox","id":"sh/nu5kfm94","slide":5,"text":"SMART INDIA\nHACKATHON\n2025","textPreview":"SMART INDIA | HACKATHON | 2025","textChars":26,"textLines":3,"bbox":[1082,12,176,52]}
+{"kind":"textbox","id":"sh/mtwjmhsj","slide":5,"text":"5","textPreview":"5","textChars":1,"textLines":1,"bbox":[1198,691,30,18]}
+{"kind":"shape","id":"sh/lsn2dcry","slide":5,"bbox":[690,78,1,602]}
+{"kind":"shape","id":"sh/0ru1k7at","slide":5,"bbox":[0,432,690,1]}
+{"kind":"textbox","id":"sh/y9knypk7","slide":5,"text":"Direct Impact on Target Users","textPreview":"Direct Impact on Target Users","textChars":29,"textLines":1,"bbox":[15,94,570,30]}
+{"kind":"shape","id":"sh/zat4rulc","slide":5,"bbox":[15,123,240,1]}
+{"kind":"textbox","id":"sh/0b250z2x","slide":5,"text":"•  Trainees see a clear path from enrollment to assessment and certification.\n•  Trainers can publish resources, create questionnaires, and review learner performance.\n•  Administrators can approve users, assign roles, monitor activity, and publish announcements.\n•  Programme managers can identify skill coverage through competency mapping.","textPreview":"•  Trainees see a clear path from enrollment to assessment and certification. | •  Trainers can publish resources, create questionnaires,...","textChars":341,"textLines":4,"bbox":[15,135,645,250]}
+{"kind":"textbox","id":"sh/lcb6t43i","slide":5,"text":"Strategic Impact","textPreview":"Strategic Impact","textChars":16,"textLines":1,"bbox":[15,445,360,30]}
+{"kind":"shape","id":"sh/ql0nu5kv","slide":5,"bbox":[15,474,240,1]}
+{"kind":"textbox","id":"sh/bm94nalg","slide":5,"text":"•  Creates a traceable learning record instead of isolated spreadsheets and files.\n•  Connects trainer expertise with courses and learners' assessed outcomes.\n•  Supports repeatable capacity-building operations across different subject areas.","textPreview":"•  Creates a traceable learning record instead of isolated spreadsheets and files. | •  Connects trainer expertise with courses and learn...","textChars":242,"textLines":3,"bbox":[15,485,645,155]}
+{"kind":"textbox","id":"sh/c7i5wf21","slide":5,"text":"Institutional Benefits","textPreview":"Institutional Benefits","textChars":22,"textLines":1,"bbox":[715,110,445,30]}
+{"kind":"shape","id":"sh/d8bmpk3m","slide":5,"bbox":[715,139,240,1]}
+{"kind":"textbox","id":"sh/2h0nq5kz","slide":5,"text":"•  A central course and resource library reduces duplicated distribution effort.\n•  Certificates provide a verifiable public reference through unique codes.\n•  Course feedback creates a direct channel for improving learning content.\n•  Dashboard metrics consolidate participation, assessment, and completion signals.","textPreview":"•  A central course and resource library reduces duplicated distribution effort. | •  Certificates provide a verifiable public reference ...","textChars":316,"textLines":4,"bbox":[715,150,505,220]}
+{"kind":"textbox","id":"sh/3i94jalk","slide":5,"text":"Capacity-building feedback loop","textPreview":"Capacity-building feedback loop","textChars":31,"textLines":1,"bbox":[805,405,350,25]}
+{"kind":"shape","id":"sh/7m5kr61c","slide":5,"bbox":[760,470,105,52]}
+{"kind":"textbox","id":"sh/6lwji10r","slide":5,"text":"Learn","textPreview":"Learn","textChars":5,"textLines":1,"bbox":[765,475,95,42]}
+{"kind":"shape","id":"sh/to72tgj2","slide":5,"bbox":[920,470,105,52]}
+{"kind":"textbox","id":"sh/sne1kbih","slide":5,"text":"Assess","textPreview":"Assess","textChars":6,"textLines":1,"bbox":[925,475,95,42]}
+{"kind":"shape","id":"sh/fqpkv618","slide":5,"bbox":[1080,470,105,52]}
+{"kind":"textbox","id":"sh/epg3m10n","slide":5,"text":"Certify","textPreview":"Certify","textChars":7,"textLines":1,"bbox":[1085,475,95,42]}
+{"kind":"shape","id":"sh/1s72xgje","slide":5,"bbox":[920,570,105,56]}
+{"kind":"textbox","id":"sh/grylobit","slide":5,"text":"Improve\ncontent","textPreview":"Improve | content","textChars":15,"textLines":2,"bbox":[925,575,95,46]}
+{"kind":"shape","id":"sh/vulkjm14","slide":5,"bbox":[865,496,55,2]}
+{"kind":"shape","id":"sh/atcjah0j","slide":5,"bbox":[1025,496,55,2]}
+{"kind":"shape","id":"sh/0nqp4ju5","slide":5,"bbox":[972,522,161,48]}
+{"kind":"shape","id":"sh/1ozqxovq","slide":5,"bbox":[812,522,108,76]}
+{"kind":"notes","id":"nt/nlgpjk","slide":5,"text":"Impact statements describe intended operational benefits from the implemented Capacity Connect workflows."}
+{"kind":"slide","id":"sl/1p0ew2","slide":6,"title":"byte force","textShapes":16}
+{"kind":"shape","id":"sh/ri5onmlc","slide":6,"bbox":[0,682,1280,38]}
+{"kind":"shape","id":"sh/sjepgr2h","slide":6,"bbox":[0,73,1280,3]}
+{"kind":"shape","id":"sh/dk76pw32","slide":6,"bbox":[10,13,150,42]}
+{"kind":"textbox","id":"sh/elg7i1kn","slide":6,"text":"byte force","textPreview":"byte force","textChars":10,"textLines":1,"bbox":[18,20,134,25]}
+{"kind":"textbox","id":"sh/fmporml8","slide":6,"text":"Research and Analysis","textPreview":"Research and Analysis","textChars":21,"textLines":1,"bbox":[185,20,840,38]}
+{"kind":"textbox","id":"sh/0nypkr2t","slide":6,"text":"SMART INDIA\nHACKATHON\n2025","textPreview":"SMART INDIA | HACKATHON | 2025","textChars":26,"textLines":3,"bbox":[1082,12,176,52]}
+{"kind":"textbox","id":"sh/1876tw3e","slide":6,"text":"6","textPreview":"6","textChars":1,"textLines":1,"bbox":[1198,691,30,18]}
+{"kind":"shape","id":"sh/29g7m1kz","slide":6,"bbox":[640,78,1,602]}
+{"kind":"shape","id":"sh/napov6l4","slide":6,"bbox":[0,270,1280,1]}
+{"kind":"shape","id":"sh/vepkbq5o","slide":6,"bbox":[0,470,1280,1]}
+{"kind":"textbox","id":"sh/udgj2l43","slide":6,"text":"Gap and Problem Identification","textPreview":"Gap and Problem Identification","textChars":30,"textLines":1,"bbox":[15,88,530,30]}
+{"kind":"shape","id":"sh/h072dg3u","slide":6,"bbox":[15,117,240,1]}
+{"kind":"textbox","id":"sh/gzy14vm9","slide":6,"text":"•  Map the current learning journey: registration, approval, enrollment, assessment, certification, and profile evidence.\n•  Identify where separate systems create duplicate records or delay programme reporting.","textPreview":"•  Map the current learning journey: registration, approval, enrollment, assessment, certification, and profile evidence. | •  Identify w...","textChars":211,"textLines":2,"bbox":[15,126,575,120]}
+{"kind":"textbox","id":"sh/7a5k765s","slide":6,"text":"Institutional Landscape","textPreview":"Institutional Landscape","textChars":23,"textLines":1,"bbox":[665,88,500,30]}
+{"kind":"shape","id":"sh/m9wjy147","slide":6,"bbox":[665,117,240,1]}
+{"kind":"textbox","id":"sh/tcn29gni","slide":6,"text":"•  Interview trainees, trainers, and administrators to prioritise dashboard metrics and evidence requirements.\n•  Define data-retention, privacy, and certificate-verification rules for the adopting organisation.","textPreview":"•  Interview trainees, trainers, and administrators to prioritise dashboard metrics and evidence requirements. | •  Define data-retention...","textChars":211,"textLines":2,"bbox":[665,126,555,120]}
+{"kind":"textbox","id":"sh/8be10bmd","slide":6,"text":"Competitive and Workflow Analysis","textPreview":"Competitive and Workflow Analysis","textChars":33,"textLines":1,"bbox":[15,285,560,30]}
+{"kind":"shape","id":"sh/r69kjalw","slide":6,"bbox":[15,314,240,1]}
+{"kind":"textbox","id":"sh/q50ja54b","slide":6,"text":"•  Compare current manual processes with a single portal for resources, assessments, certificates, and competency mapping.\n•  Assess integration needs for existing identity, reporting, or content systems before rollout.","textPreview":"•  Compare current manual processes with a single portal for resources, assessments, certificates, and competency mapping. | •  Assess in...","textChars":219,"textLines":2,"bbox":[15,323,575,122]}
+{"kind":"textbox","id":"sh/21kn29oj","slide":6,"text":"Prototype Evaluation","textPreview":"Prototype Evaluation","textChars":20,"textLines":1,"bbox":[665,285,470,30]}
+{"kind":"shape","id":"sh/n2t4be54","slide":6,"bbox":[665,314,240,1]}
+{"kind":"textbox","id":"sh/o3254j6p","slide":6,"text":"•  Test the current prototype with representative roles and record task completion, errors, and usability feedback.\n•  Verify that assessment scoring, enrolment completion, certificate generation, and uploaded-resource access work end to end.","textPreview":"•  Test the current prototype with representative roles and record task completion, errors, and usability feedback. | •  Verify that asse...","textChars":242,"textLines":2,"bbox":[665,323,555,122]}
+{"kind":"textbox","id":"sh/p4vmd4na","slide":6,"text":"Technology Benchmarking","textPreview":"Technology Benchmarking","textChars":23,"textLines":1,"bbox":[15,485,500,30]}
+{"kind":"shape","id":"sh/ap4n69ov","slide":6,"bbox":[15,514,240,1]}
+{"kind":"textbox","id":"sh/bqd4fe5g","slide":6,"text":"•  Benchmark local SQLite and file uploads against managed database and object-storage options for scale and resilience.\n•  Assess deployment controls: CSRF, secure sessions, audit logs, backup, and role-permission tests.","textPreview":"•  Benchmark local SQLite and file uploads against managed database and object-storage options for scale and resilience. | •  Assess depl...","textChars":221,"textLines":2,"bbox":[15,523,575,120]}
+{"kind":"textbox","id":"sh/crm58j6l","slide":6,"text":"Pilot and Governance","textPreview":"Pilot and Governance","textChars":20,"textLines":1,"bbox":[665,485,440,30]}
+{"kind":"shape","id":"sh/xsvmhon6","slide":6,"bbox":[665,514,240,1]}
+{"kind":"textbox","id":"sh/qt03upob","slide":6,"text":"•  Run a limited cohort pilot and measure enrollment, assessment completion, certificate issuance, and feedback use.\n•  Document ownership for content, trainer competency verification, data protection, and support operations.","textPreview":"•  Run a limited cohort pilot and measure enrollment, assessment completion, certificate issuance, and feedback use. | •  Document owners...","textChars":225,"textLines":2,"bbox":[665,523,555,120]}
+{"kind":"notes","id":"nt/1p0ew2","slide":6,"text":"Research plan for the Capacity Connect solution. No external statistics or unsupported results are presented."}

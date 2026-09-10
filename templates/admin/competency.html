@@ -1,0 +1,203 @@
+﻿{% extends "base.html" %}
+
+{% block title %}Competency Mapping & Trainer Identification - Capacity Connect{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto space-y-6">
+  <!-- Header -->
+  <div class="bg-white rounded-3xl p-6 md:p-8 border border-slate-200/80 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+    <div>
+      <h1 class="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">Competency Mapping Matrix</h1>
+      <p class="text-xs md:text-sm text-slate-500 mt-1">Identify and match certified trainers for specific subjects, map organizational talent, and assign course leaders</p>
+    </div>
+
+    <button onclick="document.getElementById('map-comp-modal').classList.remove('hidden')" class="px-4 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-md flex-shrink-0">
+      <i data-lucide="network" class="w-4 h-4"></i>
+      <span>Map New Competency</span>
+    </button>
+  </div>
+
+  <!-- Trainer Matching Quick Lookup Bar -->
+  <div class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-sm">
+    <h3 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-3 flex items-center gap-2">
+      <i data-lucide="sparkles" class="w-4 h-4 text-indigo-600"></i>
+      <span>Interactive Trainer Identification Engine</span>
+    </h3>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+      <div class="md:col-span-2">
+        <input type="text" id="competency-search" oninput="filterCompetencies()" placeholder="Type a subject or skill (e.g., Cloud, Agile, Python, Security)..." class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500">
+      </div>
+      <div class="text-xs text-slate-400 flex items-center">
+        Real-time matching against verified trainer credentials & experience.
+      </div>
+    </div>
+  </div>
+
+  <!-- Competency Mapping Grid -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="competency-grid">
+    {% for comp in competencies %}
+      <div class="competency-card bg-white rounded-3xl p-6 border border-slate-200/80 shadow-sm hover:border-indigo-200 hover:shadow-md transition flex flex-col"
+           data-name="{{ comp.name.lower() }}" data-category="{{ comp.category.lower() }}">
+        <div class="flex items-start justify-between gap-2 mb-3">
+          <span class="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md bg-indigo-50 text-indigo-700">
+            {{ comp.category }}
+          </span>
+          <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 flex items-center gap-1">
+            <i data-lucide="shield-check" class="w-3 h-3"></i> Verified
+          </span>
+        </div>
+
+        <h3 class="font-bold text-slate-900 text-base mb-1">{{ comp.name }}</h3>
+        <p class="text-xs text-slate-500 mb-4">Proficiency: <strong class="text-slate-800">{{ comp.proficiency_level }}</strong> &bull; {{ comp.years_experience }} Years Practical Experience</p>
+
+        <!-- Matched Trainer Card -->
+        <div class="bg-slate-50 rounded-2xl p-3.5 border border-slate-100 mb-4 flex items-center gap-3">
+          {% if comp.trainer %}
+            <div class="w-10 h-10 rounded-xl bg-indigo-100 text-indigo-700 font-bold flex items-center justify-center text-xs flex-shrink-0">
+              {{ comp.trainer.initials }}
+            </div>
+            <div class="min-w-0">
+              <div class="font-bold text-slate-900 text-xs truncate">{{ comp.trainer.name }}</div>
+              <div class="text-[11px] text-slate-500 truncate">{{ comp.trainer.job_title }}</div>
+            </div>
+          {% else %}
+            <div class="text-xs text-slate-400">Unassigned Trainer</div>
+          {% endif %}
+        </div>
+
+        <div class="pt-3 border-t border-slate-100 mt-auto flex items-center justify-between">
+          <span class="text-[11px] text-slate-400">Suitable For Curricula</span>
+          <button onclick="openAssignModal('{{ comp.trainer_id }}', '{{ comp.trainer.name if comp.trainer else '' }}')" class="px-3 py-1.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-bold rounded-lg text-xs transition">
+            Assign Course
+          </button>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <!-- Course Trainer Assignment Summary Table -->
+  <div class="bg-white rounded-3xl border border-slate-200/80 shadow-sm overflow-hidden p-6 md:p-8">
+    <h2 class="text-base font-bold text-slate-900 mb-4 flex items-center gap-2">
+      <i data-lucide="layers" class="w-4 h-4 text-indigo-600"></i>
+      <span>Course-to-Trainer Competency Assignments</span>
+    </h2>
+
+    <div class="overflow-x-auto">
+      <table class="w-full text-left text-xs">
+        <thead class="bg-slate-50 border-b border-slate-100 uppercase tracking-wider font-bold text-slate-500">
+          <tr>
+            <th class="py-3.5 px-4">Course</th>
+            <th class="py-3.5 px-4">Category</th>
+            <th class="py-3.5 px-4">Assigned Trainer</th>
+            <th class="py-3.5 px-4 text-right">Reassign Trainer</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-100 font-medium">
+          {% for c in courses %}
+            <tr class="hover:bg-slate-50/80 transition">
+              <td class="py-3.5 px-4">
+                <span class="font-bold text-slate-900">{{ c.title }}</span>
+                <span class="text-[10px] text-slate-400 block font-mono">{{ c.code }}</span>
+              </td>
+              <td class="py-3.5 px-4 text-slate-600">{{ c.category }}</td>
+              <td class="py-3.5 px-4">
+                {% if c.trainer %}
+                  <div class="font-bold text-slate-800">{{ c.trainer.name }}</div>
+                  <div class="text-[11px] text-indigo-600">{{ c.trainer.job_title }}</div>
+                {% else %}
+                  <span class="text-amber-600 font-semibold">Unassigned</span>
+                {% endif %}
+              </td>
+              <td class="py-3.5 px-4 text-right">
+                <form method="POST" action="{{ url_for('admin.competency_matrix') }}" class="inline-flex items-center gap-2">
+                  <input type="hidden" name="action" value="assign_course_trainer">
+                  <input type="hidden" name="course_id" value="{{ c.id }}">
+                  <select name="trainer_id" onchange="this.form.submit()" class="px-2.5 py-1 bg-white border border-slate-200 rounded-lg text-xs font-semibold text-slate-700">
+                    {% for t in trainers %}
+                      <option value="{{ t.id }}" {% if c.trainer_id == t.id %}selected{% endif %}>{{ t.name }}</option>
+                    {% endfor %}
+                  </select>
+                </form>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Modal 1: Map New Competency -->
+<div id="map-comp-modal" class="hidden fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+  <div class="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl border border-slate-200">
+    <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+      <h3 class="font-bold text-slate-900 text-lg">Map Organizational Competency</h3>
+      <button onclick="document.getElementById('map-comp-modal').classList.add('hidden')" class="text-slate-400 hover:text-slate-600">&times;</button>
+    </div>
+    <form method="POST" action="{{ url_for('admin.competency_matrix') }}" class="space-y-3.5 mt-4">
+      <input type="hidden" name="action" value="add_competency">
+      <div>
+        <label class="block text-xs font-bold text-slate-700 mb-1">Competency / Skill Area *</label>
+        <input type="text" name="name" required placeholder="e.g. Zero-Trust Cloud Architecture" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs">
+      </div>
+
+      <div class="grid grid-cols-2 gap-2">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Domain Category</label>
+          <input type="text" name="category" value="Technology" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Proficiency Level</label>
+          <select name="proficiency_level" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs">
+            <option value="Expert">Expert / Specialist</option>
+            <option value="Advanced">Advanced Practitioner</option>
+            <option value="Proficient">Proficient</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-2">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Select Qualified Trainer *</label>
+          <select name="trainer_id" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold">
+            {% for t in trainers %}
+              <option value="{{ t.id }}">{{ t.name }} ({{ t.job_title }})</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Experience (Years)</label>
+          <input type="number" name="years_experience" value="5" min="1" max="40" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs">
+        </div>
+      </div>
+
+      <div class="flex justify-end gap-2 pt-3">
+        <button type="button" onclick="document.getElementById('map-comp-modal').classList.add('hidden')" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-semibold">Cancel</button>
+        <button type="submit" class="px-5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold shadow">Save Mapping</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  function filterCompetencies() {
+    const q = document.getElementById('competency-search').value.toLowerCase();
+    const cards = document.querySelectorAll('.competency-card');
+    cards.forEach(card => {
+      const name = card.getAttribute('data-name');
+      const cat = card.getAttribute('data-category');
+      if (name.includes(q) || cat.includes(q)) {
+        card.style.display = '';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  }
+
+  function openAssignModal(trainerId, trainerName) {
+    alert(`To assign ${trainerName} to a specific course, use the Course-to-Trainer dropdown list directly below.`);
+  }
+</script>
+{% endblock %}

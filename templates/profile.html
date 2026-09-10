@@ -1,0 +1,394 @@
+﻿{% extends "base.html" %}
+
+{% block title %}My Profile & Competencies - Capacity Connect{% endblock %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto space-y-8">
+
+  <!-- Profile Header Card -->
+  <div class="bg-white rounded-3xl p-8 border border-slate-200/80 shadow-sm relative overflow-hidden">
+    <div class="flex flex-col md:flex-row items-start md:items-center gap-6">
+      <div class="w-24 h-24 rounded-2xl bg-gradient-to-tr from-indigo-600 to-purple-600 text-white font-black text-3xl flex items-center justify-center shadow-lg border-2 border-white">
+        {{ user.initials }}
+      </div>
+      <div class="flex-1 min-w-0">
+        <div class="flex flex-wrap items-center gap-3">
+          <h1 class="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">{{ user.name }}</h1>
+          <span class="text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full
+            {% if user.is_admin %}bg-purple-100 text-purple-700
+            {% elif user.is_trainer %}bg-amber-100 text-amber-700
+            {% else %}bg-emerald-100 text-emerald-700{% endif %}">
+            {{ user.role }}
+          </span>
+          <span class="text-xs font-medium px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-600">
+            Status: {{ user.status.title() }}
+          </span>
+        </div>
+        <p class="text-slate-600 font-medium text-sm mt-1">{{ user.job_title }} &bull; {{ profile.organization }}</p>
+        <p class="text-slate-500 text-xs mt-1 flex items-center gap-3">
+          <span><i data-lucide="mail" class="inline w-3.5 h-3.5 text-slate-400"></i> {{ user.email }}</span>
+          {% if profile.location %}<span><i data-lucide="map-pin" class="inline w-3.5 h-3.5 text-slate-400"></i> {{ profile.location }}</span>{% endif %}
+          {% if profile.phone %}<span><i data-lucide="phone" class="inline w-3.5 h-3.5 text-slate-400"></i> {{ profile.phone }}</span>{% endif %}
+        </p>
+      </div>
+
+      <button onclick="document.getElementById('edit-basic-modal').classList.remove('hidden')" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-sm">
+        <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
+        <span>Edit Profile</span>
+      </button>
+    </div>
+
+    {% if profile.bio %}
+      <div class="mt-6 pt-5 border-t border-slate-100 text-sm text-slate-600 leading-relaxed">
+        <strong class="text-slate-800 font-semibold block mb-1">Professional Summary:</strong>
+        {{ profile.bio }}
+      </div>
+    {% endif %}
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <!-- Left 2 Cols: Experience & Qualifications -->
+    <div class="lg:col-span-2 space-y-8">
+      
+      <!-- Work Experience Section -->
+      <div class="bg-white rounded-3xl p-6 md:p-8 border border-slate-200/80 shadow-sm">
+        <div class="flex items-center justify-between mb-6">
+          <h2 class="text-lg font-bold text-slate-900 tracking-tight flex items-center gap-2">
+            <i data-lucide="briefcase" class="w-5 h-5 text-indigo-600"></i>
+            <span>Work Experience</span>
+          </h2>
+          <button onclick="document.getElementById('add-exp-modal').classList.remove('hidden')" class="text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center gap-1">
+            <i data-lucide="plus-circle" class="w-4 h-4"></i>
+            <span>Add Experience</span>
+          </button>
+        </div>
+
+        {% if profile.experience %}
+          <div class="space-y-6 relative border-l-2 border-slate-100 ml-4 pl-6">
+            {% for exp in profile.experience %}
+              <div class="relative group">
+                <!-- Dot indicator -->
+                <div class="absolute -left-[31px] top-1.5 w-3.5 h-3.5 rounded-full bg-indigo-600 border-2 border-white shadow"></div>
+                <div class="flex items-start justify-between">
+                  <div>
+                    <h3 class="font-bold text-slate-900 text-base">{{ exp.role }}</h3>
+                    <div class="text-xs font-semibold text-indigo-600">{{ exp.company }} &bull; <span class="text-slate-500 font-normal">{{ exp.duration }}</span></div>
+                    <p class="text-xs text-slate-600 mt-2 leading-relaxed">{{ exp.description }}</p>
+                  </div>
+                  <form method="POST" action="{{ url_for('profile.view_profile') }}" onsubmit="return confirm('Remove this experience record?');">
+                    <input type="hidden" name="action" value="delete_experience">
+                    <input type="hidden" name="index" value="{{ loop.index0 }}">
+                    <button type="submit" class="text-slate-300 hover:text-rose-500 p-1 opacity-0 group-hover:opacity-100 transition">
+                      <i data-lucide="trash-2" class="w-4 h-4"></i>
+                    </button>
+                  </form>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        {% else %}
+          <div class="text-center py-8 text-slate-400 text-xs">
+            <i data-lucide="briefcase" class="w-8 h-8 mx-auto mb-2 opacity-40"></i>
+            No work experience added yet. Click "Add Experience" to enhance your profile.
+          </div>
+        {% endif %}
+      </div>
+
+      <!-- Education & Qualifications Section -->
+      <div class="bg-white rounded-3xl p-6 md:p-8 border border-slate-200/80 shadow-sm">
+        <div class="flex items-center justify-between mb-6">
+          <h2 class="text-lg font-bold text-slate-900 tracking-tight flex items-center gap-2">
+            <i data-lucide="book-marked" class="w-5 h-5 text-indigo-600"></i>
+            <span>Educational Qualifications</span>
+          </h2>
+          <button onclick="document.getElementById('add-qual-modal').classList.remove('hidden')" class="text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center gap-1">
+            <i data-lucide="plus-circle" class="w-4 h-4"></i>
+            <span>Add Qualification</span>
+          </button>
+        </div>
+
+        {% if profile.qualifications %}
+          <div class="space-y-4">
+            {% for qual in profile.qualifications %}
+              <div class="flex items-start justify-between p-4 rounded-2xl bg-slate-50 border border-slate-100 group">
+                <div class="flex items-start gap-3">
+                  <div class="w-10 h-10 rounded-xl bg-white border border-slate-200 flex items-center justify-center text-indigo-600 flex-shrink-0">
+                    <i data-lucide="graduation-cap" class="w-5 h-5"></i>
+                  </div>
+                  <div>
+                    <h3 class="font-bold text-slate-900 text-sm">{{ qual.degree }}</h3>
+                    <div class="text-xs text-slate-600 mt-0.5">{{ qual.institution }} &bull; <span class="font-medium text-slate-700">Class of {{ qual.year }}</span></div>
+                    {% if qual.field %}<div class="text-[11px] text-indigo-600 font-medium mt-1">Specialization: {{ qual.field }}</div>{% endif %}
+                  </div>
+                </div>
+                <form method="POST" action="{{ url_for('profile.view_profile') }}" onsubmit="return confirm('Remove this qualification?');">
+                  <input type="hidden" name="action" value="delete_qualification">
+                  <input type="hidden" name="index" value="{{ loop.index0 }}">
+                  <button type="submit" class="text-slate-300 hover:text-rose-500 p-1 opacity-0 group-hover:opacity-100 transition">
+                    <i data-lucide="trash-2" class="w-4 h-4"></i>
+                  </button>
+                </form>
+              </div>
+            {% endfor %}
+          </div>
+        {% else %}
+          <div class="text-center py-8 text-slate-400 text-xs">
+            <i data-lucide="graduation-cap" class="w-8 h-8 mx-auto mb-2 opacity-40"></i>
+            No educational credentials recorded yet.
+          </div>
+        {% endif %}
+      </div>
+
+    </div>
+
+    <!-- Right Col: Skills, Interests & Certificates -->
+    <div class="space-y-8">
+
+      <!-- Skills & Interests -->
+      <div class="bg-white rounded-3xl p-6 md:p-8 border border-slate-200/80 shadow-sm">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-base font-bold text-slate-900 tracking-tight flex items-center gap-2">
+            <i data-lucide="cpu" class="w-4 h-4 text-indigo-600"></i>
+            <span>Competencies & Skills</span>
+          </h2>
+          <button onclick="document.getElementById('edit-skills-modal').classList.remove('hidden')" class="text-xs font-bold text-indigo-600 hover:text-indigo-800">
+            Edit
+          </button>
+        </div>
+
+        <div class="flex flex-wrap gap-1.5 mb-6">
+          {% for skill in profile.skills %}
+            <span class="text-xs font-medium px-3 py-1 rounded-lg bg-indigo-50 text-indigo-700 border border-indigo-100/50">
+              {{ skill }}
+            </span>
+          {% else %}
+            <p class="text-xs text-slate-400">No skills added yet.</p>
+          {% endfor %}
+        </div>
+
+        <div class="pt-4 border-t border-slate-100">
+          <h3 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2.5">Learning Interests</h3>
+          <div class="flex flex-wrap gap-1.5">
+            {% for interest in profile.interests %}
+              <span class="text-xs font-medium px-2.5 py-1 rounded-lg bg-slate-100 text-slate-700">
+                #{{ interest }}
+              </span>
+            {% else %}
+              <p class="text-xs text-slate-400">No interests tagged.</p>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+
+      <!-- Issued & External Certificates -->
+      <div class="bg-white rounded-3xl p-6 md:p-8 border border-slate-200/80 shadow-sm">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-base font-bold text-slate-900 tracking-tight flex items-center gap-2">
+            <i data-lucide="award" class="w-4 h-4 text-amber-500"></i>
+            <span>Certifications</span>
+          </h2>
+          <button onclick="document.getElementById('upload-cert-modal').classList.remove('hidden')" class="text-xs font-bold text-indigo-600 hover:text-indigo-800">
+            + Upload External
+          </button>
+        </div>
+
+        <div class="space-y-3">
+          {% for cert in certificates %}
+            <div class="p-3.5 rounded-2xl bg-gradient-to-r from-slate-50 to-indigo-50/30 border border-slate-200/80 flex items-center justify-between gap-3">
+              <div class="flex items-center gap-3 min-w-0">
+                <div class="w-9 h-9 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center flex-shrink-0">
+                  <i data-lucide="shield-check" class="w-5 h-5"></i>
+                </div>
+                <div class="min-w-0">
+                  <h4 class="font-bold text-slate-900 text-xs truncate">{{ cert.title }}</h4>
+                  <p class="text-[10px] text-slate-500 font-mono">{{ cert.cert_code }} &bull; {{ cert.issue_date.strftime('%b %d, %Y') }}</p>
+                </div>
+              </div>
+              <a href="{{ url_for('view_certificate', cert_code=cert.cert_code) }}" target="_blank" class="px-2.5 py-1 bg-white hover:bg-slate-50 border border-slate-200 text-indigo-600 font-bold rounded-lg text-[11px] flex-shrink-0 shadow-sm">
+                View
+              </a>
+            </div>
+          {% else %}
+            <div class="text-center py-6 text-slate-400 text-xs">
+              <i data-lucide="award" class="w-7 h-7 mx-auto mb-1 opacity-40"></i>
+              No certificates yet. Pass an assessment to earn your digital certificate!
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Modal 1: Edit Basic Profile -->
+<div id="edit-basic-modal" class="hidden fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+  <div class="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl border border-slate-200">
+    <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+      <h3 class="font-bold text-slate-900 text-lg">Edit Personal Information</h3>
+      <button onclick="document.getElementById('edit-basic-modal').classList.add('hidden')" class="text-slate-400 hover:text-slate-600">&times;</button>
+    </div>
+    <form method="POST" action="{{ url_for('profile.view_profile') }}" class="space-y-3 mt-4">
+      <input type="hidden" name="action" value="update_basic">
+      <div>
+        <label class="block text-xs font-bold text-slate-700 mb-1">Full Name</label>
+        <input type="text" name="name" value="{{ user.name }}" required class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs">
+      </div>
+      <div>
+        <label class="block text-xs font-bold text-slate-700 mb-1">Job Title</label>
+        <input type="text" name="job_title" value="{{ user.job_title }}" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs">
+      </div>
+      <div class="grid grid-cols-2 gap-2">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Organization</label>
+          <input type="text" name="organization" value="{{ profile.organization }}" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Department</label>
+          <input type="text" name="department" value="{{ profile.department }}" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs">
+        </div>
+      </div>
+      <div class="grid grid-cols-2 gap-2">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Phone</label>
+          <input type="text" name="phone" value="{{ profile.phone }}" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Location</label>
+          <input type="text" name="location" value="{{ profile.location }}" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs">
+        </div>
+      </div>
+      <div>
+        <label class="block text-xs font-bold text-slate-700 mb-1">Bio / Professional Summary</label>
+        <textarea name="bio" rows="3" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs">{{ profile.bio }}</textarea>
+      </div>
+      <div class="flex justify-end gap-2 pt-3">
+        <button type="button" onclick="document.getElementById('edit-basic-modal').classList.add('hidden')" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-semibold">Cancel</button>
+        <button type="submit" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold shadow">Save Changes</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal 2: Add Work Experience -->
+<div id="add-exp-modal" class="hidden fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+  <div class="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl border border-slate-200">
+    <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+      <h3 class="font-bold text-slate-900 text-lg">Add Work Experience</h3>
+      <button onclick="document.getElementById('add-exp-modal').classList.add('hidden')" class="text-slate-400 hover:text-slate-600">&times;</button>
+    </div>
+    <form method="POST" action="{{ url_for('profile.view_profile') }}" class="space-y-3 mt-4">
+      <input type="hidden" name="action" value="add_experience">
+      <div>
+        <label class="block text-xs font-bold text-slate-700 mb-1">Designation / Role *</label>
+        <input type="text" name="role" required placeholder="e.g. Senior Project Manager" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs">
+      </div>
+      <div>
+        <label class="block text-xs font-bold text-slate-700 mb-1">Company / Organization *</label>
+        <input type="text" name="company" required placeholder="e.g. Acme Innovations Corp" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs">
+      </div>
+      <div>
+        <label class="block text-xs font-bold text-slate-700 mb-1">Duration *</label>
+        <input type="text" name="duration" required placeholder="e.g. 2021 - Present" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs">
+      </div>
+      <div>
+        <label class="block text-xs font-bold text-slate-700 mb-1">Responsibilities / Key Achievements</label>
+        <textarea name="description" rows="3" placeholder="Brief outline of accomplishments..." class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs"></textarea>
+      </div>
+      <div class="flex justify-end gap-2 pt-3">
+        <button type="button" onclick="document.getElementById('add-exp-modal').classList.add('hidden')" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-semibold">Cancel</button>
+        <button type="submit" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold shadow">Add Record</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal 3: Add Qualification -->
+<div id="add-qual-modal" class="hidden fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+  <div class="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl border border-slate-200">
+    <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+      <h3 class="font-bold text-slate-900 text-lg">Add Educational Qualification</h3>
+      <button onclick="document.getElementById('add-qual-modal').classList.add('hidden')" class="text-slate-400 hover:text-slate-600">&times;</button>
+    </div>
+    <form method="POST" action="{{ url_for('profile.view_profile') }}" class="space-y-3 mt-4">
+      <input type="hidden" name="action" value="add_qualification">
+      <div>
+        <label class="block text-xs font-bold text-slate-700 mb-1">Degree / Certificate Title *</label>
+        <input type="text" name="degree" required placeholder="e.g. Bachelor of Science in Information Technology" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs">
+      </div>
+      <div>
+        <label class="block text-xs font-bold text-slate-700 mb-1">University / Institution *</label>
+        <input type="text" name="institution" required placeholder="e.g. Stanford University" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs">
+      </div>
+      <div class="grid grid-cols-2 gap-2">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Passing Year *</label>
+          <input type="text" name="year" required placeholder="e.g. 2020" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Major / Field</label>
+          <input type="text" name="field" placeholder="e.g. Computer Science" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs">
+        </div>
+      </div>
+      <div class="flex justify-end gap-2 pt-3">
+        <button type="button" onclick="document.getElementById('add-qual-modal').classList.add('hidden')" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-semibold">Cancel</button>
+        <button type="submit" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold shadow">Save Qualification</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal 4: Edit Skills & Interests -->
+<div id="edit-skills-modal" class="hidden fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+  <div class="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl border border-slate-200">
+    <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+      <h3 class="font-bold text-slate-900 text-lg">Update Skills & Interests</h3>
+      <button onclick="document.getElementById('edit-skills-modal').classList.add('hidden')" class="text-slate-400 hover:text-slate-600">&times;</button>
+    </div>
+    <form method="POST" action="{{ url_for('profile.view_profile') }}" class="space-y-4 mt-4">
+      <input type="hidden" name="action" value="update_skills">
+      <div>
+        <label class="block text-xs font-bold text-slate-700 mb-1">Skills & Competencies (Comma-separated)</label>
+        <input type="text" name="skills" value="{{ profile.skills|join(', ') }}" placeholder="Python, Cloud, Scrum, Leadership" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs">
+      </div>
+      <div>
+        <label class="block text-xs font-bold text-slate-700 mb-1">Learning Interests (Comma-separated)</label>
+        <input type="text" name="interests" value="{{ profile.interests|join(', ') }}" placeholder="AI, Microservices, Big Data" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs">
+      </div>
+      <div class="flex justify-end gap-2 pt-2">
+        <button type="button" onclick="document.getElementById('edit-skills-modal').classList.add('hidden')" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-semibold">Cancel</button>
+        <button type="submit" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold shadow">Update</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal 5: Upload External Certificate -->
+<div id="upload-cert-modal" class="hidden fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+  <div class="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl border border-slate-200">
+    <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+      <h3 class="font-bold text-slate-900 text-lg">Upload External Certificate</h3>
+      <button onclick="document.getElementById('upload-cert-modal').classList.add('hidden')" class="text-slate-400 hover:text-slate-600">&times;</button>
+    </div>
+    <form method="POST" action="{{ url_for('profile.view_profile') }}" enctype="multipart/form-data" class="space-y-4 mt-4">
+      <input type="hidden" name="action" value="upload_certificate">
+      <div>
+        <label class="block text-xs font-bold text-slate-700 mb-1">Certificate Title *</label>
+        <input type="text" name="cert_title" required placeholder="e.g. AWS Certified Solutions Architect" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs">
+      </div>
+      <div>
+        <label class="block text-xs font-bold text-slate-700 mb-1">Issuing Authority / Organization</label>
+        <input type="text" name="issuer" placeholder="e.g. Amazon Web Services, Scrum.org" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs">
+      </div>
+      <div>
+        <label class="block text-xs font-bold text-slate-700 mb-1">Upload Document (PDF / Image)</label>
+        <input type="file" name="cert_file" accept=".pdf,.png,.jpg,.jpeg" class="w-full text-xs text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100">
+      </div>
+      <div class="flex justify-end gap-2 pt-2">
+        <button type="button" onclick="document.getElementById('upload-cert-modal').classList.add('hidden')" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-semibold">Cancel</button>
+        <button type="submit" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold shadow">Save Certificate</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

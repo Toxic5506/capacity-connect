@@ -1,0 +1,157 @@
+﻿{% extends "base.html" %}
+
+{% block title %}Trainee Performance Monitoring - Capacity Connect{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto space-y-6">
+  <!-- Header -->
+  <div class="bg-white rounded-3xl p-6 md:p-8 border border-slate-200/80 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+    <div>
+      <h1 class="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">Trainee Monitoring & Performance</h1>
+      <p class="text-xs md:text-sm text-slate-500 mt-1">Track assessment scores, submission timestamps, completion rates, and participation rosters</p>
+    </div>
+
+    <div class="flex items-center gap-2">
+      <span class="text-xs font-semibold px-3 py-1.5 rounded-xl bg-indigo-50 text-indigo-700">
+        {{ submissions|length }} Total Submissions
+      </span>
+      <span class="text-xs font-semibold px-3 py-1.5 rounded-xl bg-emerald-50 text-emerald-700">
+        {{ enrollments|length }} Active Enrollments
+      </span>
+    </div>
+  </div>
+
+  <!-- Submissions Table -->
+  <div class="bg-white rounded-3xl border border-slate-200/80 shadow-sm overflow-hidden">
+    <div class="p-6 border-b border-slate-100 flex items-center justify-between">
+      <h2 class="text-base font-bold text-slate-900 flex items-center gap-2">
+        <i data-lucide="check-square" class="w-4 h-4 text-indigo-600"></i>
+        <span>Recent Assessment Attempts</span>
+      </h2>
+    </div>
+
+    <div class="overflow-x-auto">
+      <table class="w-full text-left text-xs">
+        <thead class="bg-slate-50 border-b border-slate-100 uppercase tracking-wider font-bold text-slate-500">
+          <tr>
+            <th class="py-3.5 px-6">Trainee</th>
+            <th class="py-3.5 px-6">Assessment Subject</th>
+            <th class="py-3.5 px-6 text-center">Score</th>
+            <th class="py-3.5 px-6 text-center">Result</th>
+            <th class="py-3.5 px-6">Submitted At</th>
+            <th class="py-3.5 px-6 text-right">Action</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-100 font-medium">
+          {% for sub in submissions %}
+            <tr class="hover:bg-slate-50/80 transition">
+              <td class="py-4 px-6">
+                <div class="flex items-center gap-3">
+                  <div class="w-8 h-8 rounded-full bg-indigo-100 text-indigo-700 font-bold flex items-center justify-center">
+                    {{ sub.user.initials }}
+                  </div>
+                  <div>
+                    <div class="font-bold text-slate-900">{{ sub.user.name }}</div>
+                    <div class="text-[11px] text-slate-400">{{ sub.user.email }}</div>
+                  </div>
+                </div>
+              </td>
+              <td class="py-4 px-6">
+                <div class="font-bold text-slate-800">{{ sub.assessment.title }}</div>
+                <div class="text-[11px] text-indigo-600">{{ sub.assessment.subject }}</div>
+              </td>
+              <td class="py-4 px-6 text-center">
+                <span class="font-extrabold text-sm {% if sub.passed %}text-emerald-600{% else %}text-rose-600{% endif %}">
+                  {{ sub.score }}%
+                </span>
+                <span class="text-[10px] text-slate-400 block font-normal">({{ sub.correct_count }}/{{ sub.total_questions }})</span>
+              </td>
+              <td class="py-4 px-6 text-center">
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-bold
+                  {% if sub.passed %}bg-emerald-100 text-emerald-800{% else %}bg-rose-100 text-rose-800{% endif %}">
+                  {% if sub.passed %}PASSED{% else %}FAILED{% endif %}
+                </span>
+              </td>
+              <td class="py-4 px-6 text-slate-500 font-mono">
+                {{ sub.submitted_at.strftime('%Y-%m-%d %H:%M') }}
+              </td>
+              <td class="py-4 px-6 text-right">
+                <a href="{{ url_for('assessments.assessment_result', submission_id=sub.id) }}" class="px-3 py-1.5 rounded-lg bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-bold text-xs">
+                  Review Breakdown
+                </a>
+              </td>
+            </tr>
+          {% else %}
+            <tr>
+              <td colspan="6" class="py-12 text-center text-slate-400 text-xs">
+                No assessment attempts recorded yet.
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Course Enrollments Table -->
+  <div class="bg-white rounded-3xl border border-slate-200/80 shadow-sm overflow-hidden">
+    <div class="p-6 border-b border-slate-100">
+      <h2 class="text-base font-bold text-slate-900 flex items-center gap-2">
+        <i data-lucide="users" class="w-4 h-4 text-indigo-600"></i>
+        <span>Course Participation & Progress Roster</span>
+      </h2>
+    </div>
+
+    <div class="overflow-x-auto">
+      <table class="w-full text-left text-xs">
+        <thead class="bg-slate-50 border-b border-slate-100 uppercase tracking-wider font-bold text-slate-500">
+          <tr>
+            <th class="py-3.5 px-6">Trainee</th>
+            <th class="py-3.5 px-6">Enrolled Course</th>
+            <th class="py-3.5 px-6">Progress</th>
+            <th class="py-3.5 px-6">Status</th>
+            <th class="py-3.5 px-6 text-right">Enrolled Date</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-100 font-medium">
+          {% for e in enrollments %}
+            <tr class="hover:bg-slate-50/80 transition">
+              <td class="py-4 px-6">
+                <div class="font-bold text-slate-900">{{ e.user.name }}</div>
+                <div class="text-[11px] text-slate-400">{{ e.user.job_title }}</div>
+              </td>
+              <td class="py-4 px-6">
+                <div class="font-bold text-slate-800">{{ e.course.title }}</div>
+                <div class="text-[11px] text-slate-400">{{ e.course.code }} &bull; {{ e.course.category }}</div>
+              </td>
+              <td class="py-4 px-6 w-48">
+                <div class="flex items-center justify-between text-[11px] font-semibold text-slate-600 mb-1">
+                  <span>{{ e.progress }}%</span>
+                </div>
+                <div class="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
+                  <div class="h-full bg-indigo-600 rounded-full" style="width: {{ e.progress }}%"></div>
+                </div>
+              </td>
+              <td class="py-4 px-6">
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-bold capitalize
+                  {% if e.status == 'completed' %}bg-emerald-100 text-emerald-800{% else %}bg-indigo-100 text-indigo-800{% endif %}">
+                  {{ e.status.replace('_', ' ') }}
+                </span>
+              </td>
+              <td class="py-4 px-6 text-right text-slate-500 font-mono">
+                {{ e.enrolled_at.strftime('%b %d, %Y') }}
+              </td>
+            </tr>
+          {% else %}
+            <tr>
+              <td colspan="5" class="py-12 text-center text-slate-400 text-xs">
+                No active enrollments found.
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}

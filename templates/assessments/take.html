@@ -1,0 +1,116 @@
+﻿{% extends "base.html" %}
+
+{% block title %}Assessment: {{ assessment.title }} - Capacity Connect{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto space-y-6">
+  <!-- Top Quiz Header & Live Timer -->
+  <div class="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-sm flex items-center justify-between sticky top-20 z-20 backdrop-blur-md bg-white/95">
+    <div>
+      <span class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-md bg-indigo-50 text-indigo-700">
+        {{ assessment.subject }}
+      </span>
+      <h1 class="text-xl font-bold text-slate-900 mt-1">{{ assessment.title }}</h1>
+    </div>
+
+    <!-- Countdown Timer -->
+    <div class="flex items-center gap-3 bg-slate-900 text-white px-5 py-2.5 rounded-2xl shadow-inner">
+      <i data-lucide="timer" class="w-5 h-5 text-amber-400 animate-pulse"></i>
+      <div>
+        <div class="text-[10px] uppercase font-bold text-slate-400">Time Remaining</div>
+        <div id="countdown" class="font-mono text-lg font-black tracking-wider text-amber-300">--:--</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Assessment Quiz Form -->
+  <form id="assessment-form" method="POST" action="{{ url_for('assessments.submit_assessment', assessment_id=assessment.id) }}" class="space-y-6">
+    {% for q in questions %}
+      <div id="q-card-{{ q.id }}" class="bg-white rounded-3xl p-6 md:p-8 border border-slate-200/80 shadow-sm transition hover:border-indigo-200">
+        <div class="flex items-start gap-3 mb-4">
+          <span class="w-8 h-8 rounded-xl bg-indigo-600 text-white font-bold text-xs flex items-center justify-center flex-shrink-0">
+            {{ loop.index }}
+          </span>
+          <div class="flex-1">
+            <h3 class="text-base font-bold text-slate-900 leading-snug">{{ q.question_text }}</h3>
+          </div>
+        </div>
+
+        <!-- 4 Options -->
+        <div class="space-y-2.5 pl-11">
+          <label class="flex items-center gap-3 p-3.5 rounded-2xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition has-[:checked]:border-indigo-600 has-[:checked]:bg-indigo-50/60">
+            <input type="radio" name="question_{{ q.id }}" value="A" required class="w-4 h-4 text-indigo-600 focus:ring-indigo-500">
+            <span class="font-bold text-xs text-slate-700 w-5">A.</span>
+            <span class="text-xs text-slate-800 font-medium">{{ q.option_a }}</span>
+          </label>
+
+          <label class="flex items-center gap-3 p-3.5 rounded-2xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition has-[:checked]:border-indigo-600 has-[:checked]:bg-indigo-50/60">
+            <input type="radio" name="question_{{ q.id }}" value="B" class="w-4 h-4 text-indigo-600 focus:ring-indigo-500">
+            <span class="font-bold text-xs text-slate-700 w-5">B.</span>
+            <span class="text-xs text-slate-800 font-medium">{{ q.option_b }}</span>
+          </label>
+
+          {% if q.option_c and q.option_c != 'N/A' %}
+            <label class="flex items-center gap-3 p-3.5 rounded-2xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition has-[:checked]:border-indigo-600 has-[:checked]:bg-indigo-50/60">
+              <input type="radio" name="question_{{ q.id }}" value="C" class="w-4 h-4 text-indigo-600 focus:ring-indigo-500">
+              <span class="font-bold text-xs text-slate-700 w-5">C.</span>
+              <span class="text-xs text-slate-800 font-medium">{{ q.option_c }}</span>
+            </label>
+          {% endif %}
+
+          {% if q.option_d and q.option_d != 'N/A' %}
+            <label class="flex items-center gap-3 p-3.5 rounded-2xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition has-[:checked]:border-indigo-600 has-[:checked]:bg-indigo-50/60">
+              <input type="radio" name="question_{{ q.id }}" value="D" class="w-4 h-4 text-indigo-600 focus:ring-indigo-500">
+              <span class="font-bold text-xs text-slate-700 w-5">D.</span>
+              <span class="text-xs text-slate-800 font-medium">{{ q.option_d }}</span>
+            </label>
+          {% endif %}
+        </div>
+      </div>
+    {% endfor %}
+
+    <!-- Bottom Submit Bar -->
+    <div class="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-md flex items-center justify-between">
+      <div class="text-xs text-slate-500">
+        Review your responses carefully. Instant evaluation will be performed upon submission.
+      </div>
+      <button type="submit" onclick="return confirm('Are you sure you want to submit your answers?');" class="px-8 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-2xl text-sm shadow-lg transition flex items-center gap-2">
+        <span>Submit Assessment</span>
+        <i data-lucide="check-circle" class="w-4 h-4"></i>
+      </button>
+    </div>
+  </form>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  // Countdown Timer Logic
+  const timeLimitMinutes = {{ assessment.time_limit_minutes }};
+  let totalSeconds = timeLimitMinutes * 60;
+  const countdownEl = document.getElementById('countdown');
+  const form = document.getElementById('assessment-form');
+
+  function updateTimer() {
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds % 60;
+    countdownEl.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+
+    if (totalSeconds <= 60) {
+      countdownEl.classList.remove('text-amber-300');
+      countdownEl.classList.add('text-rose-400');
+    }
+
+    if (totalSeconds <= 0) {
+      clearInterval(timerInterval);
+      alert('Time has expired! Submitting your assessment automatically.');
+      form.submit();
+    } else {
+      totalSeconds--;
+    }
+  }
+
+  updateTimer();
+  const timerInterval = setInterval(updateTimer, 1000);
+</script>
+{% endblock %}

@@ -1,0 +1,411 @@
+﻿{% extends "base.html" %}
+
+{% block title %}Competency Mapping & Trainer Identification - Capacity Connect{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto space-y-8">
+  <!-- Top Banner -->
+  <div class="bg-white rounded-3xl p-6 md:p-8 border border-slate-200/80 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+    <div>
+      <div class="flex items-center gap-2 mb-1">
+        <h1 class="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">Competency Mapping & Trainer Identification</h1>
+        <span class="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-100 flex items-center gap-1">
+          <i data-lucide="network" class="w-3 h-3"></i> AI Matching Matrix
+        </span>
+      </div>
+      <p class="text-xs md:text-sm text-slate-500">Systematically identify suitable trainers for organizational training subjects, discover competency gaps, and assign course instructors</p>
+    </div>
+
+    <div class="flex items-center gap-2 flex-shrink-0">
+      <button onclick="document.getElementById('add-comp-modal').classList.remove('hidden')" class="px-4 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-md">
+        <i data-lucide="plus-circle" class="w-4 h-4"></i>
+        <span>{% if current_user.is_admin %}Map New Competency{% else %}Declare My Subject Competency{% endif %}</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Interactive Subject-to-Trainer Identification Engine -->
+  <div class="bg-gradient-to-r from-slate-900 to-indigo-950 rounded-3xl p-6 md:p-8 text-white shadow-xl relative overflow-hidden">
+    <!-- Subtle glow effects -->
+    <div class="absolute -right-10 -bottom-10 w-64 h-64 bg-indigo-500/15 rounded-full blur-2xl pointer-events-none"></div>
+
+    <div class="relative z-10 max-w-3xl mb-6">
+      <div class="text-[11px] font-bold uppercase tracking-widest text-indigo-300 mb-1 flex items-center gap-2">
+        <i data-lucide="sparkles" class="w-4 h-4 text-amber-400"></i>
+        <span>Subject-to-Trainer Identification Engine</span>
+      </div>
+      <h2 class="text-xl md:text-2xl font-black text-white tracking-tight">
+        Find Qualified Trainers for Any Training Subject
+      </h2>
+      <p class="text-xs md:text-sm text-slate-300 mt-1 leading-relaxed">
+        Select or search a topic to instantly query our certified trainer pool and identify specialists with proven credentials, years of experience, and delivery capacity.
+      </p>
+    </div>
+
+    <!-- Quick Subject Selector Chips -->
+    <div class="relative z-10 space-y-3">
+      <div class="flex flex-wrap items-center gap-2">
+        <span class="text-xs font-semibold text-slate-400 mr-1">Quick Select Subject:</span>
+        <button onclick="selectSubject('Cloud')" class="subject-chip px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-semibold border border-white/10 transition active">
+          Cloud Computing & AWS
+        </button>
+        <button onclick="selectSubject('Project Management')" class="subject-chip px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-semibold border border-white/10 transition">
+          Project Management & Agile
+        </button>
+        <button onclick="selectSubject('Python')" class="subject-chip px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-semibold border border-white/10 transition">
+          Data Analytics & Python
+        </button>
+        <button onclick="selectSubject('Security')" class="subject-chip px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-semibold border border-white/10 transition">
+          Cybersecurity & Zero Trust
+        </button>
+        <button onclick="selectSubject('Leadership')" class="subject-chip px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-semibold border border-white/10 transition">
+          Leadership & Coaching
+        </button>
+        <button onclick="selectSubject('')" class="subject-chip px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-semibold border border-white/10 transition">
+          View All Subjects
+        </button>
+      </div>
+
+      <!-- Search Input -->
+      <div class="relative max-w-xl">
+        <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-4 top-3.5"></i>
+        <input type="text" id="subject-search-input" oninput="onSearchInput(this.value)" placeholder="Type a subject or skill (e.g. AWS, Agile, Machine Learning, DevOps)..." class="w-full pl-11 pr-4 py-2.5 bg-white/10 border border-white/20 rounded-2xl text-xs text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:bg-white/15 backdrop-blur-sm">
+      </div>
+    </div>
+  </div>
+
+  <!-- Identified Suitable Trainers Results Grid -->
+  <div class="space-y-4">
+    <div class="flex items-center justify-between">
+      <h2 class="text-base font-bold text-slate-900 flex items-center gap-2">
+        <i data-lucide="user-check" class="w-4 h-4 text-indigo-600"></i>
+        <span>Identified Qualified Trainers (<span id="matched-count">{{ competencies|length }}</span> Mapped Matches)</span>
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="trainer-cards-container">
+      {% for comp in competencies %}
+        <div class="trainer-match-card bg-white rounded-3xl p-6 border border-slate-200/80 shadow-sm hover:border-indigo-300 hover:shadow-md transition flex flex-col"
+             data-subject="{{ comp.name.lower() }}" data-category="{{ comp.category.lower() }}">
+          
+          <div class="flex items-start justify-between gap-2 mb-3">
+            <span class="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md bg-indigo-50 text-indigo-700">
+              {{ comp.category }}
+            </span>
+            <span class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 flex items-center gap-1">
+              <i data-lucide="check-circle" class="w-3 h-3 text-emerald-600"></i> 100% Fit &bull; {{ comp.proficiency_level }}
+            </span>
+          </div>
+
+          <h3 class="font-bold text-slate-900 text-base mb-1">{{ comp.name }}</h3>
+          <p class="text-xs text-slate-500 mb-4">Demonstrated Competency: <strong class="text-slate-700">{{ comp.years_experience }} Years Experience</strong></p>
+
+          <!-- Trainer Profile Snapshot -->
+          <div class="bg-slate-50 rounded-2xl p-4 border border-slate-100 mb-4 flex items-center gap-3.5">
+            <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-indigo-600 to-purple-600 text-white font-bold text-base flex items-center justify-center flex-shrink-0 shadow-inner">
+              {{ comp.trainer.initials if comp.trainer else 'TR' }}
+            </div>
+            <div class="min-w-0">
+              <div class="font-bold text-slate-900 text-sm truncate">{{ comp.trainer.name if comp.trainer else 'Unassigned Trainer' }}</div>
+              <div class="text-[11px] text-indigo-600 font-medium truncate">{{ comp.trainer.job_title if comp.trainer else 'Specialist' }}</div>
+              <div class="text-[10px] text-slate-400 truncate">{{ comp.trainer.profile.organization if comp.trainer and comp.trainer.profile else 'Capacity Connect' }}</div>
+            </div>
+          </div>
+
+          <!-- Bottom Actions -->
+          <div class="pt-3 border-t border-slate-100 mt-auto flex items-center justify-between text-xs">
+            <span class="text-slate-400 text-[11px] font-medium">Available for Cohorts</span>
+            {% if current_user.is_admin %}
+              <button onclick="openCourseAssignModal('{{ comp.trainer_id }}', '{{ comp.trainer.name if comp.trainer else '' }}', '{{ comp.name }}')" class="px-3.5 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl text-xs shadow-sm transition flex items-center gap-1">
+                <span>Assign Course</span>
+                <i data-lucide="arrow-right" class="w-3 h-3"></i>
+              </button>
+            {% else %}
+              <span class="text-emerald-700 font-bold text-[11px] bg-emerald-50 px-2.5 py-1 rounded-lg">Verified Trainer</span>
+            {% endif %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- Organizational Competency Coverage & Gap Analysis -->
+  <div class="bg-white rounded-3xl border border-slate-200/80 shadow-sm overflow-hidden p-6 md:p-8">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6">
+      <div>
+        <h2 class="text-base font-bold text-slate-900 flex items-center gap-2">
+          <i data-lucide="shield-alert" class="w-4 h-4 text-amber-500"></i>
+          <span>Organizational Subject Coverage & Competency Gap Analysis</span>
+        </h2>
+        <p class="text-xs text-slate-500 mt-0.5">Identifies subjects with healthy instructor availability versus areas requiring urgent trainer mapping or upskilling</p>
+      </div>
+    </div>
+
+    <div class="overflow-x-auto">
+      <table class="w-full text-left text-xs">
+        <thead class="bg-slate-50 border-b border-slate-100 uppercase tracking-wider font-bold text-slate-500">
+          <tr>
+            <th class="py-3.5 px-4">Subject Area</th>
+            <th class="py-3.5 px-4">Category</th>
+            <th class="py-3.5 px-4">Mapped Qualified Trainers</th>
+            <th class="py-3.5 px-4">Coverage Health Status</th>
+            <th class="py-3.5 px-4 text-right">Action</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-100 font-medium">
+          <!-- Cloud Architecture -->
+          <tr class="hover:bg-slate-50/80 transition">
+            <td class="py-3.5 px-4 font-bold text-slate-900">Cloud Computing & AWS Architecture</td>
+            <td class="py-3.5 px-4 text-slate-600">Technology</td>
+            <td class="py-3.5 px-4">
+              <span class="font-bold text-slate-800">Prof. Rajesh Kumar, Mayank</span>
+            </td>
+            <td class="py-3.5 px-4">
+              <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-bold bg-emerald-100 text-emerald-800">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                Healthy (2 Trainers Available)
+              </span>
+            </td>
+            <td class="py-3.5 px-4 text-right">
+              <button onclick="selectSubject('Cloud')" class="px-2.5 py-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-bold rounded-lg text-xs">
+                Inspect Trainers
+              </button>
+            </td>
+          </tr>
+
+          <!-- Project Management -->
+          <tr class="hover:bg-slate-50/80 transition">
+            <td class="py-3.5 px-4 font-bold text-slate-900">Project Management & Agile Methodologies</td>
+            <td class="py-3.5 px-4 text-slate-600">Management</td>
+            <td class="py-3.5 px-4">
+              <span class="font-bold text-slate-800">Dr. Sarah Jenkins</span>
+            </td>
+            <td class="py-3.5 px-4">
+              <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-bold bg-amber-100 text-amber-800">
+                <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+                Moderate (1 Primary Lead)
+              </span>
+            </td>
+            <td class="py-3.5 px-4 text-right">
+              <button onclick="selectSubject('Project Management')" class="px-2.5 py-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-bold rounded-lg text-xs">
+                Inspect Trainers
+              </button>
+            </td>
+          </tr>
+
+          <!-- Data Analytics -->
+          <tr class="hover:bg-slate-50/80 transition">
+            <td class="py-3.5 px-4 font-bold text-slate-900">Data Analytics & Python Data Science</td>
+            <td class="py-3.5 px-4 text-slate-600">Technology</td>
+            <td class="py-3.5 px-4">
+              <span class="font-bold text-slate-800">Prof. Rajesh Kumar</span>
+            </td>
+            <td class="py-3.5 px-4">
+              <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-bold bg-amber-100 text-amber-800">
+                <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+                Moderate (1 Primary Lead)
+              </span>
+            </td>
+            <td class="py-3.5 px-4 text-right">
+              <button onclick="selectSubject('Python')" class="px-2.5 py-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-bold rounded-lg text-xs">
+                Inspect Trainers
+              </button>
+            </td>
+          </tr>
+
+          <!-- Cybersecurity -->
+          <tr class="hover:bg-slate-50/80 transition">
+            <td class="py-3.5 px-4 font-bold text-slate-900">Cybersecurity & Zero Trust Architecture</td>
+            <td class="py-3.5 px-4 text-slate-600">Technology</td>
+            <td class="py-3.5 px-4">
+              <span class="font-bold text-slate-800">Prof. Rajesh Kumar</span>
+            </td>
+            <td class="py-3.5 px-4">
+              <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-bold bg-amber-100 text-amber-800">
+                <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+                Moderate (1 Primary Lead)
+              </span>
+            </td>
+            <td class="py-3.5 px-4 text-right">
+              <button onclick="selectSubject('Security')" class="px-2.5 py-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-bold rounded-lg text-xs">
+                Inspect Trainers
+              </button>
+            </td>
+          </tr>
+
+          <!-- AI & Generative Intelligence (Gap Alert Example!) -->
+          <tr class="hover:bg-slate-50/80 transition bg-rose-50/30">
+            <td class="py-3.5 px-4 font-bold text-slate-900">AI & Generative Intelligence for Business</td>
+            <td class="py-3.5 px-4 text-slate-600">Artificial Intelligence</td>
+            <td class="py-3.5 px-4 text-rose-600 font-semibold">
+              Needs Co-Trainer Assignment
+            </td>
+            <td class="py-3.5 px-4">
+              <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-bold bg-rose-100 text-rose-800">
+                <span class="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse"></span>
+                Gap Alert: High Training Demand
+              </span>
+            </td>
+            <td class="py-3.5 px-4 text-right">
+              <button onclick="document.getElementById('add-comp-modal').classList.remove('hidden')" class="px-2.5 py-1 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded-lg text-xs shadow-sm">
+                + Map Trainer
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Course Assignment Table (For Admins) -->
+  {% if current_user.is_admin %}
+    <div class="bg-white rounded-3xl border border-slate-200/80 shadow-sm overflow-hidden p-6 md:p-8">
+      <h2 class="text-base font-bold text-slate-900 mb-4 flex items-center gap-2">
+        <i data-lucide="graduation-cap" class="w-4 h-4 text-indigo-600"></i>
+        <span>Active Course-to-Trainer Assignments</span>
+      </h2>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-xs">
+          <thead class="bg-slate-50 border-b border-slate-100 uppercase tracking-wider font-bold text-slate-500">
+            <tr>
+              <th class="py-3 px-4">Course Title</th>
+              <th class="py-3 px-4">Category</th>
+              <th class="py-3 px-4">Currently Assigned Trainer</th>
+              <th class="py-3 px-4 text-right">Change Assigned Trainer</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100 font-medium">
+            {% for c in courses %}
+              <tr class="hover:bg-slate-50/80 transition">
+                <td class="py-3 px-4">
+                  <div class="font-bold text-slate-900">{{ c.title }}</div>
+                  <div class="text-[10px] text-slate-400 font-mono">{{ c.code }}</div>
+                </td>
+                <td class="py-3 px-4 text-slate-600">{{ c.category }}</td>
+                <td class="py-3 px-4">
+                  {% if c.trainer %}
+                    <span class="font-bold text-indigo-700">{{ c.trainer.name }}</span>
+                    <span class="text-[11px] text-slate-400 block">{{ c.trainer.job_title }}</span>
+                  {% else %}
+                    <span class="text-amber-600 font-bold">Unassigned</span>
+                  {% endif %}
+                </td>
+                <td class="py-3 px-4 text-right">
+                  <form method="POST" action="{{ url_for('competency.matrix') }}" class="inline-flex items-center gap-2">
+                    <input type="hidden" name="action" value="assign_course_trainer">
+                    <input type="hidden" name="course_id" value="{{ c.id }}">
+                    <select name="trainer_id" onchange="this.form.submit()" class="px-2.5 py-1 bg-white border border-slate-200 rounded-lg text-xs font-semibold text-slate-700 focus:outline-none">
+                      {% for t in trainers %}
+                        <option value="{{ t.id }}" {% if c.trainer_id == t.id %}selected{% endif %}>{{ t.name }}</option>
+                      {% endfor %}
+                    </select>
+                  </form>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  {% endif %}
+</div>
+
+<!-- Modal: Map / Declare Competency -->
+<div id="add-comp-modal" class="hidden fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+  <div class="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl border border-slate-200">
+    <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+      <h3 class="font-bold text-slate-900 text-lg">
+        {% if current_user.is_admin %}Map Organizational Competency{% else %}Declare Your Subject Competency{% endif %}
+      </h3>
+      <button onclick="document.getElementById('add-comp-modal').classList.add('hidden')" class="text-slate-400 hover:text-slate-600">&times;</button>
+    </div>
+    <form method="POST" action="{{ url_for('competency.matrix') }}" class="space-y-3.5 mt-4">
+      <input type="hidden" name="action" value="add_competency">
+      <div>
+        <label class="block text-xs font-bold text-slate-700 mb-1">Subject Area / Competency Name *</label>
+        <input type="text" name="name" required placeholder="e.g. AWS Cloud Solutions Architecture, Agile Scrum" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs">
+      </div>
+
+      <div class="grid grid-cols-2 gap-2">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Domain Category</label>
+          <select name="category" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs">
+            <option value="Technology">Technology</option>
+            <option value="Management">Management</option>
+            <option value="Data Analytics">Data Analytics</option>
+            <option value="Cybersecurity">Cybersecurity</option>
+            <option value="Leadership">Leadership</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Proficiency Level</label>
+          <select name="proficiency_level" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs">
+            <option value="Expert">Expert / Lead Instructor</option>
+            <option value="Advanced">Advanced Practitioner</option>
+            <option value="Proficient">Proficient</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-2">
+        {% if current_user.is_admin %}
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Qualified Trainer *</label>
+            <select name="trainer_id" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold">
+              {% for t in trainers %}
+                <option value="{{ t.id }}">{{ t.name }} ({{ t.job_title }})</option>
+              {% endfor %}
+            </select>
+          </div>
+        {% endif %}
+        <div class="{% if not current_user.is_admin %}col-span-2{% endif %}">
+          <label class="block text-xs font-bold text-slate-700 mb-1">Practical Experience (Years)</label>
+          <input type="number" name="years_experience" value="5" min="1" max="40" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs">
+        </div>
+      </div>
+
+      <div class="flex justify-end gap-2 pt-3">
+        <button type="button" onclick="document.getElementById('add-comp-modal').classList.add('hidden')" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-semibold">Cancel</button>
+        <button type="submit" class="px-5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold shadow">Save Competency</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  function selectSubject(term) {
+    document.getElementById('subject-search-input').value = term;
+    filterTrainers(term);
+  }
+
+  function onSearchInput(val) {
+    filterTrainers(val);
+  }
+
+  function filterTrainers(query) {
+    const q = query.trim().toLowerCase();
+    const cards = document.querySelectorAll('.trainer-match-card');
+    let count = 0;
+
+    cards.forEach(card => {
+      const subject = card.getAttribute('data-subject') || '';
+      const category = card.getAttribute('data-category') || '';
+      if (!q || subject.includes(q) || category.includes(q)) {
+        card.style.display = '';
+        count++;
+      } else {
+        card.style.display = 'none';
+      }
+    });
+
+    document.getElementById('matched-count').textContent = count;
+  }
+
+  function openCourseAssignModal(trainerId, trainerName, subjectName) {
+    alert(`Identified Trainer: ${trainerName}\nSubject: ${subjectName}\n\nTo assign this trainer to an active course, use the "Active Course-to-Trainer Assignments" table at the bottom of this page.`);
+  }
+</script>
+{% endblock %}

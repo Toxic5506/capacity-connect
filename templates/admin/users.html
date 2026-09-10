@@ -1,0 +1,151 @@
+﻿{% extends "base.html" %}
+
+{% block title %}Manage Users & Approvals - Capacity Connect{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto space-y-6">
+  <!-- Header -->
+  <div class="bg-white rounded-3xl p-6 md:p-8 border border-slate-200/80 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+    <div>
+      <h1 class="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">User Approval & Role Management</h1>
+      <p class="text-xs md:text-sm text-slate-500 mt-1">Review applicant registrations, approve trainer credentials, and configure organizational role permissions</p>
+    </div>
+
+    {% if pending_count > 0 %}
+      <div class="px-4 py-2 bg-amber-50 border border-amber-200 text-amber-800 rounded-2xl text-xs font-bold flex items-center gap-2 shadow-sm animate-pulse">
+        <i data-lucide="bell" class="w-4 h-4 text-amber-600"></i>
+        <span>{{ pending_count }} Pending Approvals Required</span>
+      </div>
+    {% endif %}
+  </div>
+
+  <!-- Filter & Search Controls -->
+  <div class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-sm flex flex-wrap items-center justify-between gap-3">
+    <form method="GET" action="{{ url_for('admin.users') }}" class="flex flex-wrap items-center gap-2 flex-1 min-w-[280px]">
+      <div class="relative flex-1 min-w-[200px]">
+        <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3.5 top-3"></i>
+        <input type="text" name="search" value="{{ search }}" placeholder="Search by name or email..." class="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500">
+      </div>
+
+      <select name="role" onchange="this.form.submit()" class="px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium text-slate-700 focus:outline-none">
+        <option value="all">All Roles</option>
+        <option value="trainee" {% if selected_role == 'trainee' %}selected{% endif %}>Trainees</option>
+        <option value="trainer" {% if selected_role == 'trainer' %}selected{% endif %}>Trainers</option>
+        <option value="admin" {% if selected_role == 'admin' %}selected{% endif %}>Admins</option>
+      </select>
+
+      <select name="status" onchange="this.form.submit()" class="px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium text-slate-700 focus:outline-none">
+        <option value="all">All Statuses</option>
+        <option value="approved" {% if selected_status == 'approved' %}selected{% endif %}>Approved</option>
+        <option value="pending" {% if selected_status == 'pending' %}selected{% endif %}>Pending</option>
+        <option value="rejected" {% if selected_status == 'rejected' %}selected{% endif %}>Rejected</option>
+      </select>
+
+      <button type="submit" class="px-4 py-2 bg-slate-800 hover:bg-slate-900 text-white rounded-xl text-xs font-bold transition">
+        Filter
+      </button>
+
+      {% if search or (selected_role and selected_role != 'all') or (selected_status and selected_status != 'all') %}
+        <a href="{{ url_for('admin.users') }}" class="text-xs text-slate-400 hover:text-slate-600 px-2 py-2">Clear</a>
+      {% endif %}
+    </form>
+  </div>
+
+  <!-- Users Table -->
+  <div class="bg-white rounded-3xl border border-slate-200/80 shadow-sm overflow-hidden">
+    <div class="overflow-x-auto">
+      <table class="w-full text-left text-xs">
+        <thead class="bg-slate-50 border-b border-slate-100 uppercase tracking-wider font-bold text-slate-500">
+          <tr>
+            <th class="py-4 px-6">User / Member</th>
+            <th class="py-4 px-6">Current Role</th>
+            <th class="py-4 px-6">Approval Status</th>
+            <th class="py-4 px-6">Organization & Title</th>
+            <th class="py-4 px-6">Registered On</th>
+            <th class="py-4 px-6 text-right">Administrative Actions</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-100 font-medium">
+          {% for u in users %}
+            <tr class="hover:bg-slate-50/80 transition">
+              <td class="py-4 px-6">
+                <div class="flex items-center gap-3">
+                  <div class="w-9 h-9 rounded-full bg-slate-100 border border-slate-200 text-slate-800 font-bold flex items-center justify-center text-xs">
+                    {{ u.initials }}
+                  </div>
+                  <div>
+                    <div class="font-bold text-slate-900 text-sm">{{ u.name }}</div>
+                    <div class="text-[11px] text-slate-400">{{ u.email }}</div>
+                  </div>
+                </div>
+              </td>
+              <td class="py-4 px-6">
+                <form method="POST" action="{{ url_for('admin.change_role', user_id=u.id) }}" class="inline-flex items-center gap-1">
+                  <select name="role" onchange="this.form.submit()" class="px-2.5 py-1 rounded-lg border border-slate-200 text-xs font-bold capitalize focus:outline-none
+                    {% if u.is_admin %}bg-purple-50 text-purple-700
+                    {% elif u.is_trainer %}bg-amber-50 text-amber-700
+                    {% else %}bg-emerald-50 text-emerald-700{% endif %}">
+                    <option value="trainee" {% if u.role == 'trainee' %}selected{% endif %}>Trainee</option>
+                    <option value="trainer" {% if u.role == 'trainer' %}selected{% endif %}>Trainer</option>
+                    <option value="admin" {% if u.role == 'admin' %}selected{% endif %}>Admin</option>
+                  </select>
+                </form>
+              </td>
+              <td class="py-4 px-6">
+                <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-bold uppercase
+                  {% if u.status == 'approved' %}bg-emerald-100 text-emerald-800
+                  {% elif u.status == 'pending' %}bg-amber-100 text-amber-800 animate-pulse
+                  {% else %}bg-rose-100 text-rose-800{% endif %}">
+                  <span class="w-1.5 h-1.5 rounded-full {% if u.status == 'approved' %}bg-emerald-500{% elif u.status == 'pending' %}bg-amber-500{% else %}bg-rose-500{% endif %}"></span>
+                  {{ u.status }}
+                </span>
+              </td>
+              <td class="py-4 px-6 text-slate-600">
+                <div class="font-medium text-slate-800">{{ u.job_title }}</div>
+                <div class="text-[11px] text-slate-400">{{ u.profile.organization if u.profile else 'Capacity Connect' }}</div>
+              </td>
+              <td class="py-4 px-6 text-slate-500 font-mono">
+                {{ u.created_at.strftime('%Y-%m-%d') }}
+              </td>
+              <td class="py-4 px-6 text-right">
+                <div class="inline-flex items-center gap-1.5">
+                  {% if u.status == 'pending' %}
+                    <form method="POST" action="{{ url_for('admin.approve_user', user_id=u.id) }}" class="inline">
+                      <input type="hidden" name="action" value="approve">
+                      <button type="submit" class="px-2.5 py-1 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-lg text-xs shadow-sm transition">
+                        Approve
+                      </button>
+                    </form>
+                    <form method="POST" action="{{ url_for('admin.approve_user', user_id=u.id) }}" class="inline">
+                      <input type="hidden" name="action" value="reject">
+                      <button type="submit" class="px-2.5 py-1 bg-rose-50 hover:bg-rose-100 text-rose-700 font-bold rounded-lg text-xs transition">
+                        Reject
+                      </button>
+                    </form>
+                  {% elif u.status == 'approved' and u.id != current_user.id %}
+                    <form method="POST" action="{{ url_for('admin.approve_user', user_id=u.id) }}" class="inline" onsubmit="return confirm('Revoke account access?');">
+                      <input type="hidden" name="action" value="reject">
+                      <button type="submit" class="px-2.5 py-1 bg-slate-100 hover:bg-rose-50 text-slate-600 hover:text-rose-600 font-semibold rounded-lg text-xs transition">
+                        Revoke
+                      </button>
+                    </form>
+                  {% elif u.status == 'rejected' %}
+                    <form method="POST" action="{{ url_for('admin.approve_user', user_id=u.id) }}" class="inline">
+                      <input type="hidden" name="action" value="approve">
+                      <button type="submit" class="px-2.5 py-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-bold rounded-lg text-xs transition">
+                        Reinstate
+                      </button>
+                    </form>
+                  {% else %}
+                    <span class="text-slate-400 text-xs font-semibold">Self</span>
+                  {% endif %}
+                </div>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}

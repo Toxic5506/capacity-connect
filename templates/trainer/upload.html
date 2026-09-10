@@ -1,0 +1,220 @@
+﻿{% extends "base.html" %}
+
+{% block title %}Upload Video Lectures & Materials - Capacity Connect{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto space-y-8">
+  <!-- Header Banner -->
+  <div class="bg-white rounded-3xl p-6 md:p-8 border border-slate-200/80 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+    <div>
+      <div class="flex items-center gap-2 mb-1">
+        <h1 class="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">Trainer Video & Lecture Upload Hub</h1>
+        <span class="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-rose-50 text-rose-700 border border-rose-100 flex items-center gap-1">
+          <i data-lucide="video" class="w-3 h-3"></i> Video Portal
+        </span>
+      </div>
+      <p class="text-xs md:text-sm text-slate-500">Upload recorded video lectures, presentations, and study guides accessible to trainees across all enrolled courses</p>
+    </div>
+
+    <div class="flex items-center gap-2">
+      <a href="{{ url_for('library.index') }}" class="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-xs transition flex items-center gap-1.5 shadow-sm">
+        <i data-lucide="folder-open" class="w-4 h-4 text-indigo-600"></i>
+        <span>Browse Trainer Library</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+    <!-- Left Column: Upload Form (~55%) -->
+    <div class="lg:col-span-6 space-y-6">
+      <div class="bg-white rounded-3xl p-6 md:p-8 border border-slate-200/80 shadow-sm">
+        <div class="flex items-center gap-3 mb-6 pb-4 border-b border-slate-100">
+          <div class="w-10 h-10 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center">
+            <i data-lucide="video" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h2 class="text-base font-bold text-slate-900">Upload Video Lecture or Study Resource</h2>
+            <p class="text-xs text-slate-500">Add materials to your course curriculum and organizational library</p>
+          </div>
+        </div>
+
+        <form method="POST" action="{{ url_for('trainer.upload_materials') }}" enctype="multipart/form-data" class="space-y-4">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Lecture / Resource Title *</label>
+            <input type="text" name="title" required placeholder="e.g. AWS Cloud Architecture: High Availability & Scaling" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-rose-500 focus:bg-white transition">
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Resource Type *</label>
+              <select name="resource_type" id="resource_type" onchange="toggleResourceInputs()" class="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-rose-500">
+                <option value="video" selected>🎥 Recorded Video Lecture</option>
+                <option value="presentation">📊 Slide Deck (PDF/PPTX)</option>
+                <option value="document">📄 Study Notes & Runbook (PDF/DOCX)</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Subject / Category *</label>
+              <input type="text" name="category" value="Technology" required placeholder="e.g. Cloud, Project Mgmt, Python" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-rose-500">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Attach to Course (Optional)</label>
+              <select name="course_id" class="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium focus:outline-none focus:ring-2 focus:ring-rose-500">
+                <option value="">-- General Knowledge Library --</option>
+                {% for c in courses %}
+                  <option value="{{ c.id }}">{{ c.title }} ({{ c.code }})</option>
+                {% endfor %}
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Estimated Duration</label>
+              <input type="text" name="duration" value="45 mins" placeholder="e.g. 45 mins, 30 slides" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-rose-500">
+            </div>
+          </div>
+
+          <!-- Video File Upload Area -->
+          <div class="p-4 rounded-2xl bg-rose-50/40 border-2 border-dashed border-rose-200 space-y-2">
+            <div class="flex items-center gap-2">
+              <i data-lucide="upload" class="w-4 h-4 text-rose-600"></i>
+              <label class="text-xs font-bold text-slate-800 uppercase tracking-wider">Option A: Upload Video / Document File</label>
+            </div>
+            <p class="text-[11px] text-slate-500">Select MP4, WebM, PDF, PPTX, or DOCX file from your computer.</p>
+            <input type="file" name="resource_file" accept=".mp4,.webm,.mov,.pdf,.pptx,.docx" class="w-full text-xs text-slate-600 file:mr-3 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-rose-600 file:text-white hover:file:bg-rose-700 transition">
+          </div>
+
+          <!-- Video Stream / Embed URL Area -->
+          <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
+            <div class="flex items-center gap-2">
+              <i data-lucide="link-2" class="w-4 h-4 text-indigo-600"></i>
+              <label class="text-xs font-bold text-slate-800 uppercase tracking-wider">Option B: Online Video Streaming Link</label>
+            </div>
+            <p class="text-[11px] text-slate-500">Or paste a direct streaming URL (YouTube, Vimeo, CloudFront, Loom, Google Drive, MP4 URL).</p>
+            <input type="url" name="external_url" placeholder="https://commondatastorage.googleapis.com/... or https://..." class="w-full px-3.5 py-2 bg-white border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500">
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Lecture Description & Takeaways</label>
+            <textarea name="description" rows="3" placeholder="Summary of key principles, timestamps, or practical application exercises..." class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-rose-500"></textarea>
+          </div>
+
+          <button type="submit" class="w-full py-3 px-4 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded-2xl text-xs shadow-md transition flex items-center justify-center gap-2">
+            <i data-lucide="check" class="w-4 h-4"></i>
+            <span>Publish Video / Material to Library</span>
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Right Column: My Uploaded Videos & Materials (~45%) -->
+    <div class="lg:col-span-6 space-y-4">
+      <div class="flex items-center justify-between">
+        <h2 class="text-base font-bold text-slate-900 flex items-center gap-2">
+          <i data-lucide="folder-check" class="w-4 h-4 text-indigo-600"></i>
+          <span>My Uploaded Lectures & Library Materials ({{ resources|length }})</span>
+        </h2>
+      </div>
+
+      <div class="space-y-3">
+        {% for res in resources %}
+          <div class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-sm hover:border-indigo-200 transition flex items-start gap-3">
+            <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0
+              {% if res.resource_type == 'video' %}bg-rose-50 text-rose-600
+              {% elif res.resource_type == 'presentation' %}bg-amber-50 text-amber-600
+              {% else %}bg-indigo-50 text-indigo-600{% endif %}">
+              <i data-lucide="{% if res.resource_type == 'video' %}play-circle{% elif res.resource_type == 'presentation' %}presentation{% else %}file-text{% endif %}" class="w-5 h-5"></i>
+            </div>
+
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-2 mb-1">
+                <h3 class="font-bold text-slate-900 text-xs truncate">{{ res.title }}</h3>
+                <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-slate-100 text-slate-700 flex-shrink-0">
+                  {{ res.resource_type }}
+                </span>
+              </div>
+              <p class="text-[11px] text-slate-500 line-clamp-1 mb-2">{{ res.description or 'No description' }}</p>
+              <div class="text-[10px] text-slate-400 flex items-center gap-3">
+                <span>{{ res.file_size }}</span>
+                <span>&bull;</span>
+                <span>{{ res.duration }}</span>
+                {% if res.course %}
+                  <span>&bull;</span>
+                  <span class="text-indigo-600 font-medium truncate max-w-[120px]">{{ res.course.title }}</span>
+                {% endif %}
+              </div>
+            </div>
+
+            <div class="flex items-center gap-1.5 flex-shrink-0">
+              {% if res.resource_type == 'video' %}
+                <button onclick="playLectureVideo('{{ res.file_or_url }}', '{{ res.title|replace('\'', '\\\'') }}')" class="p-2 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-700 transition" title="Preview Video">
+                  <i data-lucide="play" class="w-3.5 h-3.5 fill-current"></i>
+                </button>
+              {% else %}
+                <a href="{{ res.file_or_url }}" target="_blank" class="p-2 rounded-xl bg-indigo-50 hover:bg-indigo-100 text-indigo-700 transition" title="View Document">
+                  <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+                </a>
+              {% endif %}
+
+              <form method="POST" action="{{ url_for('trainer.delete_resource', resource_id=res.id) }}" onsubmit="return confirm('Delete this resource from the library?');">
+                <button type="submit" class="p-2 rounded-xl bg-slate-50 hover:bg-rose-50 text-slate-400 hover:text-rose-600 transition" title="Delete">
+                  <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+                </button>
+              </form>
+            </div>
+          </div>
+        {% else %}
+          <div class="bg-white rounded-3xl p-10 text-center border border-slate-200 text-slate-400">
+            <i data-lucide="film" class="w-10 h-10 mx-auto mb-2 opacity-40"></i>
+            <h4 class="font-bold text-slate-700 text-xs">No video lectures uploaded yet</h4>
+            <p class="text-[11px] text-slate-400 mt-1">Use the upload form to add your first recorded video lecture.</p>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Embedded Video Player Preview Modal -->
+<div id="trainer-video-modal" class="hidden fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 flex items-center justify-center p-4">
+  <div class="bg-slate-900 rounded-3xl max-w-3xl w-full p-4 shadow-2xl border border-white/10 text-white">
+    <div class="flex items-center justify-between pb-3 border-b border-white/10 px-2">
+      <h3 id="trainer-video-title" class="font-bold text-sm text-white truncate">Recorded Lecture Player</h3>
+      <button onclick="closeTrainerVideoModal()" class="text-slate-400 hover:text-white text-xl font-bold">&times;</button>
+    </div>
+    <div class="mt-3 aspect-video bg-black rounded-2xl overflow-hidden relative">
+      <video id="trainer-lecture-video" controls class="w-full h-full object-contain">
+        <source id="trainer-video-source" src="" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  function playLectureVideo(url, title) {
+    const modal = document.getElementById('trainer-video-modal');
+    const video = document.getElementById('trainer-lecture-video');
+    const source = document.getElementById('trainer-video-source');
+    const titleEl = document.getElementById('trainer-video-title');
+
+    titleEl.textContent = title;
+    source.src = url;
+    video.load();
+    video.play();
+    modal.classList.remove('hidden');
+  }
+
+  function closeTrainerVideoModal() {
+    const modal = document.getElementById('trainer-video-modal');
+    const video = document.getElementById('trainer-lecture-video');
+    video.pause();
+    modal.classList.add('hidden');
+  }
+</script>
+{% endblock %}

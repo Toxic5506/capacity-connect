@@ -1,0 +1,104 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Certificate: {{ cert.cert_code }} - Capacity Connect</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    .font-serif-title { font-family: 'Cinzel', serif; }
+    @media print {
+      body { background: white; margin: 0; padding: 0; }
+      .no-print { display: none !important; }
+      .cert-container { box-shadow: none !important; border: 12px double #312e81 !important; }
+    }
+  </style>
+</head>
+<body class="bg-slate-100 min-h-screen flex flex-col items-center justify-center p-4 antialiased text-slate-800">
+
+  <!-- Print Actions Bar -->
+  <div class="no-print max-w-4xl w-full mb-6 flex items-center justify-between">
+    <a href="javascript:history.back()" class="flex items-center gap-1.5 text-xs font-bold text-slate-600 hover:text-slate-900 bg-white px-4 py-2 rounded-xl shadow-sm border border-slate-200">
+      <i data-lucide="arrow-left" class="w-4 h-4"></i>
+      <span>Back</span>
+    </a>
+    <div class="flex items-center gap-2">
+      <button onclick="window.print()" class="flex items-center gap-2 text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-700 px-5 py-2.5 rounded-xl shadow-md transition">
+        <i data-lucide="printer" class="w-4 h-4"></i>
+        <span>Print Certificate (PDF)</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Official Digital Certificate Canvas -->
+  <div class="cert-container max-w-4xl w-full bg-white rounded-3xl p-10 md:p-14 border-[14px] border-double border-indigo-950 shadow-2xl relative overflow-hidden text-center">
+    
+    <!-- Watermark / Background Crest -->
+    <div class="absolute inset-0 flex items-center justify-center opacity-5 pointer-events-none">
+      <i data-lucide="graduation-cap" class="w-96 h-96 text-indigo-950"></i>
+    </div>
+
+    <!-- Certificate Header -->
+    <div class="relative z-10">
+      <div class="w-16 h-16 rounded-2xl bg-indigo-50 border-2 border-indigo-200 text-indigo-900 flex items-center justify-center mx-auto mb-4 shadow-sm">
+        <i data-lucide="award" class="w-9 h-9 text-amber-500"></i>
+      </div>
+
+      <div class="text-xs font-extrabold uppercase tracking-[0.3em] text-indigo-900 mb-1">
+        Capacity Connect Learning Council
+      </div>
+      <div class="text-[10px] tracking-widest uppercase text-slate-400 font-semibold mb-6">
+        Digital Capacity Building & Competency Verification
+      </div>
+
+      <h1 class="font-serif-title text-3xl md:text-4xl text-slate-900 font-black tracking-wide mb-3">
+        Certificate of Completion & Competency
+      </h1>
+
+      <p class="text-xs text-slate-500 italic max-w-md mx-auto mb-6">
+        This is to officially certify that
+      </p>
+
+      <!-- Recipient Name -->
+      <div class="text-2xl md:text-3xl font-extrabold text-indigo-900 tracking-tight border-b-2 border-indigo-950/20 max-w-lg mx-auto pb-2 mb-6">
+        {{ cert.recipient_name }}
+      </div>
+
+      <p class="text-xs text-slate-600 max-w-xl mx-auto leading-relaxed mb-6 font-medium">
+        has successfully satisfied all rigorous curriculum guidelines and passed the comprehensive assessment for
+      </p>
+
+      <!-- Course / Assessment Title -->
+      <div class="font-serif-title text-xl md:text-2xl font-bold text-slate-900 mb-8 max-w-xl mx-auto px-4 py-2 bg-indigo-50/50 rounded-2xl border border-indigo-100">
+        {{ cert.title }}
+      </div>
+
+      <!-- Footer Metadata Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-6 border-t border-slate-200 text-xs">
+        <div class="text-left md:text-center">
+          <span class="text-[10px] font-bold uppercase text-slate-400 block">Certificate Code</span>
+          <span class="font-mono font-bold text-slate-800">{{ cert.cert_code }}</span>
+          <span class="text-[10px] text-emerald-600 block mt-0.5 font-semibold">&#10003; Cryptographically Verified</span>
+        </div>
+
+        <div class="flex flex-col items-center justify-center">
+          <div class="w-12 h-12 rounded-full border-2 border-amber-400 bg-amber-50 flex items-center justify-center shadow-inner">
+            <i data-lucide="shield-check" class="w-6 h-6 text-amber-600"></i>
+          </div>
+          <span class="text-[9px] uppercase font-bold tracking-wider text-slate-500 mt-1">Official Seal</span>
+        </div>
+
+        <div class="text-left md:text-center">
+          <span class="text-[10px] font-bold uppercase text-slate-400 block">Issue Date</span>
+          <span class="font-bold text-slate-800">{{ cert.issue_date.strftime('%B %d, %Y') }}</span>
+          <span class="text-[10px] text-slate-400 block mt-0.5">Authorized Signatory</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>lucide.createIcons();</script>
+</body>
+</html>
